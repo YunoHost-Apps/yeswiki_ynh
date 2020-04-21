@@ -61,6 +61,10 @@ https://yunohost.org/packaging_apps
 * Upstream app repository: https://github.com/YesWiki/yeswiki
 * YunoHost website: https://yunohost.org/
 
+## License
+
+* GNU GPLv3
+
 ---
 
 Developers info

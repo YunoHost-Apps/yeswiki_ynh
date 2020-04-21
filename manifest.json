@@ -1,21 +1,21 @@
 {
-    "name": "YunoHost example app",
-    "id": "ynhexample",
+    "name": "YesWiki",
+    "id": "yeswiki",
     "packaging_format": 1,
     "description": {
-        "en": "Explain in *a few (10~15) words* the purpose of the app or what it actually does (it is meant to give a rough idea to users browsing a catalog of 100+ apps)",
-        "fr": "Expliquez en *quelques* (10~15) mots l'utilité de l'app ou ce qu'elle fait (l'objectif est de donner une idée grossière pour des utilisateurs qui naviguent dans un catalogue de 100+ apps)"
+        "en": "$app is free software born from the cross-fertilization of the discussions and know-how of developers and facilitators of cooperative projects.",
+        "fr": "$app est un logiciel libre né du croisement des discussions et savoir-faire de développeurs et animateurs de projets coopératifs."
     },
     "version": "1.0~ynh1",
-    "url": "https://example.com",
+    "url": "https://yeswiki.net/",
     "license": "free",
     "maintainer": {
-        "name": "John doe",
-        "email": "john.doe@example.com",
-        "url": "http://example.com"
+        "name": "Plumf",
+        "email": "plumf@open-plug.eu",
+        "url": "http://plumf.eu"
     },
     "requirements": {
-        "yunohost": ">= 3.5"
+        "yunohost": ">= 3.7.0"
     },
     "multi_instance": true,
     "services": [
@@ -24,13 +24,13 @@
         "mysql"
     ],
     "arguments": {
-        "install" : [
+        "install": [
             {
                 "name": "domain",
                 "type": "domain",
                 "ask": {
-                    "en": "Choose a domain name for ynhexample",
-                    "fr": "Choisissez un nom de domaine pour ynhexample"
+                    "en": "Choose a domain name for YesWiki",
+                    "fr": "Choisissez un nom de domaine pour YesWiki"
                 },
                 "example": "example.com"
             },
@@ -38,11 +38,11 @@
                 "name": "path",
                 "type": "path",
                 "ask": {
-                    "en": "Choose a path for ynhexample",
-                    "fr": "Choisissez un chemin pour ynhexample"
+                    "en": "Choose a path for YesWiki",
+                    "fr": "Choisissez un chemin pour YesWiki"
                 },
-                "example": "/example",
-                "default": "/example"
+                "example": "/yeswiki",
+                "default": "/yeswiki"
             },
             {
                 "name": "admin",
@@ -60,7 +60,12 @@
                     "en": "Is it a public application?",
                     "fr": "Est-ce une application publique ?"
                 },
-                "default": true
+                "default": true,
+                "help": {
+                    "en": "If $app is made public anyone will be able to view the wiki",
+                    "fr": "Si $app est rendu publique toute personne pourra consulter le wiki"
+                 } 
+                
             },
             {
                 "name": "language",

@@ -61,6 +61,10 @@ https://yunohost.org/packaging_apps
  * Dépôt de l'application principale : https://github.com/YesWiki/yeswiki
  * Site web YunoHost : https://yunohost.org/
 
+## License
+
+* GNU GPLv3
+
 ---
 
 Informations pour les développeurs

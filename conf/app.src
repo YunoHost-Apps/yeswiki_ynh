@@ -1,6 +1,6 @@
-SOURCE_URL=url of app's source
-SOURCE_SUM=sha256 checksum
+SOURCE_URL=https://repository.yeswiki.net/cercopitheque/yeswiki-cercopitheque-2020-04-18-1.zip
+SOURCE_SUM=8b8066d67b40b5b3d7e374112b837eb4fc534c2db615f994e4c5da6b3612cacb
 SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=tar.gz
+SOURCE_FORMAT=zip
 SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=
+SOURCE_FILENAME=cercopitheque
