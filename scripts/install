@@ -54,7 +54,7 @@ app=$YNH_APP_INSTANCE_NAME
 ### Use the execution time, given by --time, to estimate the weight of a step.
 ### A common way to do it is to set a weight equal to the execution time in second +1.
 ### The execution time is given for the duration since the previous call. So the weight should be applied to this previous call.
-ynh_script_progression --message="Validating installation parameters..." --time --weight=1
+ynh_script_progression --message="Validating installation parameters..." --weight=1
 
 ### If the app uses nginx as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
 ### If the app provides an internal web server (or uses another application server such as uwsgi), the final path should be "/opt/yunohost/$app"
@@ -67,7 +67,7 @@ ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-ynh_script_progression --message="Storing installation settings..." --time --weight=1
+ynh_script_progression --message="Storing installation settings..." --weight=2
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
@@ -78,7 +78,7 @@ ynh_app_setting_set --app=$app --key=language --value=$language
 #=================================================
 # CREATE A MYSQL DATABASE / CREATION BASE DE DONNÉE MYSQL
 #=================================================
-ynh_script_progression --message="Creating a MySQL database..." --time --weight=1
+ynh_script_progression --message="Creating a MySQL database..." --weight=4
 
 ### Use these lines if you need a database for the application.
 ### `ynh_mysql_setup_db` will create a database, an associated user and a ramdom password.
@@ -97,7 +97,7 @@ ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --time --weight=1
+ynh_script_progression --message="Setting up source files..." --weight=6
 
 ### `ynh_setup_source` is used to install an app from a zip or tar.gz file,
 ### downloaded from an upstream source, like a git repository.
@@ -110,7 +110,7 @@ ynh_setup_source --dest_dir="$final_path"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring nginx web server..." --time --weight=1
+ynh_script_progression --message="Configuring nginx web server..." --weight=71
 
 ### `ynh_add_nginx_config` will use the file conf/nginx.conf
 
@@ -120,7 +120,7 @@ ynh_add_nginx_config
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Configuring system user..." --time --weight=1
+ynh_script_progression --message="Configuring system user..." --weight=73
 
 # Create a system user
 ynh_system_user_create --username=$app
@@ -128,7 +128,7 @@ ynh_system_user_create --username=$app
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring php-fpm..." --time --weight=1
+ynh_script_progression --message="Configuring php-fpm..." --weight=76
 
 ### `ynh_add_fpm_config` is used to set up a PHP config.
 ### `ynh_add_fpm_config` will use the files conf/php-fpm.conf
@@ -149,7 +149,7 @@ ynh_add_fpm_config
 chown -R $app: $final_path
 
 # Set the app as temporarily public for curl call
-ynh_script_progression --message="Configuring SSOwat..." --time --weight=1
+ynh_script_progression --message="Configuring SSOwat..." --weight=78
 #######ynh_app_setting_set --app=$app --key=skipped_uris --value="/"
 #######ynh_permission_update --permission "main" --add visitors
 # Reload SSOwat config
@@ -159,7 +159,7 @@ yunohost app ssowatconf
 ynh_systemd_action --service_name=nginx --action=reload
 
 # Installation YesWiki with curl
-ynh_script_progression --message="Finalizing installation..." --time --weight=1
+ynh_script_progression --message="Finalizing installation..." --weight=80
 ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=MyYunoHostWiki" \
         "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
         "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
@@ -187,7 +187,7 @@ chown -R root: $final_path
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring SSOwat..." --time --weight=1
+ynh_script_progression --message="Configuring SSOwat..." --weight=83
 
 # Make app public if necessary
 if [ $is_public -eq 1 ]
@@ -200,7 +200,7 @@ fi
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading nginx web server..." --time --weight=1
+ynh_script_progression --message="Reloading nginx web server..." --weight=85
 
 ynh_systemd_action --service_name=nginx --action=reload
 
@@ -208,4 +208,4 @@ ynh_systemd_action --service_name=nginx --action=reload
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --time --last
+ynh_script_progression --message="Installation of $app completed" --last
