@@ -12,7 +12,7 @@
 
 Quick description of this app.
 
-**Shipped version:** 1.0
+**Shipped version:** Cercopitheque 2020-04-18
 
 ## Screenshots
 
@@ -24,7 +24,7 @@ Quick description of this app.
 
 ## Configuration
 
-How to configure this app: by an admin panel, a plain file with SSH, or any other way.
+Configure the application via YesWiki.
 
 ## Documentation
 
@@ -35,8 +35,7 @@ How to configure this app: by an admin panel, a plain file with SSH, or any othe
 
 #### Multi-users support
 
-Are LDAP and HTTP auth supported?
-Can the app be used by multiple users?
+At the moment LDAP and SSO authentication are not supported. It is necessary to login on the wiki.
 
 #### Supported architectures
 
@@ -63,7 +62,7 @@ https://yunohost.org/packaging_apps
 
 ## License
 
-* GNU GPLv3
+* [GNU GPLv3](LICENSE)
 
 ---
 

@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 ## Vue d'ensemble
 Description rapide de cette application.
 
-**Version incluse:** 1.0
+**Version incluse:** Cercopitheque 2020-04-18
 
 ## Captures d'écran
 
@@ -23,7 +23,7 @@ Description rapide de cette application.
 
 ## Configuration
 
-Comment configurer cette application: via le panneau d'administration, un fichier brut en SSH ou tout autre moyen.
+Configurer l'application via YesWiki.
 
 ## Documentation
 
@@ -34,8 +34,7 @@ Comment configurer cette application: via le panneau d'administration, un fichie
 
 #### Support multi-utilisateurs
 
-L'authentification LDAP et HTTP est-elle prise en charge?
-L'application peut-elle être utilisée par plusieurs utilisateurs?
+Pour le moment l'authentification LDAP et SSO ne sont pas prisent en charge. Il est nécessaire de se connecter sur le wiki.
 
 #### Architectures supportées
 
@@ -63,7 +62,7 @@ https://yunohost.org/packaging_apps
 
 ## License
 
-* GNU GPLv3
+* [GNU GPLv3](LICENSE)
 
 ---
 

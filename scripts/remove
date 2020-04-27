@@ -12,7 +12,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
+ynh_script_progression --message="Loading installation settings..." --weight=2
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -33,9 +33,17 @@ ynh_script_progression --message="Removing the MySQL database..." --weight=3
 ynh_mysql_remove_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
+# REMOVE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Removing dependencies..." --weight=4
+
+# Remove metapackage and its dependencies
+ynh_remove_app_dependencies
+
+#=================================================
 # REMOVE APP MAIN DIR
 #=================================================
-ynh_script_progression --message="Removing app main directory..." --weight=4
+ynh_script_progression --message="Removing app main directory..." --weight=11
 
 # Remove the app directory securely
 ynh_secure_remove --file="$final_path"
@@ -43,7 +51,7 @@ ynh_secure_remove --file="$final_path"
 #=================================================
 # REMOVE NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing nginx web server configuration..." --weight=5
+ynh_script_progression --message="Removing nginx web server configuration..." --weight=12
 
 # Remove the dedicated nginx config
 ynh_remove_nginx_config
@@ -51,17 +59,21 @@ ynh_remove_nginx_config
 #=================================================
 # REMOVE PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing php-fpm configuration..." --weight=6
+ynh_script_progression --message="Removing php-fpm configuration..." --weight=13
 
 # Remove the dedicated php-fpm config
 ynh_remove_fpm_config
+
+#=================================================
+# SPECIFIC REMOVE
+#=================================================
 
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
 # REMOVE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Removing the dedicated system user..." --weight=15
+ynh_script_progression --message="Removing the dedicated system user..." --weight=14
 
 # Delete a system user
 ynh_system_user_delete --username=$app

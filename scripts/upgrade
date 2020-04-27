@@ -111,6 +111,13 @@ ynh_script_progression --message="Upgrading nginx web server configuration..." -
 ynh_add_nginx_config
 
 #=================================================
+# UPGRADE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Upgrading dependencies..." --time --weight=1
+
+ynh_install_app_dependencies $pkg_dependencies
+
+#=================================================
 # CREATE DEDICATED USER
 #=================================================
 ynh_script_progression --message="Making sure dedicated system user exists..." --time --weight=1
@@ -133,9 +140,17 @@ ynh_add_fpm_config
 #=================================================
 
 #=================================================
-# GENERIC FINALIZATION
+# STORE THE CONFIG FILE CHECKSUM
 #=================================================
 
+### Verify the checksum of a file, stored by `ynh_store_file_checksum` in the install script.
+### And create a backup of this file if the checksum is different. So the file will be backed up if the admin had modified it.
+#####ynh_backup_if_checksum_is_different --file="$final_path/CONFIG_FILE"
+# Recalculate and store the checksum of the file for the next upgrade.
+#####ynh_store_file_checksum --file="$final_path/CONFIG_FILE"
+
+#=================================================
+# GENERIC FINALIZATION
 #=================================================
 # SECURE FILES AND DIRECTORIES
 #=================================================
