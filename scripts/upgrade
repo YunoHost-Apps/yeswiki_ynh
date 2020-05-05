@@ -122,22 +122,6 @@ ynh_script_progression --message="Upgrading php-fpm configuration..." --weight=2
 ynh_add_fpm_config
 
 #=================================================
-# SPECIFIC UPGRADE
-#=================================================
-# ...
-#=================================================
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
-#=================================================
-
-### Verify the checksum of a file, stored by `ynh_store_file_checksum` in the install script.
-### And create a backup of this file if the checksum is different. So the file will be backed up if the admin had modified it.
-#####ynh_backup_if_checksum_is_different --file="$final_path/CONFIG_FILE"
-# Recalculate and store the checksum of the file for the next upgrade.
-#####ynh_store_file_checksum --file="$final_path/CONFIG_FILE"
-
-#=================================================
 # GENERIC FINALIZATION
 #=================================================
 # SECURE FILES AND DIRECTORIES
@@ -145,6 +129,7 @@ ynh_add_fpm_config
 
 # Set permissions on app files
 chown -R root: $final_path
+chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 
 #=================================================
 # SETUP SSOWAT
@@ -152,11 +137,11 @@ chown -R root: $final_path
 ynh_script_progression --message="Upgrading SSOwat configuration..." --weight=29
 
 # Make app public if necessary
-if [ $is_public -eq 1 ]
-then
+#if [ $is_public -eq 1 ]
+#then
 	# unprotected_uris allows SSO credentials to be passed anyway
-	ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
-fi
+	#ynh_permission_update --permission main --remove all_users --add visitors 
+#fi
 
 #=================================================
 # RELOAD NGINX

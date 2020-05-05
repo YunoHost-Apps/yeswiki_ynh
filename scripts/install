@@ -157,7 +157,7 @@ chown -R $app: $final_path
 
 # Set the app as temporarily public for curl call
 ynh_script_progression --message="Configuring SSOwat..." --weight=42
-ynh_app_setting_set --app=$app --key=skipped_uris --value="/"
+ynh_permission_update --permission main --remove all_users --add visitors
 
 # Reload SSOwat config
 yunohost app ssowatconf
@@ -176,7 +176,7 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
 # Remove the public access
 if [ $is_public -eq 0 ]
 then
-	ynh_app_setting_delete --app=$app --key=skipped_uris
+	ynh_permission_update --permission main --remove visitors --add all_users
 fi
 
 #=================================================
@@ -185,7 +185,7 @@ fi
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-# Set permissions to app files
+# Set permissions to app files 
 chown -R root: $final_path
 chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 
@@ -195,11 +195,11 @@ chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 ynh_script_progression --message="Configuring SSOwat..." --weight=47
 
 # Make app public if necessary
-if [ $is_public -eq 1 ]
-then
+#if [ $is_public -eq 1 ]
+#then
 
-	ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
-fi
+#	ynh_permission_update --permission main --add visitors
+#fi
 
 #=================================================
 # RELOAD NGINX
