@@ -3,16 +3,16 @@
     "id": "yeswiki",
     "packaging_format": 1,
     "description": {
-        "en": "$app is free software born from the cross-fertilization of the discussions and know-how of developers and facilitators of cooperative projects.",
-        "fr": "$app est un logiciel libre né du croisement des discussions et savoir-faire de développeurs et animateurs de projets coopératifs."
+        "en": "YesWiki is a wiki that is quick and easy to use, with a nice design and a French-speaking support community.",
+        "fr": "YesWiki est wiki facile et rapide à prendre en main, avec un design agréable et une communauté d'entraide francophone."
     },
-    "version": "1.0~ynh1",
+    "version": "1.0~ynh2",
     "url": "https://yeswiki.net/",
     "license": "free",
     "maintainer": {
         "name": "Plumf",
         "email": "plumf@open-plug.eu",
-        "url": "http://plumf.eu"
+        "url": "https://plumf.eu"
     },
     "requirements": {
         "yunohost": ">= 3.7.0"
@@ -62,8 +62,8 @@
                 },
                 "default": true,
                 "help": {
-                    "en": "If $app is made public anyone will be able to view the wiki",
-                    "fr": "Si $app est rendu publique toute personne pourra consulter le wiki"
+                    "en": "If YesWiki is made public anyone will be able to view the wiki",
+                    "fr": "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
                  } 
                 
             },
@@ -74,7 +74,7 @@
                     "en": "Choose the application language",
                     "fr": "Choisissez la langue de l'application"
                 },
-                "choices": ["fr", "en"],
+                "choices": ["fr", "en", "ca", "es", "nl", "pt"],
                 "default": "fr"
             },
             {

@@ -143,41 +143,21 @@ ynh_system_user_create --username=$app
 #=================================================
 ynh_script_progression --message="Configuring php-fpm..." --weight=40
 
-### `ynh_add_fpm_config` is used to set up a PHP config.
-### You can remove it if your app doesn't use PHP.
-### `ynh_add_fpm_config` will use the files conf/php-fpm.conf
-### If you're not using these lines:
-###		- You can remove these files in conf/.
-###		- Remove the section "BACKUP THE PHP-FPM CONFIGURATION" in the backup script
-###		- Remove also the section "REMOVE PHP-FPM CONFIGURATION" in the remove script
-###		- As well as the section "RESTORE THE PHP-FPM CONFIGURATION" in the restore script
-###		With the reload at the end of the script.
-###		- And the section "PHP-FPM CONFIGURATION" in the upgrade script
-
 # Create a dedicated php-fpm config
 ynh_add_fpm_config
 
 #=================================================
 # SPECIFIC SETUP
 #=================================================
-# ...
-#=================================================
-
-#=================================================
 # SETUP APPLICATION WITH CURL
 #=================================================
-
-### Use these lines only if the app installation needs to be finalized through
-### web forms. We generally don't want to ask the final user,
-### so we're going to use curl to automatically fill the fields and submit the
-### forms.
 
 # Set right permissions for curl install
 chown -R $app: $final_path
 
 # Set the app as temporarily public for curl call
 ynh_script_progression --message="Configuring SSOwat..." --weight=42
-ynh_app_setting_set --app=$app --key=skipped_uris --value="/"
+ynh_permission_update --permission main --remove all_users --add visitors
 
 # Reload SSOwat config
 yunohost app ssowatconf
@@ -196,17 +176,8 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
 # Remove the public access
 if [ $is_public -eq 0 ]
 then
-	ynh_app_setting_delete --app=$app --key=skipped_uris
+	ynh_permission_update --permission main --remove visitors --add all_users
 fi
-
-#=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-
-### `ynh_replace_string` is used to replace a string in a file.
-### (It's compatible with sed regular expressions syntax)
-
-#####ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$final_path/CONFIG_FILE"
 
 #=================================================
 # GENERIC FINALIZATION
@@ -214,11 +185,7 @@ fi
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-### For security reason, any app should set the permissions to root: before anything else.
-### Then, if write authorization is needed, any access should be given only to directories
-### that really need such authorization.
-
-# Set permissions to app files
+# Set permissions to app files 
 chown -R root: $final_path
 chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 
@@ -228,11 +195,11 @@ chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 ynh_script_progression --message="Configuring SSOwat..." --weight=47
 
 # Make app public if necessary
-if [ $is_public -eq 1 ]
-then
+#if [ $is_public -eq 1 ]
+#then
 
-	ynh_app_setting_set --app=$app --key=unprotected_uris --value="/"
-fi
+#	ynh_permission_update --permission main --add visitors
+#fi
 
 #=================================================
 # RELOAD NGINX
