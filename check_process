@@ -27,8 +27,8 @@
 		upgrade=0	from_commit=65c382d138596fcb32b4c97c39398815a1dcd4e8
 		backup_restore=1
 		multi_instance=1
-		port_already_use=0	(66)
-		change_url=0
+		port_already_use=1	(66)
+		change_url=1
 		actions=0
 		config_panel=0
 ;;; Levels
