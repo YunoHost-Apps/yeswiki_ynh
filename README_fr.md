@@ -1,5 +1,6 @@
-# <img src="/images/yeswiki_logo.svg" height="80px" alt="logo de YesWiki">  
-YesWiki pour YunoHost
+<img src="/images/yeswiki_logo.svg" height="80px" alt="logo de YesWiki">  
+
+# YesWiki pour YunoHost
 
 [![Niveau d'intégration](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki)
 [![Installer YesWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=yeswiki)
