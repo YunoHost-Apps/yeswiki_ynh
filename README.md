@@ -12,7 +12,7 @@
 
 Quick description of this app.
 
-**Shipped version:** Cercopitheque 2020-04-18
+**Shipped version:** [Doryphore version 2020-10-2-1 from github repository](https://github.com/YesWiki/yeswiki/archive/2020-10-2-1.zip)
 
 ## Screenshots
 

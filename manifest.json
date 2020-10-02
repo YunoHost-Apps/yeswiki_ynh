@@ -62,8 +62,8 @@
                 },
                 "default": true,
                 "help": {
-                    "en": "If YesWiki is made public anyone will be able to view the wiki",
-                    "fr": "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
+                    "en": "If YesWiki is made public, anyone will be able to view the wiki",
+                    "fr": "Si YesWiki est rendu public, toute personne pourra consulter le wiki"
                  } 
                 
             },

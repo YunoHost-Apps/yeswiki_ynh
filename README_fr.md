@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 ## Vue d'ensemble
 Description rapide de cette application.
 
-**Version incluse:** Cercopitheque 2020-04-18
+**Version incluse:** [[Doryphore version 2020-10-2-1 du dépot github](https://github.com/YesWiki/yeswiki/archive/2020-10-2-1.zip)
 
 ## Captures d'écran
 
@@ -62,7 +62,7 @@ https://yunohost.org/packaging_apps
 
 ## License
 
-* [GNU GPLv3](LICENSE)
+* [GNU AGPLv3](LICENSE)
 
 ---
 
