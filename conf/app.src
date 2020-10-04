@@ -1,5 +1,5 @@
 SOURCE_URL=https://repository.yeswiki.net/cercopitheque/yeswiki-cercopitheque-2020-06-05-1.zip
-SOURCE_SUM=6d89636f947dbfe6d44fc0327de63851147ff8756b8b2f31e6d9558e76c609d6
+SOURCE_SUM=f0cf6b19ab6b5c80c40b156ee1dd13e07e86a56bfaa1520b84e01886b67e35ee
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=zip
 SOURCE_IN_SUBDIR=true
