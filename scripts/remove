@@ -35,7 +35,7 @@ ynh_mysql_remove_db --db_user=$db_user --db_name=$db_name
 #=================================================
 # REMOVE APP MAIN DIR
 #=================================================
-ynh_script_progression --message="Removing app main directory..." --weight=11
+ynh_script_progression --message="Removing YesWiki main directory..." --weight=11
 
 # Remove the app directory securely
 ynh_secure_remove --file="$final_path"
@@ -43,17 +43,17 @@ ynh_secure_remove --file="$final_path"
 #=================================================
 # REMOVE NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing nginx web server configuration..." --weight=12
+ynh_script_progression --message="Removing NGINX web server configuration..." --weight=12
 
-# Remove the dedicated nginx config
+# Remove the dedicated NGINX config
 ynh_remove_nginx_config
 
 #=================================================
 # REMOVE PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing php-fpm configuration..." --weight=13
+ynh_script_progression --message="Removing PHP-FPM configuration..." --weight=13
 
-# Remove the dedicated php-fpm config
+# Remove the dedicated PHP-FPM config
 ynh_remove_fpm_config
 
 #=================================================
@@ -70,4 +70,4 @@ ynh_system_user_delete --username=$app
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Removal of $app completed" --last
+ynh_script_progression --message="Removal of YesWiki completed" --last

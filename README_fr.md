@@ -1,5 +1,3 @@
-<img src="/images/yeswiki_logo.svg" height="80px" alt="logo de YesWiki">  
-
 # YesWiki pour YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)  
@@ -12,7 +10,14 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Vue d'ensemble
 
-Description rapide de cette application.
+YesWiki est un wiki conçu pour rester simple, très facile à installer, en français traduit en anglais, espagnol, catalan, flamand...
+
+Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multiples :
+- Rassembler toutes les infos d'un projet ou d'un groupe (fonction de "gare centrale")
+- Cartographier des membres ou des lieux de façon participative
+- Partager des ressources, des listes, des agendas grâce à des bases de données coopératives puissantes
+- Faire communiquer des flux d'informations
+- Cultiver un bout de liberté...
 
 **Version incluse :** Doryphore 2020-10-2-1
 
