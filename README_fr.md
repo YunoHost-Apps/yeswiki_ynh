@@ -14,7 +14,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Description rapide de cette application.
 
-**Version incluse :** Cercopitheque 2020-05-05
+**Version incluse :** Doryphore 2020-10-2-1
 
 ## Captures d'écran
 
