@@ -1,6 +1,6 @@
-# <img src="/images/yeswiki_logo.svg" height="80px" alt="YesWiki's logo"> YesWiki app for YunoHost
+# YesWiki for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki)
+[![Integration level](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)  
 [![Install YesWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=yeswiki)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -10,9 +10,16 @@
 
 ## Overview
 
-Quick description of this app.
+YesWiki is a wiki designed to remain simple, very easy to install, in French translated into English, Spanish, Catalan, Flemish...
 
-**Shipped version:** Cercopitheque 2020-04-18
+However, with a YesWiki we can build a website with multiple uses:
+- Gather all the information of a project or a group (function of "central station")
+- Mapping members or places in a participatory way
+- Share resources, lists, calendars thanks to powerful cooperative databases
+- Communicate information flows
+- Cultivate a bit of freedom...
+
+**Shipped version:** Doryphore 2020-10-2-1
 
 ## Screenshots
 
@@ -39,7 +46,7 @@ At the moment LDAP and SSO authentication are not supported. It is necessary to 
 
 #### Supported architectures
 
-* x86-64b - [![Build Status](https://ci-apps.yunohost.org/ci/logs/yeswiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/yeswiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
 * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/yeswiki%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/yeswiki/)
 
 ## Limitations
@@ -50,9 +57,6 @@ At the moment LDAP and SSO authentication are not supported. It is necessary to 
 
 * Other information you would add about this application
 
-**More information on the documentation page:**
-https://yunohost.org/packaging_apps
-
 ## Links
 
 * Report a bug: https://github.com/YunoHost-Apps/yeswiki_ynh/issues
@@ -60,16 +64,10 @@ https://yunohost.org/packaging_apps
 * Upstream app repository: https://github.com/YesWiki/yeswiki
 * YunoHost website: https://yunohost.org/
 
-## License
-
-* [GNU GPLv3](LICENSE)
-
 ---
 
-Developers info
-----------------
+## Developers info
 
-**Only if you want to use a testing branch for coding, instead of merging directly into master.**
 Please do your pull request to the [testing branch](https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.

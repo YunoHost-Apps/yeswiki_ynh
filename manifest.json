@@ -3,19 +3,19 @@
     "id": "yeswiki",
     "packaging_format": 1,
     "description": {
-        "en": "YesWiki is a wiki that is quick and easy to use, with a nice design and a French-speaking support community.",
-        "fr": "YesWiki est wiki facile et rapide à prendre en main, avec un design agréable et une communauté d'entraide francophone."
+        "en": "Wiki that is quick and easy to use.",
+        "fr": "Wiki facile et rapide à prendre en main."
     },
-    "version": "1.0~ynh2",
+    "version": "2020-10-2-1~ynh1",
     "url": "https://yeswiki.net/",
-    "license": "free",
+    "license": "AGPL-3.0-only",
     "maintainer": {
         "name": "Plumf",
         "email": "plumf@open-plug.eu",
         "url": "https://plumf.eu"
     },
     "requirements": {
-        "yunohost": ">= 3.7.0"
+        "yunohost": ">= 3.8.1"
     },
     "multi_instance": true,
     "services": [
@@ -64,8 +64,7 @@
                 "help": {
                     "en": "If YesWiki is made public anyone will be able to view the wiki",
                     "fr": "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
-                 } 
-                
+                 }  
             },
             {
                 "name": "language",

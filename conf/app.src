@@ -1,6 +1,6 @@
-SOURCE_URL=https://repository.yeswiki.net/cercopitheque/yeswiki-cercopitheque-2020-04-18-1.zip
-SOURCE_SUM=8b8066d67b40b5b3d7e374112b837eb4fc534c2db615f994e4c5da6b3612cacb
+SOURCE_URL=https://github.com/YesWiki/yeswiki/archive/2020-10-2-1.zip
+SOURCE_SUM=74cc02c81801368c9ddaf48e914cf6a169679c82d193fdfc958db6025f557d6b
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=zip
 SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=cercopitheque
+SOURCE_FILENAME=doryphore
