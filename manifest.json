@@ -12,7 +12,7 @@
     "maintainer": {
         "name": "Plumf",
         "email": "plumf@open-plug.eu",
-        "url": "https://plumf.eu"
+        "url": "https://www.plumf.eu"
     },
     "requirements": {
         "yunohost": ">= 3.8.1"
