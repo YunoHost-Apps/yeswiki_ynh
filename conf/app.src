@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/YesWiki/yeswiki/archive/2020-10-2-1.zip
-SOURCE_SUM=74cc02c81801368c9ddaf48e914cf6a169679c82d193fdfc958db6025f557d6b
+SOURCE_URL=https://repository.yeswiki.net/doryphore/yeswiki-doryphore-2020-10-23-1.zip
+SOURCE_SUM=3b66777f22fe660cf65a73d9d779661705e7e81c2ce6580bd061d1f1d07708eb
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=zip
 SOURCE_IN_SUBDIR=true
