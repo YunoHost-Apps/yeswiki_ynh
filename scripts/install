@@ -128,6 +128,9 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
         "admin_name=$admin" "admin_password=$password" "admin_password_conf=$password" \
         "admin_email=$admin@$domain" "submit=Continue"
 
+# authorization of html
+ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$final_path/wakka.config.php"
+
 # Remove the public access
 if [ $is_public -eq 0 ]
 then
