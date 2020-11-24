@@ -19,7 +19,7 @@ Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multip
 - Faire communiquer des flux d'informations
 - Cultiver un bout de liberté...
 
-**Version incluse :** Doryphore 2020-10-2-1
+**Version incluse :** Doryphore 2020-11-23-2
 
 ## Captures d'écran
 
