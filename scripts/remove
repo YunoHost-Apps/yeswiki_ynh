@@ -27,7 +27,7 @@ final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 #=================================================
 # REMOVE THE MYSQL DATABASE
 #=================================================
-ynh_script_progression --message="Removing the MySQL database..." --weight=3
+ynh_script_progression --message="Removing the MySQL database..." --weight=2
 
 # Remove a database if it exists, along with the associated user
 ynh_mysql_remove_db --db_user=$db_user --db_name=$db_name
@@ -35,7 +35,7 @@ ynh_mysql_remove_db --db_user=$db_user --db_name=$db_name
 #=================================================
 # REMOVE APP MAIN DIR
 #=================================================
-ynh_script_progression --message="Removing YesWiki main directory..." --weight=11
+ynh_script_progression --message="Removing YesWiki main directory..." --weight=1
 
 # Remove the app directory securely
 ynh_secure_remove --file="$final_path"
@@ -43,7 +43,7 @@ ynh_secure_remove --file="$final_path"
 #=================================================
 # REMOVE NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing NGINX web server configuration..." --weight=12
+ynh_script_progression --message="Removing NGINX web server configuration..." --weight=1
 
 # Remove the dedicated NGINX config
 ynh_remove_nginx_config
@@ -51,7 +51,7 @@ ynh_remove_nginx_config
 #=================================================
 # REMOVE PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing PHP-FPM configuration..." --weight=13
+ynh_script_progression --message="Removing PHP-FPM configuration..." --weight=3
 
 # Remove the dedicated PHP-FPM config
 ynh_remove_fpm_config
@@ -61,7 +61,7 @@ ynh_remove_fpm_config
 #=================================================
 # REMOVE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Removing the dedicated system user..." --weight=14
+ynh_script_progression --message="Removing the dedicated system user..." --weight=1
 
 # Delete a system user
 ynh_system_user_delete --username=$app
