@@ -36,5 +36,5 @@ Email=
 Notification=change
 ;;; Upgrade options
 	; commit=e530bfcf7508e42be1b73ff0dcac8ed72428381b
-		name=Name of this previous version
+		name=Merge pull request #19 from YunoHost-Apps/testing
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&
