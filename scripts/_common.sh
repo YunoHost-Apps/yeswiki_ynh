@@ -9,6 +9,8 @@ YNH_PHP_VERSION="7.3"
 # dependencies used by the app
 extra_php_dependencies="php${YNH_PHP_VERSION}-zip"
 
+loginldap_version="2021-03-01-2"
+
 #=================================================
 # PERSONAL HELPERS
 #=================================================

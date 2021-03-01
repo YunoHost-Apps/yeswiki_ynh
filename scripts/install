@@ -146,9 +146,16 @@ fi
 #=================================================
 # DOWNLOAD AND CONFIGURE LDAP PLUGIN
 #=================================================
+ynh_script_progression --message="Dowloading and configuring LDAP plugin" --weight=2
 
-# Download as git repository
-git clone https://github.com/YesWiki/yeswiki-extension-loginldap $final_path/tools/loginldap
+# Download from yeswiki repository
+wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip
+wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip.md5
+md5sum -c extension-loginldap-$loginldap_version.zip.md5 || ynh_die "Checksum for LDAP plugin does not match"
+
+unzip extension-loginldap-$loginldap_version.zip -d $final_path/tools
+
+ynh_app_setting_set --app=$app --key=loginldap_version --value=$loginldap_version
 
 # Add config at the end of wakka.config.php
 ynh_replace_string --match_string=");"\
