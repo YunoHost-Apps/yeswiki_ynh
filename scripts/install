@@ -30,7 +30,6 @@ admin=$YNH_APP_ARG_ADMIN
 is_public=$YNH_APP_ARG_IS_PUBLIC
 wiki_name=$YNH_APP_ARG_WIKI_NAME
 language=$YNH_APP_ARG_LANGUAGE
-password=$YNH_APP_ARG_PASSWORD
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -128,10 +127,13 @@ ynh_systemd_action --service_name=nginx --action=reload
 
 ynh_script_progression --message="Finalizing installation..." --weight=2
 
+
+admin_temp_pass=$(ynh_string_random 6)
+
 ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name" \
         "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
         "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
-        "admin_name=$admin" "admin_password=$password" "admin_password_conf=$password" \
+        "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
         "admin_email=$admin@$domain" "submit=Continue"
 
 # authorization of html
