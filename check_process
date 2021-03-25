@@ -40,4 +40,4 @@ Notification=change
 ;;; Upgrade options
 	; commit=e530bfcf7508e42be1b73ff0dcac8ed72428381b
 		name=Name of this previous version
-		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=pass&is_public=1&
+		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&
