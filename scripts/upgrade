@@ -86,7 +86,7 @@ then
 
 fi
 
-if [ $(ynh_app_setting_get --app=$app --key=loginldap_version) != $loginldap_version ]
+if [[ $(ynh_app_setting_get --app=$app --key=loginldap_version) != $loginldap_version ]]
 then
 	ynh_script_progression --message="Upgrading LDAP plugin..." --weight=3
 
