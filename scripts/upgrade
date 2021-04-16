@@ -84,6 +84,9 @@ then
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$final_path"
 
+	ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$"\
+		 --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)',"\
+		 --target_file="$final_path/wakka.config.php"
 fi
 
 if [[ $(ynh_app_setting_get --app=$app --key=loginldap_version) != $loginldap_version ]]
