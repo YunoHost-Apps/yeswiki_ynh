@@ -83,6 +83,37 @@ then
 
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$final_path"
+
+fi
+
+if [[ $(ynh_app_setting_get --app=$app --key=loginldap_version) != $loginldap_version ]]
+then
+	ynh_script_progression --message="Upgrading LDAP plugin..." --weight=3
+
+	# Download LDAP plugin from yeswiki repository
+	wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip 2>&1
+	wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip.md5 2>&1
+	md5sum -c extension-loginldap-$loginldap_version.zip.md5 || ynh_die "Checksum for LDAP plugin does not match"
+
+	unzip -o extension-loginldap-$loginldap_version.zip -d $final_path/tools
+
+	ynh_app_setting_set --app=$app --key=loginldap_version --value=$loginldap_version
+
+	if ! grep -q "ldap_host" "$final_path/wakka.config.php"
+	then
+		# Add LDAP config at the end of wakka.config.php
+		ynh_replace_string --match_string=");"\
+		 --replace_string="  'ldap_host' => '127.0.0.1',\n);"\
+		 --target_file="$final_path/wakka.config.php"
+
+		ynh_replace_string --match_string=");"\
+		 --replace_string="  'ldap_port' => '389',\n);"\
+		 --target_file="$final_path/wakka.config.php"
+
+		ynh_replace_string --match_string=");"\
+		 --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);"\
+		 --target_file="$final_path/wakka.config.php"
+	fi
 fi
 
 #=================================================
