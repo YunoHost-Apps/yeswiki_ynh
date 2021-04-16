@@ -75,6 +75,9 @@ ynh_system_user_create --username=$app
 chown -R root: $final_path
 chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 
+chown $app:www-data $final_path
+chmod o-rwx $final_path
+
 #=================================================
 # RESTORE THE PHP-FPM CONFIGURATION
 #=================================================

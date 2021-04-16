@@ -168,6 +168,9 @@ ynh_replace_string --match_string=");"\
 chown -R root: $final_path
 chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 
+chown $app:www-data $final_path
+chmod o-rwx $final_path
+
 #=================================================
 # SETUP SSOWAT
 #=================================================
