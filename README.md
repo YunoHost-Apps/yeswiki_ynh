@@ -42,7 +42,9 @@ Configure the application via YesWiki.
 
 #### Multi-users support
 
-At the moment LDAP and SSO authentication are not supported. It is necessary to login on the wiki.
+LDAP integration is supported and required on new installs. It is possible to disable it on older installs by removing the loginldap plugin. **Warning: only do it if you know credentials for a wiki admin account**
+
+At the moment SSO authentication is not supported. It is necessary to login on the wiki.
 
 #### Supported architectures
 
