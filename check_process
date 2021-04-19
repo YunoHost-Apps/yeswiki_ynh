@@ -24,7 +24,7 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=1	from_commit=5f8249eef7d237106aad858ea91ed566d60c4019
+		upgrade=1	from_commit=e530bfcf7508e42be1b73ff0dcac8ed72428381b
 		backup_restore=1
 		multi_instance=1
 		port_already_use=1	(66)
@@ -38,6 +38,6 @@
 Email=
 Notification=change
 ;;; Upgrade options
-	; commit=5f8249eef7d237106aad858ea91ed566d60c4019
+	; commit=e530bfcf7508e42be1b73ff0dcac8ed72428381b
 		name=Name of this previous version
-		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=pass&is_public=1&
+		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&

@@ -6,7 +6,7 @@
         "en": "Wiki that is quick and easy to use.",
         "fr": "Wiki facile et rapide à prendre en main."
     },
-    "version": "2020-11-30-4~ynh1",
+    "version": "2021-04-06-2~ynh1",
     "url": "https://yeswiki.net/",
     "license": "AGPL-3.0-only",
     "maintainer": {
@@ -88,15 +88,6 @@
                 },
                 "choices": ["fr", "en", "ca", "es", "nl", "pt"],
                 "default": "fr"
-            },
-            {
-                "name": "password",
-                "type": "password",
-                "ask": {
-                    "en": "Set the administrator password",
-                    "fr": "Définissez le mot de passe administrateur"
-                }
-
             }
         ]
     }
