@@ -6,7 +6,7 @@
 *[Lire ce readme en français.](./README_fr.md)*
 
 > *This package allow you to install YesWiki quickly and simply on a YunoHost server.
-> If you don't have YunoHost, please see [here](https://yunohost.org/#/install) to know how to install and enjoy it.*
+> If you don't have YunoHost, please see [here](https://yunohost.org/install) to know how to install and enjoy it.*
 
 ## Overview
 
@@ -48,8 +48,8 @@ At the moment SSO authentication is not supported. It is necessary to login on t
 
 #### Supported architectures
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/yeswiki%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/yeswiki%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/yeswiki/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/yeswiki.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/yeswiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/yeswiki/)
 
 ## Limitations
 
