@@ -9,11 +9,17 @@
     "version": "2021-05-05-2~ynh1",
     "url": "https://yeswiki.net/",
     "license": "AGPL-3.0-only",
-    "maintainer": {
-        "name": "Plumf",
-        "email": "plumf@open-plug.eu",
-        "url": "https://www.plumf.eu"
-    },
+    "maintainer": [
+        {
+            "name": "Nils Van Zuijlen",
+            "email": "nils.van-zuijlen@mailo.com"
+        },
+        {
+            "name": "Plumf",
+            "email": "plumf@open-plug.eu",
+            "url": "https://www.plumf.eu"
+        }
+    ],
     "requirements": {
         "yunohost": ">= 4.1.2"
     },
