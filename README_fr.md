@@ -1,7 +1,7 @@
 # YesWiki pour YunoHost
 
 [![Niveau d'intégration](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)  
-[![Installer YesWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=yeswiki)
+[![Installer YesWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
 *[Read this readme in english.](./README.md)*
 
@@ -19,7 +19,7 @@ Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multip
 - Faire communiquer des flux d'informations
 - Cultiver un bout de liberté...
 
-**Version incluse :** Doryphore 2021-04-06-2
+**Version incluse :** Doryphore 2021-05-05-2
 
 ## Captures d'écran
 

@@ -24,20 +24,17 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=1	from_commit=e530bfcf7508e42be1b73ff0dcac8ed72428381b
+		upgrade=1	from_commit=17bab2335903bce80a89002d49f00e35de77a1f3
 		backup_restore=1
 		multi_instance=1
 		port_already_use=1	(66)
 		change_url=1
 		actions=0
 		config_panel=0
-;;; Levels
-	# If the level 5 (Package linter) is forced to 1. Please add justifications here.
-	Level 5=auto
 ;;; Options
 Email=
 Notification=change
 ;;; Upgrade options
-	; commit=e530bfcf7508e42be1b73ff0dcac8ed72428381b
-		name=Name of this previous version
+	; commit=17bab2335903bce80a89002d49f00e35de77a1f3
+		name=Update readmes with LDAP integration info
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&

@@ -52,9 +52,6 @@ ynh_script_progression --message="Storing installation settings..." --weight=1
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=admin --value=$admin
-ynh_app_setting_set --app=$app --key=is_public --value=$is_public
-#ynh_app_setting_set --app=$app --key=wiki_name --value=$wiki_name
-
 ynh_app_setting_set --app=$app --key=language --value=$language
 
 #=================================================
@@ -100,7 +97,7 @@ ynh_system_user_create --username=$app
 ynh_script_progression --message="Configuring PHP-FPM..." --weight=8
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --phpversion=$YNH_PHP_VERSION --package="$extra_php_dependencies"
+ynh_add_fpm_config --package="$extra_php_dependencies"
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
@@ -112,15 +109,10 @@ phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 # Set right permissions for cURL install
 chown -R $app: $final_path
 
-# Set the app as temporarily public for curl call
-ynh_script_progression --message="Configuring SSOwat..." --weight=2
+# Set the app as temporarily public for cURL call
+ynh_permission_update --permission="main" --add="visitors"
 
-ynh_permission_update --permission main --remove all_users --add visitors
-
-# Reload SSOwat config
-yunohost app ssowatconf
-
-# Reload Nginx
+# Reload NGINX
 ynh_systemd_action --service_name=nginx --action=reload
 
 # Installation with curl
@@ -138,12 +130,6 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
 
 # authorization of html
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$final_path/wakka.config.php"
-
-# Remove the public access
-if [ $is_public -eq 0 ]
-then
-	ynh_permission_update --permission main --remove visitors --add all_users
-fi
 
 #=================================================
 # DOWNLOAD AND CONFIGURE LDAP PLUGIN
@@ -182,15 +168,18 @@ ynh_replace_string --match_string=");"\
 chown -R root: $final_path
 chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
 
+chown $app:www-data $final_path
+chmod o-rwx $final_path
+
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring SSOwat..." --weight=1
+ynh_script_progression --message="Configuring permissions..." --weight=1
 
-# Make app public if necessary
-if [ $is_public -eq 1 ]
+# Make app public if necessary or protect it
+if [ $is_public -eq 0 ]
 then
-	ynh_permission_update --permission main --add visitors
+	ynh_permission_update --permission="main" --remove="visitors"
 fi
 
 #=================================================
