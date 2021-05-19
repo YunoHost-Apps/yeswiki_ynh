@@ -24,7 +24,7 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=1	from_commit=17bab2335903bce80a89002d49f00e35de77a1f3
+		upgrade=1	from_commit=399a71c4a657a6ba28a361ade71ec767540a7986
 		backup_restore=1
 		multi_instance=1
 		port_already_use=1	(66)
@@ -35,6 +35,6 @@
 Email=
 Notification=change
 ;;; Upgrade options
-	; commit=17bab2335903bce80a89002d49f00e35de77a1f3
-		name=Update readmes with LDAP integration info
+	; commit=399a71c4a657a6ba28a361ade71ec767540a7986
+		name=Merge pull request
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&
