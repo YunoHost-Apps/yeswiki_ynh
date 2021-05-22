@@ -1,13 +1,13 @@
 ;; Test Total YesWiki
 # Comment ignored
 	; Manifest
-		domain="domain.tld"	(DOMAIN)
-		path="/path"	(PATH)
-		admin="john"	(USER)
+		domain="domain.tld"
+		path="/path"
+		admin="john"
 		language="fr"
-		is_public=1	(PUBLIC|public=1|private=0)
+		is_public=1
 		password="password"
-		port="666"	(PORT)
+		port="666"
 	; Actions
 		is_public=1|0
 	; Config_panel
@@ -24,7 +24,7 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=1	from_commit=399a71c4a657a6ba28a361ade71ec767540a7986
+		upgrade=1	from_commit=fe5e2835ae657591db200cd9c71e4d2fb21840f8
 		backup_restore=1
 		multi_instance=1
 		port_already_use=1	(66)
@@ -35,6 +35,6 @@
 Email=
 Notification=change
 ;;; Upgrade options
-	; commit=399a71c4a657a6ba28a361ade71ec767540a7986
-		name=Merge pull request
+	; commit=fe5e2835ae657591db200cd9c71e4d2fb21840f8
+		name=Merge branch 'testing' into master
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&
