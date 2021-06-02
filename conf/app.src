@@ -1,6 +1,6 @@
-SOURCE_URL=https://repository.yeswiki.net/doryphore/yeswiki-doryphore-2021-05-25-2.zip
-SOURCE_SUM=a8b35e1d1840839a0ca473645cd91278
+SOURCE_URL=https://repository.yeswiki.net/doryphore/yeswiki-doryphore-2021-05-29-1.zip
+SOURCE_SUM=9b5f06b671f93d068859f396f50ac5f8
 SOURCE_SUM_PRG=md5sum
 SOURCE_FORMAT=zip
 SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=yeswiki-doryphore-2021-05-25-2.zip
+SOURCE_FILENAME=yeswiki-doryphore-2021-05-29-1.zip
