@@ -24,7 +24,7 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=1	from_commit=fe5e2835ae657591db200cd9c71e4d2fb21840f8
+		upgrade=1	from_commit=792c90c592f52f8fb1a89c22ab9b73f1e0bc2a3d
 		backup_restore=1
 		multi_instance=1
 		port_already_use=1	(66)
@@ -35,6 +35,6 @@
 Email=
 Notification=change
 ;;; Upgrade options
-	; commit=fe5e2835ae657591db200cd9c71e4d2fb21840f8
+	; commit=792c90c592f52f8fb1a89c22ab9b73f1e0bc2a3d
 		name=Merge branch 'testing' into master
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&
