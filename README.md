@@ -19,7 +19,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Communicate information flows
 - Cultivate a bit of freedom...
 
-**Shipped version:** Doryphore 2021-05-18-2
+**Shipped version:** Doryphore 2021-08-17-1
 
 ## Screenshots
 
