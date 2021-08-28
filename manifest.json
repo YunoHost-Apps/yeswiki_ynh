@@ -6,7 +6,7 @@
         "en": "Wiki that is quick and easy to use.",
         "fr": "Wiki facile et rapide à prendre en main."
     },
-    "version": "2021-05-18-2~ynh2",
+    "version": "2021-08-17-1~ynh1",
     "url": "https://yeswiki.net/",
     "license": "AGPL-3.0-only",
     "maintainer": [
