@@ -70,4 +70,4 @@ ynh_system_user_delete --username=$app
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Removal of YesWiki completed" --last
+ynh_script_progression --message="Removal of $app completed" --last
