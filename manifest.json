@@ -3,11 +3,18 @@
     "id": "yeswiki",
     "packaging_format": 1,
     "description": {
-        "en": "Wiki that is quick and easy to use.",
-        "fr": "Wiki facile et rapide à prendre en main."
+        "en": "Wiki that is quick and easy to use",
+        "fr": "Wiki facile et rapide à prendre en main"
     },
-    "version": "2021-08-17-1~ynh1",
+    "version": "2021.11.04~ynh1",
     "url": "https://yeswiki.net/",
+        "upstream": {
+        "license": "AGPL-3.0-only",
+        "website": "https://yeswiki.net/",
+        "demo": "https://ferme.yeswiki.net/?CreerSonWiki",
+        "admindoc": "https://yeswiki.net/?DocumentatioN",
+        "code": "https://github.com/YesWiki/yeswiki"
+    },
     "license": "AGPL-3.0-only",
     "maintainer": [
         {
@@ -21,7 +28,7 @@
         }
     ],
     "requirements": {
-        "yunohost": ">= 4.1.7"
+        "yunohost": ">= 4.2.3"
     },
     "multi_instance": true,
     "services": [
@@ -33,8 +40,7 @@
         "install": [
             {
                 "name": "domain",
-                "type": "domain",
-                "example": "example.com"
+                "type": "domain"
             },
             {
                 "name": "path",
@@ -44,8 +50,7 @@
             },
             {
                 "name": "admin",
-                "type": "user",
-                "example": "johndoe"
+                "type": "user"
             },
             {
                 "name": "is_public",

@@ -6,8 +6,7 @@
 		admin="john"
 		language="fr"
 		is_public=1
-		password="password"
-		port="666"
+		wiki_name="MyYunoHostWiki"
 	; Actions
 		is_public=1|0
 	; Config_panel
@@ -27,7 +26,6 @@
 		upgrade=1	from_commit=792c90c592f52f8fb1a89c22ab9b73f1e0bc2a3d
 		backup_restore=1
 		multi_instance=1
-		port_already_use=1	(66)
 		change_url=1
 		actions=0
 		config_panel=0
