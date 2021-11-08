@@ -4,9 +4,10 @@
 [![Installer YesWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
 *[Read this readme in english.](./README.md)*
+*[Lire ce readme en français.](./README_fr.md)*
 
 > *Ce package vous permet d'installer YesWiki rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/install) pour savoir comment l'installer et en profiter.*
+Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
 
 ## Vue d'ensemble
 
@@ -19,26 +20,16 @@ Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multip
 - Faire communiquer des flux d'informations
 - Cultiver un bout de liberté...
 
-**Version incluse :** Doryphore 2021-08-17-1
+
+**Version incluse :** 2021.11.04~ynh1
+
+**Démo :** https://ferme.yeswiki.net/?CreerSonWiki
 
 ## Captures d'écran
 
-![](/images/yeswiki_screenshots.png)
+![](./doc/screenshots/yeswiki_screenshots.png)
 
-## Démo
-
-* [Démo officielle](https://ferme.yeswiki.net/?CreerSonWiki)
-
-## Configuration
-
-Configurer l'application via YesWiki.
-
-## Documentation
-
- * Documentation officielle : https://yeswiki.net/?DocumentatioN
- * Documentation YunoHost : Si une documentation spécifique est nécessaire, n'hésitez pas à contribuer.
-
-## Caractéristiques spécifiques YunoHost
+## Avertissements / informations importantes
 
 #### Support multi-utilisateurs
 
@@ -46,27 +37,13 @@ L'intégration au LDAP est la seule méthode supportée pour les nouvelles insta
 
 Pour le moment l'authentification SSO n'est pas prise en charge. Il est nécessaire de se connecter sur le wiki.
 
-#### Architectures supportées
+## Documentations et ressources
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/yeswiki.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/yeswiki.svg)](https://ci-apps-arm.yunohost.org/ci/apps/yeswiki/)
-
-## Limitations
-
-* Limitations connues.
-
-## Informations additionnelles
-
-* Autres informations à ajouter sur cette application
-
-## Liens
-
- * Signaler un bug : https://github.com/YunoHost-Apps/yeswiki_ynh/issues
- * Site de l'application : https://yeswiki.net/?AccueiL
- * Dépôt de l'application principale : https://github.com/YesWiki/yeswiki
- * Site web YunoHost : https://yunohost.org/
-
----
+* Site officiel de l'app : https://yeswiki.net/
+* Documentation officielle de l'admin : https://yeswiki.net/?DocumentatioN
+* Dépôt de code officiel de l'app : https://github.com/YesWiki/yeswiki
+* Documentation YunoHost pour cette app : https://yunohost.org/app_yeswiki
+* Signaler un bug : https://github.com/YunoHost-Apps/yeswiki_ynh/issues
 
 ## Informations pour les développeurs
 
@@ -78,3 +55,5 @@ sudo yunohost app install https://github.com/YunoHost-Apps/yeswiki_ynh/tree/test
 ou
 sudo yunohost app upgrade yeswiki -u https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing --debug
 ```
+
+**Plus d'infos sur le packaging d'applications :** https://yunohost.org/packaging_apps
