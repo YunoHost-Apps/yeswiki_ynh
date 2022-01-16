@@ -107,7 +107,7 @@ phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 #=================================================
 
 # Set right permissions for cURL install
-chown -R $app: $final_path
+chown -R $app:$app $final_path
 
 # Set the app as temporarily public for cURL call
 ynh_permission_update --permission="main" --add="visitors"
@@ -165,11 +165,7 @@ ynh_replace_string --match_string=");"\
 #=================================================
 
 # Set permissions to app files 
-chown -R root: $final_path
-chown -R $app $final_path/{cache,files,themes,tools,wakka.config.php}
-
-chown $app:www-data $final_path
-chmod o-rwx $final_path
+yeswiki_update_dir_rights $app $final_path
 
 #=================================================
 # SETUP SSOWAT
