@@ -6,7 +6,7 @@
         "en": "Wiki that is quick and easy to use",
         "fr": "Wiki facile et rapide à prendre en main"
     },
-    "version": "2021.11.04~ynh1",
+    "version": "2022-01-16-13~ynh1",
     "url": "https://yeswiki.net/",
         "upstream": {
         "license": "AGPL-3.0-only",
@@ -17,6 +17,10 @@
     },
     "license": "AGPL-3.0-only",
     "maintainer": [
+        {
+            "name": "Florian Schmitt",
+            "email": "mrflos@lilo.org"
+        },
         {
             "name": "Nils Van Zuijlen",
             "email": "nils.van-zuijlen@mailo.com"
