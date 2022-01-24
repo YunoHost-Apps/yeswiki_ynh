@@ -23,9 +23,8 @@ yeswiki_update_dir_rights() {
 	local app="${1:-yeswiki}"
 	local final_path="${2}"
   
-  chown -R $app:$app $final_path
-  chmod -R u=rwX,g=rX,o=rX $final_path
-  chmod -R g+rwX,o+rwX $final_path/{cache,files}
+  chown -R $app:www-data $final_path
+  chmod -R u=rwx,g=rx,o-rwx $final_path
 }
 
 #=================================================
