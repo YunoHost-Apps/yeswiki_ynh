@@ -126,7 +126,7 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
         "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
         "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
         "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
-        "admin_email=$admin@$domain" "submit=Continue"
+        "admin_email=$admin%40$domain" "submit=Continue"
 
 # authorization of html
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$final_path/wakka.config.php"
