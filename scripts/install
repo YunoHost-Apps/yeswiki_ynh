@@ -14,7 +14,6 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
 	true
 }
 # Exit if an error occurs during the execution of the script
@@ -26,10 +25,10 @@ ynh_abort_if_errors
 
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
-admin=$YNH_APP_ARG_ADMIN
 is_public=$YNH_APP_ARG_IS_PUBLIC
-wiki_name=$YNH_APP_ARG_WIKI_NAME
 language=$YNH_APP_ARG_LANGUAGE
+admin=$YNH_APP_ARG_ADMIN
+wiki_name=$YNH_APP_ARG_WIKI_NAME
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -51,11 +50,26 @@ ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
-ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=language --value=$language
+ynh_app_setting_set --app=$app --key=admin --value=$admin
 
 #=================================================
 # STANDARD MODIFICATIONS
+#=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Installing dependencies..."
+
+ynh_install_app_dependencies $pkg_dependencies
+
+#=================================================
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Configuring system user..." --weight=1
+
+# Create a system user
+ynh_system_user_create --username=$app --home_dir="$final_path"
+
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
@@ -67,14 +81,6 @@ ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..." --weight=1
-
-# Create a system user
-ynh_system_user_create --username=$app --home_dir="$final_path"
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=5
@@ -82,6 +88,19 @@ ynh_script_progression --message="Setting up source files..." --weight=5
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
+
+#=================================================
+# PHP-FPM CONFIGURATION
+#=================================================
+ynh_script_progression --message="Configuring PHP-FPM..." --weight=8
+
+# Create a dedicated PHP-FPM config
+ynh_add_fpm_config
+phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
 # NGINX CONFIGURATION
@@ -92,22 +111,17 @@ ynh_script_progression --message="Configuring NGINX web server..." --weight=1
 ynh_add_nginx_config
 
 #=================================================
-# PHP-FPM CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring PHP-FPM..." --weight=8
-
-# Create a dedicated PHP-FPM config
-ynh_add_fpm_config --package="$extra_php_dependencies"
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-
-#=================================================
 # SPECIFIC SETUP
+#=================================================
+# INSTALL COMPOSER DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Installing composer dependencies..."
+
+ynh_exec_warn_less ynh_install_composer --phpversion="$phpversion" --workdir="$final_path"
+
 #=================================================
 # SETUP APPLICATION WITH CURL
 #=================================================
-
-# Set right permissions for cURL install
-chown -R $app:$app $final_path
 
 # Set the app as temporarily public for cURL call
 ynh_permission_update --permission="main" --add="visitors"
@@ -116,9 +130,7 @@ ynh_permission_update --permission="main" --add="visitors"
 ynh_systemd_action --service_name=nginx --action=reload
 
 # Installation with curl
-
 ynh_script_progression --message="Finalizing installation..." --weight=2
-
 
 admin_temp_pass=$(ynh_string_random 6)
 
@@ -130,6 +142,11 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
 
 # authorization of html
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$final_path/wakka.config.php"
+
+ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$" --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)'," --target_file="$final_path/wakka.config.php"
+
+# Remove the public access
+ynh_permission_update --permission="main" --remove="visitors"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE LDAP PLUGIN
@@ -146,20 +163,12 @@ unzip extension-loginldap-$loginldap_version.zip -d $final_path/tools
 ynh_app_setting_set --app=$app --key=loginldap_version --value=$loginldap_version
 
 # Add config at the end of wakka.config.php
-ynh_replace_string --match_string=");"\
- --replace_string="  'ldap_host' => '127.0.0.1',\n);"\
- --target_file="$final_path/wakka.config.php"
+ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$final_path/wakka.config.php"
 
-ynh_replace_string --match_string=");"\
- --replace_string="  'ldap_port' => '389',\n);"\
- --target_file="$final_path/wakka.config.php"
+ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$final_path/wakka.config.php"
 
-ynh_replace_string --match_string=");"\
- --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);"\
- --target_file="$final_path/wakka.config.php"
+ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$final_path/wakka.config.php"
 
-#=================================================
-# GENERIC FINALIZATION
 #=================================================
 # SECURE FILES AND DIRECTORIES
 #=================================================
@@ -168,14 +177,18 @@ ynh_replace_string --match_string=");"\
 yeswiki_update_dir_rights $app $final_path
 
 #=================================================
+# GENERIC FINALIZATION
+#=================================================
 # SETUP SSOWAT
 #=================================================
 ynh_script_progression --message="Configuring permissions..." --weight=1
 
-# Make app public if necessary or protect it
-if [ $is_public -eq 0 ]
+# Make app public if necessary
+if [ $is_public -eq 1 ]
 then
-	ynh_permission_update --permission="main" --remove="visitors"
+	# Everyone can access the app.
+	# The "main" permission is automatically created before the install script.
+	ynh_permission_update --permission="main" --add="visitors"
 fi
 
 #=================================================

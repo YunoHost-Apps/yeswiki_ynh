@@ -3,9 +3,9 @@
 	; Manifest
 		domain="domain.tld"
 		path="/path"
-		admin="john"
-		language="fr"
 		is_public=1
+		language="fr"
+		admin="john"
 		wiki_name="MyYunoHostWiki"
 	; Actions
 		is_public=1|0
@@ -23,16 +23,16 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
+		# 2021-05-18-2~ynh2
 		upgrade=1	from_commit=792c90c592f52f8fb1a89c22ab9b73f1e0bc2a3d
+		# 2022.01.16.13~ynh1
+		upgrade=1	from_commit=f577a55539cb2ff54b5cee099e1e22aa4ccea186
 		backup_restore=1
 		multi_instance=1
+		port_already_use=0
 		change_url=1
 		actions=0
 		config_panel=0
 ;;; Options
 Email=
-Notification=change
-;;; Upgrade options
-	; commit=792c90c592f52f8fb1a89c22ab9b73f1e0bc2a3d
-		name=Merge branch 'testing' into master
-		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&password=password&is_public=1&
+Notification=none
