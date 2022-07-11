@@ -123,11 +123,11 @@ ynh_add_nginx_config
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
-# UPDATE COMPOSER DEPENDENCIES
+# INSTALL COMPOSER DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Updating composer dependencies..."
+ynh_script_progression --message="Installing composer dependencies..."
 
-ynh_exec_warn_less ynh_composer_exec --workdir="$final_path" --commands="update"
+ynh_exec_warn_less ynh_install_composer --phpversion="$phpversion" --workdir="$final_path"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE LDAP PLUGIN
