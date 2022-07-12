@@ -23,8 +23,6 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		# 2021-05-18-2~ynh2
-		upgrade=1	from_commit=792c90c592f52f8fb1a89c22ab9b73f1e0bc2a3d
 		# 2022.01.16.13~ynh1
 		upgrade=1	from_commit=f577a55539cb2ff54b5cee099e1e22aa4ccea186
 		backup_restore=1
