@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # YesWiki for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![Working status](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)  
 [![Install YesWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -25,13 +25,13 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Shipped version:** 2022.01.16.13~ynh1
+**Shipped version:** 4.2.1~ynh1
 
 **Demo:** https://ferme.yeswiki.net/?CreerSonWiki
 
 ## Screenshots
 
-![](./doc/screenshots/yeswiki_screenshots.png)
+![Screenshot of YesWiki](./doc/screenshots/yeswiki_screenshots.png)
 
 ## Disclaimers / important information
 
@@ -43,21 +43,22 @@ At the moment SSO authentication is not supported. It is necessary to login on t
 
 ## Documentation and resources
 
-* Official app website: https://yeswiki.net/
-* Official admin documentation: https://yeswiki.net/?DocumentatioN
-* Upstream app code repository: https://github.com/YesWiki/yeswiki
-* YunoHost documentation for this app: https://yunohost.org/app_yeswiki
-* Report a bug: https://github.com/YunoHost-Apps/yeswiki_ynh/issues
+* Official app website: <https://yeswiki.net/>
+* Official admin documentation: <https://yeswiki.net/?DocumentatioN>
+* Upstream app code repository: <https://github.com/YesWiki/yeswiki>
+* YunoHost documentation for this app: <https://yunohost.org/app_yeswiki>
+* Report a bug: <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>
 
 ## Developer info
 
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
-```
+
+``` bash
 sudo yunohost app install https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade yeswiki -u https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing --debug
 ```
 
-**More info regarding app packaging:** https://yunohost.org/packaging_apps
+**More info regarding app packaging:** <https://yunohost.org/packaging_apps>

@@ -30,9 +30,9 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 
 #=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
+# BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP
 #=================================================
-ynh_script_progression --message="Backing up YesWiki before changing its URL (may take a while)..." --weight=3
+ynh_script_progression --message="Backing up the app before changing its URL (may take a while)..." --weight=3
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
@@ -40,7 +40,7 @@ ynh_clean_setup () {
 	# Remove the new domain config file, the remove script won't do it as it doesn't know yet its location.
 	ynh_secure_remove --file="/etc/nginx/conf.d/$new_domain.d/$app.conf"
 
-	# restore it if the upgrade fails
+	# Restore it if the upgrade fails
 	ynh_restore_upgradebackup
 }
 # Exit if an error occurs during the execution of the script
@@ -96,6 +96,9 @@ fi
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
+# UPDATE A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Updating a configuration file..."
 
 ynh_replace_string --match_string="https://$old_domain${old_path%/}" --replace_string="https://$new_domain${new_path%/}" --target_file="$final_path/wakka.config.php"
 
