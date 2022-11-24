@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.2.4.tar.gz
-SOURCE_SUM=4d218b0f10b43cd67383b128d6892141531732f35b7ab1fe3968141024be1530
+SOURCE_URL=https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.3.0.tar.gz
+SOURCE_SUM=2c926c3031ae945da7cc1eb98cca7d7756dfa63381141c83b0a1dc942baf7f6c
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
