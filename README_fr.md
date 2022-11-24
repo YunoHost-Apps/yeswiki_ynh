@@ -25,8 +25,7 @@ Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multip
 - Cultiver un bout de liberté...
 
 
-**Version incluse :** 4.2.4~ynh1
-
+**Version incluse :** 4.3.0~ynh1
 
 **Démo :** https://ferme.yeswiki.net/?CreerSonWiki
 
