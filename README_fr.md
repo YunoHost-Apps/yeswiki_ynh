@@ -5,15 +5,15 @@ It shall NOT be edited by hand.
 
 # YesWiki pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)
 [![Installer YesWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer YesWiki rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer YesWiki rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 YesWiki est un wiki conçu pour rester simple, très facile à installer, en français traduit en anglais, espagnol, catalan, flamand...
 
@@ -29,9 +29,9 @@ Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multip
 
 **Démo :** https://ferme.yeswiki.net/?CreerSonWiki
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de YesWiki](./doc/screenshots/yeswiki_screenshots.png)
+![Capture d’écran de YesWiki](./doc/screenshots/yeswiki_screenshots.png)
 
 ## Avertissements / informations importantes
 
@@ -43,9 +43,9 @@ Pour le moment l'authentification SSO n'est pas prise en charge. Il est nécessa
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://yeswiki.net/>
-* Documentation officielle de l'admin : <https://yeswiki.net/?DocumentatioN>
-* Dépôt de code officiel de l'app : <https://github.com/YesWiki/yeswiki>
+* Site officiel de l’app : <https://yeswiki.net/>
+* Documentation officielle de l’admin : <https://yeswiki.net/?DocumentatioN>
+* Dépôt de code officiel de l’app : <https://github.com/YesWiki/yeswiki>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_yeswiki>
 * Signaler un bug : <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>
 
@@ -61,4 +61,4 @@ ou
 sudo yunohost app upgrade yeswiki -u https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
