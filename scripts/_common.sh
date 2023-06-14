@@ -4,10 +4,10 @@
 # COMMON VARIABLES
 #=================================================
 
-YNH_PHP_VERSION="7.4"
+#REMOVEME? YNH_PHP_VERSION="7.4"
 
 # dependencies used by the app
-pkg_dependencies="php${YNH_PHP_VERSION}-zip"
+#REMOVEME? pkg_dependencies="php${YNH_PHP_VERSION}-zip"
 
 loginldap_version="2021-03-01-2"
 
@@ -17,14 +17,14 @@ loginldap_version="2021-03-01-2"
 
 # update directory right
 # | arg: app - The application's name ; default : yeswiki
-# | arg: final_path - The path of the application's folder
+# | arg: install_dir - The path of the application's folder
 #	yeswiki_update_dir_rights yeswiki /var/www/yeswiki
 yeswiki_update_dir_rights() {
 	local app="${1:-yeswiki}"
-	local final_path="${2}"
+	local install_dir="${2}"
   
-  chown -R $app:www-data $final_path
-  chmod -R u=rwx,g=rx,o-rwx $final_path
+  chown -R $app:www-data $install_dir
+  chmod -R u=rwx,g=rx,o-rwx $install_dir
 }
 
 #=================================================

@@ -1,0 +1,80 @@
+packaging_format = 2
+
+id = "yeswiki"
+name = "YesWiki"
+description.en = "Wiki that is quick and easy to use"
+description.fr = "Wiki facile et rapide à prendre en main"
+
+version = "4.4.0~ynh1"
+
+maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
+
+[upstream]
+license = "AGPL-3.0-only"
+website = "https://yeswiki.net/"
+demo = "https://ferme.yeswiki.net/?CreerSonWiki"
+admindoc = "https://yeswiki.net/?DocumentatioN"
+code = "https://github.com/YesWiki/yeswiki"
+cpe = "???" # FIXME: optional but recommended if relevant, this is meant to contain the Common Platform Enumeration, which is sort of a standard id for applications defined by the NIST. In particular, Yunohost may use this is in the future to easily track CVE (=security reports) related to apps. The CPE may be obtained by searching here: https://nvd.nist.gov/products/cpe/search. For example, for Nextcloud, the CPE is 'cpe:2.3:a:nextcloud:nextcloud' (no need to include the version number)
+fund = "???" # FIXME: optional but recommended (or remove if irrelevant / not applicable). This is meant to be an URL where people can financially support this app, especially when its development is based on volunteers and/or financed by its community. YunoHost may later advertise it in the webadmin.
+
+[integration]
+yunohost = ">= 4.3.0"
+architectures = "all" # FIXME: can be replaced by a list of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386"]
+multi_instance = true
+ldap = "?" # FIXME: replace with true, false, or "not_relevant". Not to confuse with the "sso" key : the "ldap" key corresponds to wether or not a user *can* login on the app using its YunoHost credentials.
+sso = "?" # FIXME: replace with true, false, or "not_relevant". Not to confuse with the "ldap" key : the "sso" key corresponds to wether or not a user is *automatically logged-in* on the app when logged-in on the YunoHost portal.
+disk = "50M" # FIXME: replace with an **estimate** minimum disk requirement. e.g. 20M, 400M, 1G, ...
+ram.build = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
+ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
+
+[install]
+    [install.domain]
+    # this is a generic question - ask strings are automatically handled by Yunohost's core
+    type = "domain"
+
+    [install.path]
+    # this is a generic question - ask strings are automatically handled by Yunohost's core
+    type = "path"
+    default = "/yeswiki"
+
+    [install.init_main_permission]
+    help.en = "If YesWiki is made public anyone will be able to view the wiki"
+    help.fr = "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
+    type = "group"
+    default = "visitors"
+
+    [install.language]
+    ask.en = "Choose the application language"
+    ask.fr = "Choisissez la langue de l'application"
+    type = "string"
+    choices = ["fr", "en", "ca", "es", "nl", "pt"]
+    default = "fr"
+
+    [install.admin]
+    # this is a generic question - ask strings are automatically handled by Yunohost's core
+    type = "user"
+
+    [install.wiki_name]
+    ask.en = "Choose the wiki name"
+    ask.fr = "Choisissez le nom de votre wiki"
+    help.en = "If you want a name with spaces: replace them with %20 for each space."
+    help.fr = "Si vous souhaitez un nom avec des espacements : remplacez les par %20 pour chaque espace"
+    type = "string"
+    default = "MyYunoHostWiki"
+
+[resources]
+        [resources.sources.main]
+        url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.0.tar.gz"
+        sha256 = "5ceb12d225c20de2ba3cb4ce483348ed1a8ad5b1789d4f4f8f89dc4871524007"
+
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.database]
+    type = "mysql"
