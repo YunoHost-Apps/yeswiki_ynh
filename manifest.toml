@@ -62,6 +62,7 @@ ram.runtime = "50M"
         [resources.sources.main]
         url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.0.tar.gz"
         sha256 = "5ceb12d225c20de2ba3cb4ce483348ed1a8ad5b1789d4f4f8f89dc4871524007"
+        autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
 
@@ -71,7 +72,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server php7.4-zip"
+    packages = "mariadb-server, php7.4-zip, php7.4-curl, php7.4-gd, php7.4-dom, php7.4-mysqldi"
 
     [resources.database]
     type = "mysql"
