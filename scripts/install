@@ -23,15 +23,10 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring PHP-FPM..." --weight=8
+ynh_script_progression --message="Adding system configurations related to $app ..." --weight=1
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=1
+ynh_add_fpm_config --usage=low --footprint=low
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -64,9 +59,6 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$install_dir/wakka.config.php"
 
 ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$" --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)'," --target_file="$install_dir/wakka.config.php"
-
-# Remove the public access
-#REMOVEME? ynh_permission_update --permission="main" --remove="visitors"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE LDAP PLUGIN
