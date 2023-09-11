@@ -25,7 +25,7 @@ then
 
 	# Download, check integrity, uncompress and patch the source from app.src
 	# TODO : find a way to sync stable extensions list to avoid hardcoded extensions folders to keep
-	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".env wakka.config.php files/ custom/ private/ themes/ tools/accountactivationbyemail/ tools/advancedsearch/ tools/benevolat/ tools/ferme/ tools/fontautoinstall/ tools/ipblock/ tools/lms/ tools/login-sso/ tools/logincas/ tools/loginldap/ tools/maintenance/ tools/multideletepages/ tools/nextcloudconnector/ tools/publication/ tools/qrcode/ tools/stats/ tools/tabdyn/ tools/twolevels/ tools/webhooks"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".env wakka.config.php files custom private themes tools/accountactivationbyemail tools/advancedsearch tools/benevolat tools/ferme tools/fontautoinstall tools/ipblock tools/lms tools/login-sso tools/logincas tools/loginldap tools/maintenance tools/multideletepages tools/nextcloudconnector tools/publication tools/qrcode tools/stats tools/tabdyn tools/twolevels tools/webhooks"
 
 	ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$" --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)'," --target_file="$install_dir/wakka.config.php"
 fi
