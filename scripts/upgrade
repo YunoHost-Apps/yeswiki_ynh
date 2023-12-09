@@ -25,7 +25,7 @@ then
 
     # Download, check integrity, uncompress and patch the source from app.src
     # TODO : find a way to sync stable extensions list to avoid hardcoded extensions folders to keep
-    ferme_instances="$(cd $install_dir; for p in $(ls -- */wakka.config.php); do dirname "$p"; done)"
+    ferme_instances="$(cd $install_dir; for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done)"
     ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".env $ferme_instances wakka.config.php files custom private themes 
 tools/accountactivationbyemail tools/advancedsearch tools/benevolat tools/ferme tools/fontautoinstall tools/ipblock
 tools/lms tools/login-sso tools/logincas tools/loginldap tools/maintenance tools/multideletepages
