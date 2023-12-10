@@ -61,36 +61,28 @@ ynh_exec_warn_less ynh_install_composer --phpversion="$phpversion" --workdir="$i
 # DOWNLOAD AND CONFIGURE LDAP PLUGIN
 #=================================================
 
-if [[ $(ynh_app_setting_get --app=$app --key=loginldap_version) != $loginldap_version ]]
+ynh_script_progression --message="Upgrading LDAP plugin..." --weight=3
+
+# Download LDAP plugin from yeswiki repository
+ynh_secure_remove "$install_dir/tools/loginldap"
+mkdir -p "$install_dir/tools/loginldap"
+ynh_setup_source --dest_dir="$install_dir/tools/loginldap" --source_id="loginldap"
+
+if ! grep -q "ldap_host" "$install_dir/wakka.config.php"
 then
-	ynh_script_progression --message="Upgrading LDAP plugin..." --weight=3
-
-	# Download LDAP plugin from yeswiki repository
-	wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip 2>&1
-	wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip.md5 2>&1
-	md5sum -c extension-loginldap-$loginldap_version.zip.md5 || ynh_die "Checksum for LDAP plugin does not match"
-
-	unzip -o extension-loginldap-$loginldap_version.zip -d $install_dir/tools
-
-	ynh_app_setting_set --app=$app --key=loginldap_version --value=$loginldap_version
-
-	if ! grep -q "ldap_host" "$install_dir/wakka.config.php"
-	then
-		# Add LDAP config at the end of wakka.config.php
-		ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$install_dir/wakka.config.php"
-
-		ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$install_dir/wakka.config.php"
-
-		ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$install_dir/wakka.config.php"
-	fi
+    # Add LDAP config at the end of wakka.config.php
+    ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$install_dir/wakka.config.php"
+    ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$install_dir/wakka.config.php"
+    ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$install_dir/wakka.config.php"
 fi
 
 #=================================================
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-# Set permissions on app files
-yeswiki_update_dir_rights $app $install_dir
+chown -R $app:www-data $install_dir
+chmod -R u=rwX,g=rX,o-rwx $install_dir
+chmod g-rwx $install_dir/wakka.config.php
 
 #=================================================
 # END OF SCRIPT
