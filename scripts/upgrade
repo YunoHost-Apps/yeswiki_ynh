@@ -85,8 +85,9 @@ fi
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-# Set permissions on app files
-yeswiki_update_dir_rights $app $install_dir
+chown -R $app:www-data $install_dir
+chmod -R u=rwX,g=rX,o-rwx $install_dir
+chmod g-rwx $install_dir/wakka.config.php
 
 #=================================================
 # END OF SCRIPT
