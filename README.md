@@ -39,7 +39,7 @@ However, with a YesWiki we can build a website with multiple uses:
 * Official app website: <https://yeswiki.net/>
 * Official admin documentation: <https://yeswiki.net/?DocumentatioN>
 * Upstream app code repository: <https://github.com/YesWiki/yeswiki>
-* YunoHost documentation for this app: <https://yunohost.org/app_yeswiki>
+* YunoHost Store: <https://apps.yunohost.org/app/yeswiki>
 * Report a bug: <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>
 
 ## Developer info

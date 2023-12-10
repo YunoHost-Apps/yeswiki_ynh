@@ -39,7 +39,7 @@ Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multip
 * Site officiel de l’app : <https://yeswiki.net/>
 * Documentation officielle de l’admin : <https://yeswiki.net/?DocumentatioN>
 * Dépôt de code officiel de l’app : <https://github.com/YesWiki/yeswiki>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_yeswiki>
+* YunoHost Store: <https://apps.yunohost.org/app/yeswiki>
 * Signaler un bug : <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>
 
 ## Informations pour les développeurs
