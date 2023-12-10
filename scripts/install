@@ -47,7 +47,7 @@ ynh_exec_warn_less ynh_install_composer --phpversion="$phpversion" --workdir="$i
 # Installation with curl
 ynh_script_progression --message="Finalizing installation..." --weight=2
 
-admin_temp_pass=$(ynh_string_random 6)
+admin_temp_pass=$(ynh_string_random 20)
 
 ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name" \
         "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
@@ -56,29 +56,21 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
         "admin_email=$admin%40$domain" "submit=Continue"
 
 # authorization of html
+# (kind of strange, should be doable using the previous curl?)
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$install_dir/wakka.config.php"
-
-ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$" --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)'," --target_file="$install_dir/wakka.config.php"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE LDAP PLUGIN
 #=================================================
-ynh_script_progression --message="Dowloading and configuring LDAP plugin" --weight=2
+ynh_script_progression --message="Configure LDAP plugin" --weight=2
 
-# Download from yeswiki repository
-wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip 2>&1
-wget https://repository.yeswiki.net/doryphore/extension-loginldap-$loginldap_version.zip.md5 2>&1
-md5sum -c extension-loginldap-$loginldap_version.zip.md5 || ynh_die "Checksum for LDAP plugin does not match"
-
-unzip extension-loginldap-$loginldap_version.zip -d $install_dir/tools
-
-ynh_app_setting_set --app=$app --key=loginldap_version --value=$loginldap_version
+# Download LDAP plugin from yeswiki repository
+mkdir -p "$install_dir/tools/loginldap"
+ynh_setup_source --dest_dir="$install_dir/tools/loginldap" --source_id="loginldap"
 
 # Add config at the end of wakka.config.php
 ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$install_dir/wakka.config.php"
-
 ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$install_dir/wakka.config.php"
-
 ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$install_dir/wakka.config.php"
 
 #=================================================

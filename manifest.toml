@@ -64,6 +64,10 @@ ram.runtime = "50M"
     sha256 = "8c4fe3c0a0f76f47ab5b2c8399b437bd95548d6fa620c90c152a6acd56c25e99"
     autoupdate.strategy = "latest_github_tag"
 
+    [resources.sources.loginldap]
+    url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
+    sha256 = "40fe941d1eef191bb62cf454d3ee437d26d1d16181ab30d6a3602930d91a94bb"
+
     [resources.system_user]
 
     [resources.install_dir]
