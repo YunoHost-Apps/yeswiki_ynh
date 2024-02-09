@@ -66,7 +66,7 @@ ram.runtime = "50M"
 
     [resources.sources.loginldap]
     url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
-    sha256 = "40fe941d1eef191bb62cf454d3ee437d26d1d16181ab30d6a3602930d91a94bb"
+    sha256 = "4717164ef09312f3c302b435b12466a5fbf9c3eea4674850cd44c22941e45071"
 
     [resources.system_user]
 
