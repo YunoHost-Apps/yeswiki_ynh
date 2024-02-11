@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.2~ynh2"
+version = "4.4.2~ynh3"
 
 maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
 
@@ -27,56 +27,56 @@ ram.build = "50M"
 ram.runtime = "50M"
 
 [install]
-    [install.domain]
-    type = "domain"
+[install.domain]
+type = "domain"
 
-    [install.path]
-    type = "path"
-    default = "/yeswiki"
+[install.path]
+type = "path"
+default = "/yeswiki"
 
-    [install.init_main_permission]
-    help.en = "If YesWiki is made public anyone will be able to view the wiki"
-    help.fr = "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
-    type = "group"
-    default = "visitors"
+[install.init_main_permission]
+help.en = "If YesWiki is made public anyone will be able to view the wiki"
+help.fr = "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
+type = "group"
+default = "visitors"
 
-    [install.language]
-    ask.en = "Choose the application language"
-    ask.fr = "Choisissez la langue de l'application"
-    type = "select"
-    choices = ["fr", "en", "ca", "es", "nl", "pt"]
-    default = "fr"
+[install.language]
+ask.en = "Choose the application language"
+ask.fr = "Choisissez la langue de l'application"
+type = "select"
+choices = ["fr", "en", "ca", "es", "nl", "pt"]
+default = "fr"
 
-    [install.admin]
-    type = "user"
+[install.admin]
+type = "user"
 
-    [install.wiki_name]
-    ask.en = "Choose the wiki name"
-    ask.fr = "Choisissez le nom de votre wiki"
-    help.en = "If you want a name with spaces: replace them with %20 for each space."
-    help.fr = "Si vous souhaitez un nom avec des espacements : remplacez les par %20 pour chaque espace"
-    type = "string"
-    default = "MyYunoHostWiki"
+[install.wiki_name]
+ask.en = "Choose the wiki name"
+ask.fr = "Choisissez le nom de votre wiki"
+help.en = "If you want a name with spaces: replace them with %20 for each space."
+help.fr = "Si vous souhaitez un nom avec des espacements : remplacez les par %20 pour chaque espace"
+type = "string"
+default = "MyYunoHostWiki"
 
 [resources]
-    [resources.sources.main]
-    url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.2.tar.gz"
-    sha256 = "8c4fe3c0a0f76f47ab5b2c8399b437bd95548d6fa620c90c152a6acd56c25e99"
-    autoupdate.strategy = "latest_github_tag"
+[resources.sources.main]
+url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.2.tar.gz"
+sha256 = "8c4fe3c0a0f76f47ab5b2c8399b437bd95548d6fa620c90c152a6acd56c25e99"
+autoupdate.strategy = "latest_github_tag"
 
-    [resources.sources.loginldap]
-    url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
-    sha256 = "40fe941d1eef191bb62cf454d3ee437d26d1d16181ab30d6a3602930d91a94bb"
+[resources.sources.loginldap]
+url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
+sha256 = "28c9489e4fb0c83e0e775d80a1d07cbc3fbf56d42ab550b45571455f1a6ce9f9"
 
-    [resources.system_user]
+[resources.system_user]
 
-    [resources.install_dir]
+[resources.install_dir]
 
-    [resources.permissions]
-    main.url = "/"
+[resources.permissions]
+main.url = "/"
 
-    [resources.apt]
-    packages = "mariadb-server, php8.2-zip, php8.2-curl, php8.2-gd, php8.2-dom, php8.2-mysql, php8.2-ldap"
+[resources.apt]
+packages = "mariadb-server, php8.2-zip, php8.2-curl, php8.2-gd, php8.2-dom, php8.2-mysql, php8.2-ldap"
 
-    [resources.database]
-    type = "mysql"
+[resources.database]
+type = "mysql"

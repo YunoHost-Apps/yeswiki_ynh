@@ -49,7 +49,9 @@ ynh_script_progression --message="Finalizing installation..." --weight=2
 
 admin_temp_pass=$(ynh_string_random 20)
 
-ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name" \
+wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
+
+ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name_escaped" \
         "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
         "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
         "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
