@@ -9,7 +9,7 @@ It shall NOT be edited by hand.
 
 [![Install YesWiki with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
-*[Read this README is other languages.](./ALL_README.md)*
+*[Read this README in other languages.](./ALL_README.md)*
 
 > *This package allows you to install YesWiki quickly and simply on a YunoHost server.*  
 > *If you don't have YunoHost, please consult [the guide](https://yunohost.org/install) to learn how to install it.*
@@ -26,7 +26,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Shipped version:** 4.4.2~ynh3
+**Shipped version:** 4.4.3~ynh1
 
 **Demo:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
