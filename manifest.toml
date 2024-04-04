@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.2~ynh3"
+version = "4.4.3~ynh1"
 
 maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
 
@@ -60,8 +60,8 @@ default = "MyYunoHostWiki"
 
 [resources]
 [resources.sources.main]
-url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.2.tar.gz"
-sha256 = "8c4fe3c0a0f76f47ab5b2c8399b437bd95548d6fa620c90c152a6acd56c25e99"
+url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.3.tar.gz"
+sha256 = "44aab13c79c4ec516bcf034543fab3f247cbd25a68fff94fc23ef933cd7efff1"
 autoupdate.strategy = "latest_github_tag"
 
 [resources.sources.loginldap]
