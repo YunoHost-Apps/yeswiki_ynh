@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.4~ynh1"
+version = "4.4.4~ynh2"
 
 maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
 
@@ -22,8 +22,8 @@ architectures = "all"
 multi_instance = true
 ldap = true
 sso = false
-disk = "50M"
-ram.build = "50M"
+disk = "100M"
+ram.build = "200M"
 ram.runtime = "50M"
 
 [install]
