@@ -340,12 +340,13 @@ Double cliquer sur ce texte pour éditer cette colonne.
 ('PageMenuHaut',  now(), ' - [[?PagePrincipale#Cooperer Coopérer]]
  - [[?PagePrincipale#S-informer S\'informer]]
  - [[?PagePrincipale#Echanger Echanger]]', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
-('{{rootPage}}',  now(), '{{section bgcolor=\"var(--primary-color)\" class=\"shape-rounded\" pattern=\"border-solid\" }}=====Bienvenue=====
+('{{rootPage}}',  now(), '
+{{section bgcolor=\"var(--primary-color)\" class=\"shape-rounded\" pattern=\"border-solid\" }}=====Bienvenue=====
 Vous êtes sur un espace auto-hébergé de partage de ressource et d\'outils numériques coopératifs sous license libre.
 Tout est à disposition pour que vous puissiez consulter cela localement, chez vous en auto-hébergement.
 
-Ces services ont été mis en place par {{button class=\"btn-primary new-window\" link=\"https://colibris-outilslibres.org/\" nobtn=\"1\" text=\"Colibris\" title=\"mouvement Colibris\" }}, {{button class=\"new-window\" link=\"https://distrilab.fr\" nobtn=\"1\" text=\"le DistriLab\" title=\"le DistriLab\"}}, {{button class=\"new-window\" link=\"https://www.ritimo.org/\" nobtn=\"1\" text=\"Ritimo\" title=\"Ritimo\"}}, {{button class=\"new-window\" link=\"https://yeswiki.net\" nobtn=\"1\" text=\"YesWiki\" title=\"YesWiki\"}}, {{button class=\"new-window\" link=\"https://yunohost.org\" nobtn=\"1\" text=\"YUNoHost\" title=\"YUNoHost\"}}, {{button class=\"new-window\" link=\"https://framasoft.org\" nobtn=\"1\" text=\"Framasoft\" title=\"Framasoft\"}}
-{{end elem=\"section\"}},…
+Ces services ont été mis en place par {{button class=\"btn-primary new-window\" link=\"https://colibris-outilslibres.org/\" nobtn=\"1\" text=\"Colibris\" title=\"mouvement Colibris\" }}, {{button class=\"new-window\" link=\"https://distrilab.fr\" nobtn=\"1\" text=\"le DistriLab\" title=\"le DistriLab\"}}, {{button class=\"new-window\" link=\"https://www.ritimo.org/\" nobtn=\"1\" text=\"Ritimo\" title=\"Ritimo\"}}, {{button class=\"new-window\" link=\"https://yeswiki.net\" nobtn=\"1\" text=\"YesWiki\" title=\"YesWiki\"}}, {{button class=\"new-window\" link=\"https://yunohost.org\" nobtn=\"1\" text=\"YUNoHost\" title=\"YUNoHost\"}}, {{button class=\"new-window\" link=\"https://framasoft.org\" nobtn=\"1\" text=\"Framasoft\" title=\"Framasoft\"}},…
+{{end elem=\"section\"}}
 
 \"\"<div id=\"Cooperer\"></div>\"\"
 =====Coopérer=====
@@ -367,6 +368,18 @@ Ces services ont été mis en place par {{button class=\"btn-primary new-window\
 \"\"<div id=\"Echanger\"></div>\"\"
 =====Echanger=====
 ', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
+('PageRapideHaut',  now(), '{{moteurrecherche template=\"moteurrecherche_button.tpl.html\"}}
+{{buttondropdown icon=\"cog\" caret=\"0\" title=\"Roue crantée\"}}
+ - {{button nobtn=\"1\" icon=\"fa fa-tachometer-alt\" text=\"Tableau de bord\" link=\"TableauDeBord\"}}
+ - {{button nobtn=\"1\" icon=\"fa fa-question\" text=\"Documentation\" link=\"doc\"}}
+ - ------
+ - {{button nobtn=\"1\" icon=\"fa fa-wrench\" text=\"Gestion du site\" link=\"GererSite\"}}
+ - {{button nobtn=\"1\" icon=\"fas fa-user\" text=\"Mes contenus\" link=\"MesContenus\"}}
+ - {{button nobtn=\"1\" icon=\"fa fa-briefcase\" text=\"Formulaires\" link=\"BazaR\"}}
+ - ------
+ - {{button nobtn=\"1\" icon=\"fas fa-cog\" text=\"Admin Yunohost\" link=\"yunohost/admin\"}}
+{{end elem=\"buttondropdown\"}}
+{{login template=\"modal.tpl.html\"}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageTitre',  now(), '![logo CLIC](files/logoclic.png)', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('ParametresUtilisateur',  now(), '{{UserSettings}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('RechercheTexte',  now(), '{{newtextsearch}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
