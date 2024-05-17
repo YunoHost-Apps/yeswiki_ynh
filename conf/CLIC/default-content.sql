@@ -269,28 +269,23 @@ Contenu panel-danger
   --navbar-text-color: #333;
   --navbar-link-color: #333;
   --navbar-link-bg-color: transparent;
-  --navbar-link-hover-color: #e3001b;
 }
 html, body {line-height: 1.4;}
 #yw-topnav {
-	border-bottom: 2px solid var(--primary-color);
+	border-bottom: none;
 	box-shadow: 0 1px 10px rgba(15,0,0,.4);
 }
 
-.navbar-brand img {
-	width:45px;
-	border-radius:50%
-}
 #yw-topnav .btn.btn-default {
 	background: var(--navbar-bg-color) !important;
 	color: var(--navbar-link-color) !important;
-  	border: 2px solid rgb(51,51,51);
+  	border: 2px solid transparent;
 }
 #yw-topnav .btn.btn-default:hover,
 #yw-topnav .btn.btn-default:focus {
-	background: var(--secondary-color-2) !important;
-	color: var(--navbar-bg-color) !important;
-  	border: 2px solid var(--primary-color);
+	background: transparent !important;
+	color: var(--navbar-link-hover-color) !important;
+  	border: 2px solid var(--navbar-link-hover-color);
 }
 
 h1 {
@@ -312,7 +307,7 @@ section h2 {
 
 #yw-topnav .navbar-nav > li > a {
   font-family: var(--main-title-fontfamily);
-  }', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
+}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageFooter',  now(), '{{section class=\"text-center\"}}
 👉 [[https://projetclic.cc CLIC]] 👈
 Galope sous [[https://yeswiki.net YesWiki]] et [[https://yunohost.org Yunohost]]
@@ -377,7 +372,7 @@ Ces services ont été mis en place par {{button class=\"btn-primary new-window\
  - {{button nobtn=\"1\" icon=\"fas fa-user\" text=\"Mes contenus\" link=\"MesContenus\"}}
  - {{button nobtn=\"1\" icon=\"fa fa-briefcase\" text=\"Formulaires\" link=\"BazaR\"}}
  - ------
- - {{button nobtn=\"1\" icon=\"fas fa-cog\" text=\"Admin Yunohost\" link=\"yunohost/admin\"}}
+ - {{button nobtn=\"1\" icon=\"fas fa-cog\" text=\"Admin Yunohost\" link=\"/yunohost/admin\"}}
 {{end elem=\"buttondropdown\"}}
 {{login template=\"modal.tpl.html\"}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageTitre',  now(), '![logo CLIC](files/logoclic.png)', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
