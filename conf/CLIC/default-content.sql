@@ -369,7 +369,7 @@ Ces services ont été mis en place par {{button class=\"btn-primary new-window\
 =====Echanger=====
 ', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageRapideHaut',  now(), '{{moteurrecherche template=\"moteurrecherche_button.tpl.html\"}}
-{{buttondropdown icon=\"cog\" caret=\"0\" title=\"Roue crantée\"}}
+{{buttondropdown icon=\"cog\" caret=\"0\" title=\"Gestion du site\"}}
  - {{button nobtn=\"1\" icon=\"fa fa-tachometer-alt\" text=\"Tableau de bord\" link=\"TableauDeBord\"}}
  - {{button nobtn=\"1\" icon=\"fa fa-question\" text=\"Documentation\" link=\"doc\"}}
  - ------
