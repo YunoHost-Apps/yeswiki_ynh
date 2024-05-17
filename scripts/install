@@ -51,7 +51,7 @@ admin_temp_pass=$(ynh_string_random 20)
 
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
-if [$wikimodel = "CLIC"]; then
+if [ $wikimodel = "CLIC" ]; then
         # replace default yeswiki model with CLIC model
         mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
         cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
@@ -63,7 +63,7 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
         "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
         "admin_email=$admin%40$domain" "submit=Continue"
 
-if [$wikimodel = "CLIC"]; then
+if [ $wikimodel = "CLIC" ]; then
         # restore original yeswiki model
         mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
@@ -72,7 +72,7 @@ fi
 # (kind of strange, should be doable using the previous curl?)
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$install_dir/wakka.config.php"
 
-if [$authprovider = "Yunohost LDAP"]; then
+if [ $authprovider = "Yunohost LDAP" ]; then
         #=================================================
         # DOWNLOAD AND CONFIGURE LDAP PLUGIN
         #=================================================
@@ -88,7 +88,7 @@ if [$authprovider = "Yunohost LDAP"]; then
         ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$install_dir/wakka.config.php"
 fi
 
-if [$wikimodel = "CLIC"]; then
+if [ $wikimodel = "CLIC" ]; then
         #=================================================
         # DOWNLOAD AND CONFIGURE FERME PLUGIN
         #=================================================

@@ -51,15 +51,15 @@ default = "fr"
 ask.en = "Choose the wiki model"
 ask.fr = "Choisissez le modèle de wiki"
 type = "select"
-choices = ["default", "CLIC"]
-default = "default"
+choices = ["YesWiki", "CLIC"]
+default = "YesWiki"
 
 [install.authprovider]
 ask.en = "Choose the authentification type"
 ask.fr = "Choisissez le système d'authentification"
 type = "select"
-choices = ["LDAP Yunohost", "YesWiki"]
-default = "LDAP Yunohost"
+choices = ["Yunohost LDAP", "YesWiki"]
+default = "Yunohost LDAP"
 
 [install.admin]
 type = "user"
