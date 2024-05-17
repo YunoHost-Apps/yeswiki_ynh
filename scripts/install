@@ -51,29 +51,61 @@ admin_temp_pass=$(ynh_string_random 20)
 
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
+if [$wikimodel = "CLIC"]; then
+        # replace default yeswiki model with CLIC model
+        mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
+        cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
+fi
+
 ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name_escaped" \
         "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
         "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
         "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
         "admin_email=$admin%40$domain" "submit=Continue"
 
+if [$wikimodel = "CLIC"]; then
+        # restore original yeswiki model
+        mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
+fi
+
 # authorization of html
 # (kind of strange, should be doable using the previous curl?)
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$install_dir/wakka.config.php"
 
-#=================================================
-# DOWNLOAD AND CONFIGURE LDAP PLUGIN
-#=================================================
-ynh_script_progression --message="Configure LDAP plugin" --weight=2
+if [$authprovider = "Yunohost LDAP"]; then
+        #=================================================
+        # DOWNLOAD AND CONFIGURE LDAP PLUGIN
+        #=================================================
+        ynh_script_progression --message="Configure LDAP plugin" --weight=2
 
-# Download LDAP plugin from yeswiki repository
-mkdir -p "$install_dir/tools/loginldap"
-ynh_setup_source --dest_dir="$install_dir/tools/loginldap" --source_id="loginldap"
+        # Download LDAP plugin from yeswiki repository
+        mkdir -p "$install_dir/tools/loginldap"
+        ynh_setup_source --dest_dir="$install_dir/tools/loginldap" --source_id="loginldap"
 
-# Add config at the end of wakka.config.php
-ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$install_dir/wakka.config.php"
-ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$install_dir/wakka.config.php"
-ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$install_dir/wakka.config.php"
+        # Add config at the end of wakka.config.php
+        ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$install_dir/wakka.config.php"
+        ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$install_dir/wakka.config.php"
+        ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$install_dir/wakka.config.php"
+fi
+
+if [$wikimodel = "CLIC"]; then
+        #=================================================
+        # DOWNLOAD AND CONFIGURE FERME PLUGIN
+        #=================================================
+        ynh_script_progression --message="Configure ferme plugin" --weight=2
+
+        # Download ferme plugin from yeswiki repository
+        mkdir -p "$install_dir/tools/ferme"
+        ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
+
+        # copy css presets and files from CLIC
+        cp -R ../source/CLIC/custom/* $install_dir/custom/
+        cp -R ../source/CLIC/files/* $install_dir/files/
+
+        # update configuration
+        ynh_replace_string --match_string=");" --replace_string="  'favorite_preset' => 'custom/clic.css',\n);" --target_file="$install_dir/wakka.config.php"
+        ynh_replace_string --match_string=");" --replace_string="  'favicon' => 'files/faviconclic.png',\n);" --target_file="$install_dir/wakka.config.php"
+fi
 
 #=================================================
 # SECURE FILES AND DIRECTORIES

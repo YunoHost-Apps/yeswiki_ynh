@@ -47,6 +47,20 @@ type = "select"
 choices = ["fr", "en", "ca", "es", "nl", "pt"]
 default = "fr"
 
+[install.wikimodel]
+ask.en = "Choose the wiki model"
+ask.fr = "Choisissez le modèle de wiki"
+type = "select"
+choices = ["default", "CLIC"]
+default = "default"
+
+[install.authprovider]
+ask.en = "Choose the authentification type"
+ask.fr = "Choisissez le système d'authentification"
+type = "select"
+choices = ["LDAP Yunohost", "YesWiki"]
+default = "LDAP Yunohost"
+
 [install.admin]
 type = "user"
 
@@ -67,6 +81,10 @@ autoupdate.strategy = "latest_github_tag"
 [resources.sources.loginldap]
 url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
 sha256 = "28c9489e4fb0c83e0e775d80a1d07cbc3fbf56d42ab550b45571455f1a6ce9f9"
+
+[resources.sources.ferme]
+url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
+sha256 = "e83a21eaa911b7beb2d845a16c896b2d4d4db2a9d5d2dfca8f0b7c910a329203"
 
 [resources.system_user]
 
