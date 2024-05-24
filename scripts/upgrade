@@ -19,17 +19,19 @@ upgrade_type=$(ynh_check_app_version_changed)
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then
-    ynh_script_progression --message="Upgrading source files..." --weight=5
+if [ "$upgrade_type" == "UPGRADE_APP" ]; then
+	ynh_script_progression --message="Upgrading source files..." --weight=5
 
-    # Download, check integrity, uncompress and patch the source from app.src
-    # TODO : find a way to sync stable extensions list to avoid hardcoded extensions folders to keep
-    noncore_extensions="$(echo tools/{accountactivationbyemail,advancedsearch,benevolat,ferme,fontautoinstall,ipblock,lms,login-sso,logincas,loginldap,maintenance,multideletepages,nextcloudconnector,publication,qrcode,stats,tabdyn,twolevels,webhooks,yunohost})"
-    ferme_instances="$(cd $install_dir; for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done)"
-    ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
+	# Download, check integrity, uncompress and patch the source from app.src
+	# TODO : find a way to sync stable extensions list to avoid hardcoded extensions folders to keep
+	noncore_extensions="$(echo tools/{accountactivationbyemail,advancedsearch,benevolat,ferme,fontautoinstall,importer,ipblock,lms,login-sso,logincas,loginldap,maintenance,multideletepages,nextcloudconnector,publication,qrcode,stats,tabdyn,twolevels,webhooks,yunohost})"
+	ferme_instances="$(
+		cd $install_dir
+		for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
+	)"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
 
-    ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$" --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)'," --target_file="$install_dir/wakka.config.php"
+	ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$" --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)'," --target_file="$install_dir/wakka.config.php"
 fi
 
 chmod -R o-rwx "$install_dir"
@@ -56,23 +58,20 @@ ynh_script_progression --message="Installing composer dependencies..."
 ynh_exec_warn_less ynh_install_composer --phpversion="$phpversion" --workdir="$install_dir"
 
 #=================================================
-# DOWNLOAD AND CONFIGURE LDAP PLUGIN
+# DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
 
-ynh_script_progression --message="Upgrading LDAP plugin..." --weight=3
+ynh_script_progression --message="Upgrading Yunohost plugin..." --weight=3
 
-# Download LDAP plugin from yeswiki repository
-ynh_secure_remove "$install_dir/tools/loginldap"
-mkdir -p "$install_dir/tools/loginldap"
-ynh_setup_source --dest_dir="$install_dir/tools/loginldap" --source_id="loginldap"
+# Download yunohost plugin from yeswiki repository
+ynh_secure_remove "$install_dir/tools/yunohost"
+mkdir -p "$install_dir/tools/yunohost"
+ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
-if ! grep -q "ldap_host" "$install_dir/wakka.config.php"
-then
-    # Add LDAP config at the end of wakka.config.php
-    ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$install_dir/wakka.config.php"
-    ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$install_dir/wakka.config.php"
-    ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org'\n);" --target_file="$install_dir/wakka.config.php"
-fi
+# Download importer plugin from yeswiki repository
+ynh_secure_remove "$install_dir/tools/importer"
+mkdir -p "$install_dir/tools/importer"
+ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
 
 #=================================================
 # SECURE FILES AND DIRECTORIES

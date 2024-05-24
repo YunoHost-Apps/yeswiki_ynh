@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.4~ynh2"
+version = "4.4.4~ynh3"
 
 maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
 
@@ -21,7 +21,7 @@ yunohost = ">= 11.2"
 architectures = "all"
 multi_instance = true
 ldap = true
-sso = false
+sso = true
 disk = "100M"
 ram.build = "200M"
 ram.runtime = "50M"
@@ -47,6 +47,20 @@ type = "select"
 choices = ["fr", "en", "ca", "es", "nl", "pt"]
 default = "fr"
 
+[install.wikimodel]
+ask.en = "Choose the wiki model"
+ask.fr = "Choisissez le modèle de wiki"
+type = "select"
+choices = ["YesWiki", "CLIC"]
+default = "YesWiki"
+
+[install.authprovider]
+ask.en = "Choose the authentification type"
+ask.fr = "Choisissez le système d'authentification"
+type = "select"
+choices = ["Yunohost SSO", "YesWiki"]
+default = "Yunohost SSO"
+
 [install.admin]
 type = "user"
 
@@ -64,9 +78,17 @@ url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.4.tar.gz"
 sha256 = "0b4e97bdd01ab627a8a9cb5bf652708e34a9322509cb8fcb9db0fb12b6a3e6ef"
 autoupdate.strategy = "latest_github_tag"
 
-[resources.sources.loginldap]
-url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
-sha256 = "28c9489e4fb0c83e0e775d80a1d07cbc3fbf56d42ab550b45571455f1a6ce9f9"
+[resources.sources.yunohostplugin]
+url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.0.zip"
+sha256 = "60032781016d2bdcecce4ad5ae91e72407e64a994f63661e27a7a935ba52d50b"
+
+[resources.sources.importerplugin]
+url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.0.zip"
+sha256 = "7c5e730b4724a991ae64fdf457b9ec6d0416621f7fecb38e5b7a73e36d22eb00"
+
+[resources.sources.ferme]
+url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
+sha256 = "e83a21eaa911b7beb2d845a16c896b2d4d4db2a9d5d2dfca8f0b7c910a329203"
 
 [resources.system_user]
 
