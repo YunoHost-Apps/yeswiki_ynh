@@ -382,7 +382,7 @@ Double cliquer sur ce texte pour éditer cette colonne.
 \"\"\"\"', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageMenuHaut',  now(), ' - [Accueil]({{rootpage}})
  - [Services](Services)
- - [Ressources](Ressource)', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
+ - [Ressources](Ressources)', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('{{rootPage}}',  now(), '
 {{section bgcolor=\"var(--primary-color)\" class=\"shape-rounded\" pattern=\"border-solid\" }}=====Bienvenue=====
 Vous êtes sur un espace auto-hébergé de partage de ressource et d\'outils numériques coopératifs sous license libre.
