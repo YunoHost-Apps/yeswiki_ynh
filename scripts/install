@@ -72,20 +72,29 @@ fi
 # (kind of strange, should be doable using the previous curl?)
 ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$install_dir/wakka.config.php"
 
-if [ "${authprovider}" = "Yunohost LDAP" ]; then
+if [ "${authprovider}" = "Yunohost SSO" ]; then
         #=================================================
-        # DOWNLOAD AND CONFIGURE LDAP PLUGIN
+        # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
         #=================================================
-        ynh_script_progression --message="Configure LDAP plugin" --weight=2
+        ynh_script_progression --message="Configure yunohost plugin" --weight=2
 
-        # Download LDAP plugin from yeswiki repository
-        mkdir -p "$install_dir/tools/loginldap"
-        ynh_setup_source --dest_dir="$install_dir/tools/loginldap" --source_id="loginldap"
+        # Download yeswiki plugin from yeswiki repository
+        mkdir -p "$install_dir/tools/yunohost"
+        ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
         # Add config at the end of wakka.config.php
-        ynh_replace_string --match_string=");" --replace_string="  'ldap_host' => '127.0.0.1',\n);" --target_file="$install_dir/wakka.config.php"
-        ynh_replace_string --match_string=");" --replace_string="  'ldap_port' => '389',\n);" --target_file="$install_dir/wakka.config.php"
-        ynh_replace_string --match_string=");" --replace_string="  'ldap_base' => 'ou=users,dc=yunohost,dc=org',\n);" --target_file="$install_dir/wakka.config.php"
+        ynh_replace_string --match_string=");" --replace_string="  'enable_yunohost_sso' => true,\n);" --target_file="$install_dir/wakka.config.php"
+
+
+        # ToDo : verify if we need to chmod yunohost-user-info.sh to make it executable
+
+        # ToDo : update the CSS for mobile devices
+
+        # ToDo : update CLIC yeswiki model to display the yunohost apps
+
+        # ToDo : run the yunohost app importer during CLIC install
+
+        ynh_add_jinja_config --template="sudoers" --destination="/etc/sudoers.d/$app"
 fi
 
 if [ "${wikimodel}" = "CLIC" ]; then
