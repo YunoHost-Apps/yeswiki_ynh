@@ -1,2 +1,2 @@
-__USER__ ALL = (root) NOPASSWD: __FINALPATH__/tools/yunohost/private/scripts/yunohost-user-info.sh
-__USER__ ALL = (root) NOPASSWD: __FINALPATH__/tools/yunohost/private/scripts/yunohost-app-list.sh
+__USER__ ALL = (root) NOPASSWD: __INSTALL_DIR__/tools/yunohost/private/scripts/yunohost-user-info.sh
+__USER__ ALL = (root) NOPASSWD: __INSTALL_DIR__/tools/yunohost/private/scripts/yunohost-app-list.sh
