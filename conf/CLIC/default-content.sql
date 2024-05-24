@@ -307,6 +307,54 @@ section h2 {
 
 #yw-topnav .navbar-nav > li > a {
   font-family: var(--main-title-fontfamily);
+}
+
+@media (max-width: 800px) {
+  #yw-topnav .navbar-header .navbar-brand {
+    padding: 0;
+  }
+  #yw-topnav .btn .fa {
+    font-size: 1rem !important;
+  }
+  #yw-topnav .yw-topnav-fast-access .btn.btn-default, #yw-topnav .btn.btn-menu.btn-default, #yw-topnav .yw-topnav-fast-access .btn.btn-default:hover, #yw-topnav .yw-topnav-fast-access .btn.btn-default:focus {
+    font-size: 0;
+    padding: 0;
+  }
+  #yw-topnav .yw-topnav-fast-access .btn {
+	  margin-left: 0;
+	}
+	
+	#yw-topnav .yw-topnav-fast-access .btn i {
+	  font-size: 1rem;
+	}
+	
+	#yw-topnav .btn.btn-default {
+	  min-height: 2rem;
+	  min-width: 2rem;
+	  display: flex;
+	  align-content: center;
+	  align-items: center;
+	  text-align: center;
+	  justify-content: center;
+	}
+	
+	#yw-topnav .container {
+	  padding: 0 .25rem;
+	}
+	.yw-topnav-fast-access {
+	  min-width: 150px;
+	  min-height: 70px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	#yw-topnav .navbar-brand img {
+	  max-height: 2.5rem;
+	  width: auto;
+	  margin-left: 0;
+	  margin-top: .2rem;
+	}
 }', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageFooter',  now(), '{{section class=\"text-center\"}}
 👉 [[https://projetclic.cc CLIC]] 👈
@@ -332,9 +380,9 @@ Double cliquer sur ce texte pour éditer cette colonne.
 
 
 \"\"\"\"', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
-('PageMenuHaut',  now(), ' - [[?PagePrincipale#Cooperer Coopérer]]
- - [[?PagePrincipale#S-informer S\'informer]]
- - [[?PagePrincipale#Echanger Echanger]]', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
+('PageMenuHaut',  now(), ' - [Accueil]({{rootpage}})
+ - [Services](Services)
+ - [Ressources](Ressource)', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('{{rootPage}}',  now(), '
 {{section bgcolor=\"var(--primary-color)\" class=\"shape-rounded\" pattern=\"border-solid\" }}=====Bienvenue=====
 Vous êtes sur un espace auto-hébergé de partage de ressource et d\'outils numériques coopératifs sous license libre.
@@ -342,26 +390,6 @@ Tout est à disposition pour que vous puissiez consulter cela localement, chez v
 
 Ces services ont été mis en place par {{button class=\"btn-primary new-window\" link=\"https://colibris-outilslibres.org/\" nobtn=\"1\" text=\"Colibris\" title=\"mouvement Colibris\" }}, {{button class=\"new-window\" link=\"https://distrilab.fr\" nobtn=\"1\" text=\"le DistriLab\" title=\"le DistriLab\"}}, {{button class=\"new-window\" link=\"https://www.ritimo.org/\" nobtn=\"1\" text=\"Ritimo\" title=\"Ritimo\"}}, {{button class=\"new-window\" link=\"https://yeswiki.net\" nobtn=\"1\" text=\"YesWiki\" title=\"YesWiki\"}}, {{button class=\"new-window\" link=\"https://yunohost.org\" nobtn=\"1\" text=\"YUNoHost\" title=\"YUNoHost\"}}, {{button class=\"new-window\" link=\"https://framasoft.org\" nobtn=\"1\" text=\"Framasoft\" title=\"Framasoft\"}},…
 {{end elem=\"section\"}}
-
-\"\"<div id=\"Cooperer\"></div>\"\"
-=====Coopérer=====
-
-
-
-
-
-
-
-\"\"<div id=\"S-informer\"></div>\"\"
-=====S\'informer=====
-
-
-
-
-
-
-\"\"<div id=\"Echanger\"></div>\"\"
-=====Echanger=====
 ', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageRapideHaut',  now(), '{{moteurrecherche template=\"moteurrecherche_button.tpl.html\"}}
 {{buttondropdown icon=\"cog\" caret=\"0\" title=\"Gestion du site\"}}
@@ -377,6 +405,9 @@ Ces services ont été mis en place par {{button class=\"btn-primary new-window\
 {{login template=\"modal.tpl.html\"}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('PageTitre',  now(), '![logo CLIC](files/logoclic.png)', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('ParametresUtilisateur',  now(), '{{UserSettings}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
+('Ressources', now(), '# Ressources
+
+{{bazarliste id=\"4\" template=\"card\" displayfields=\"visual=imagebf_image,title=bf_titre,subtitle=bf_description,footer=checkboxListeType\" nbcol=\"1\" style=\"horizontal\" }}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('RechercheTexte',  now(), '{{newtextsearch}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('ReglesDeFormatage',  now(), 'N\'hésitez pas à personnaliser cette page d\'aide (code utile, astuce...) en cliquant sur [ReglesDeFormatage](ReglesDeFormatage/edit){.newtab}
 {#Placez votre aide personnalisée entre ici#}
@@ -450,6 +481,9 @@ Il est possible de copier des icônes dans des sites sources puis de les coller 
 ('SaisirRessource',  now(), '{{nav links=\"FacetteRessource, SaisirRessource\" titles=\"Les ressources, Déposer une ressource\"}}
 
 {{bazar voirmenu=\"0\" vue=\"saisir\" id=\"4\"}}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
+('Services', now(), '# Services libres
+
+{{bazarliste id=\"5\" template=\"card\" displayfields=\"visual=imagebf_image,title=bf_titre,subtitle=bf_description\" groups=\"listeListeVisibilite\" imgstyle=\"contain\" nbcol=\"3\" }}', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('TableauDeBord',  now(), '# Tableau de bord
 {{accordion }}
 

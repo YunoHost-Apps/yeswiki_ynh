@@ -20,6 +20,8 @@ ynh_remove_nginx_config
 # Remove the dedicated PHP-FPM config
 ynh_remove_fpm_config
 
+# TODO: remove /etc/sudoers/$app
+
 #=================================================
 # END OF SCRIPT
 #=================================================

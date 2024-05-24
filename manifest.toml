@@ -78,13 +78,13 @@ url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.4.tar.gz"
 sha256 = "0b4e97bdd01ab627a8a9cb5bf652708e34a9322509cb8fcb9db0fb12b6a3e6ef"
 autoupdate.strategy = "latest_github_tag"
 
-[resources.sources.loginldap]
-url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
-sha256 = "28c9489e4fb0c83e0e775d80a1d07cbc3fbf56d42ab550b45571455f1a6ce9f9"
-
 [resources.sources.yunohostplugin]
 url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.0.zip"
-sha256 = ""
+sha256 = "60032781016d2bdcecce4ad5ae91e72407e64a994f63661e27a7a935ba52d50b"
+
+[resources.sources.importerplugin]
+url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.0.zip"
+sha256 = "7c5e730b4724a991ae64fdf457b9ec6d0416621f7fecb38e5b7a73e36d22eb00"
 
 [resources.sources.ferme]
 url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
