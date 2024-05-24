@@ -97,7 +97,7 @@ ynh_replace_string --match_string=");" --replace_string="  'dataSources' => [\n'
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
 # Add app user in sudoers to authorize to launch yunohost cli commands without password
-ynh_add_jinja_config --template="sudoers" --destination="/etc/sudoers.d/$app"
+ynh_add_config --template="sudoers" --destination="/etc/sudoers.d/$app"
 
 # At last, run the YunoHost app importer
 ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
