@@ -58,8 +58,8 @@ default = "YesWiki"
 ask.en = "Choose the authentification type"
 ask.fr = "Choisissez le système d'authentification"
 type = "select"
-choices = ["Yunohost LDAP", "YesWiki"]
-default = "Yunohost LDAP"
+choices = ["Yunohost SSO", "YesWiki"]
+default = "Yunohost SSO"
 
 [install.admin]
 type = "user"
@@ -81,6 +81,10 @@ autoupdate.strategy = "latest_github_tag"
 [resources.sources.loginldap]
 url = "https://repository.yeswiki.net/doryphore/extension-loginldap-1.0.0.zip"
 sha256 = "28c9489e4fb0c83e0e775d80a1d07cbc3fbf56d42ab550b45571455f1a6ce9f9"
+
+[resources.sources.yunohostplugin]
+url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.0.zip"
+sha256 = ""
 
 [resources.sources.ferme]
 url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"

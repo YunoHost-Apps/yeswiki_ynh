@@ -1,0 +1,2 @@
+{{ app }} ALL = (root) NOPASSWD: {{ install_dir }}/tools/yunohost/private/scripts/yunohost-user-info.sh
+{{ app }} ALL = (root) NOPASSWD: {{ install_dir }}/tools/yunohost/private/scripts/yunohost-app-list.sh
