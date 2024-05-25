@@ -380,7 +380,7 @@ Double cliquer sur ce texte pour éditer cette colonne.
 
 
 \"\"\"\"', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
-('PageMenuHaut',  now(), ' - [Accueil]({{rootpage}})
+('PageMenuHaut',  now(), ' - [Accueil]({{rootPage}})
  - [Services](Services)
  - [Ressources](Ressources)', '', '{{WikiName}}', '{{WikiName}}', 'Y', 'page', ''),
 ('{{rootPage}}',  now(), '
