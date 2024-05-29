@@ -86,7 +86,7 @@ sha256 = "60032781016d2bdcecce4ad5ae91e72407e64a994f63661e27a7a935ba52d50b"
 
 [resources.sources.importerplugin]
 url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.1.zip"
-sha256 = "5e0312e5053588e45e5c415b43ca75d388bcf589d09fa6f09da1e3d7f5cfd755"
+sha256 = "443f46bb4b1316a408bee4cee1f69ef8f16ae072e9e2761f4dca641e20303c71"
 
 [resources.sources.ferme]
 url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
