@@ -26,7 +26,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Paketatutako bertsioa:** 4.4.4~ynh5
+**Paketatutako bertsioa:** 4.4.4~ynh6
 
 **Demoa:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
