@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.4~ynh4"
+version = "4.4.4~ynh5"
 
 maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
 
@@ -84,7 +84,7 @@ sha256 = "60032781016d2bdcecce4ad5ae91e72407e64a994f63661e27a7a935ba52d50b"
 
 [resources.sources.importerplugin]
 url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.0.zip"
-sha256 = "7c5e730b4724a991ae64fdf457b9ec6d0416621f7fecb38e5b7a73e36d22eb00"
+sha256 = "5e0312e5053588e45e5c415b43ca75d388bcf589d09fa6f09da1e3d7f5cfd755"
 
 [resources.sources.ferme]
 url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
