@@ -26,7 +26,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**分发版本：** 4.4.4~ynh4
+**分发版本：** 4.4.4~ynh6
 
 **演示：** <https://ferme.yeswiki.net/?CreerSonWiki>
 
