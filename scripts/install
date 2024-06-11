@@ -99,6 +99,9 @@ chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 # Add app user in sudoers to authorize to launch yunohost cli commands without password
 ynh_add_config --template="sudoers" --destination="/etc/sudoers.d/$app"
 chown root:root /etc/sudoers.d/$app
+ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh
+chmod +x /etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh
 
 # At last, run the YunoHost app importer
 ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
