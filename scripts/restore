@@ -36,6 +36,20 @@ ynh_script_progression --message="Restoring the NGINX web server configuration..
 ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
 #=================================================
+# RESTORE THE IMPORTER PLUGIN SUDOERS FILE
+#=================================================
+ynh_script_progression --message="Restoring the app importer plugin sudoers file..."
+
+ynh_restore_file --origin_path="/etc/sudoers.d/$app"
+
+#=================================================
+# RESTORE THE IMPORTER PLUGIN POST APP INSTALL HOOK
+#=================================================
+ynh_script_progression --message="Restoring the app importer post app install hook..."
+
+ynh_restore_file --origin_path="/etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh"
+
+#=================================================
 # RESTORE THE MYSQL DATABASE
 #=================================================
 ynh_script_progression --message="Restoring the MySQL database..." --weight=3
