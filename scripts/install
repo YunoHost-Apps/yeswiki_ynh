@@ -103,6 +103,7 @@ ynh_add_config --template="sudoers" --destination="/etc/sudoers.d/$app"
 chown root:root /etc/sudoers.d/$app
 
 # Add a post app install hook to sync the app importer
+mkdir -p /etc/yunohost/hooks.d/post_app_install
 ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
 chmod +x /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
