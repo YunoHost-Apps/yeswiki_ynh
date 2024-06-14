@@ -93,11 +93,13 @@ fi
 
 # ToDo : Add app importer config in wakka.config.php if it is not already there ?
 
-# At last, run the YunoHost app importer
-ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
-pushd $install_dir
-ynh_exec_as $app ./yeswicli importer:sync -s yunohost-cli
-popd
+# At last, run the YunoHost app importer if its data source is configured
+if [ $(grep yunohost-cli "$install_dir/wakka.config.php" | wc -l) != "0" ]; then
+  ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
+  pushd $install_dir
+  ynh_exec_as $app ./yeswicli importer:sync -s yunohost-cli
+  popd
+fi
 
 #=================================================
 # SECURE FILES AND DIRECTORIES
