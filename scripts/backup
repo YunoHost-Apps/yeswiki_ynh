@@ -43,7 +43,7 @@ ynh_backup --src_path="/etc/sudoers.d/$app"
 # BACKUP THE IMPORTER PLUGIN POST APP INSTALL HOOK
 #=================================================
 
-ynh_backup --src_path="/etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh"
+ynh_backup --src_path="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
 
 #=================================================
 # BACKUP THE MYSQL DATABASE
