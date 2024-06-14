@@ -86,13 +86,12 @@ ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/ho
 chown root:root /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
 chmod +x /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
 
-# ToDo : Add app importer config in wakka.config.php if it is not already there ?
-
 if [ $(grep yunohost_sso_domain "$install_dir/wakka.config.php" | wc -l) = "0" ]; then
   SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
-  ynh_replace_string --match_string=");" --replace_string="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --target_file="$install_dir/wakka.config.php"
+  ynh_replace_string --match_string="wakkaConfig = array (" --replace_string="$wakkaConfig = array (\n  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --target_file="$install_dir/wakka.config.php"
 fi
 
+# ToDo : Add app importer config in wakka.config.php if it is not already there ?
 
 # At last, run the YunoHost app importer
 ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
