@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.4~ynh6"
+version = "4.4.4~ynh7"
 
 maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
 
@@ -72,7 +72,7 @@ ask.fr = "Choisissez le nom de votre wiki"
 help.en = "If you want a name with spaces: replace them with %20 for each space."
 help.fr = "Si vous souhaitez un nom avec des espacements : remplacez les par %20 pour chaque espace"
 type = "string"
-default = "MyYunoHostWiki"
+default = "YesWiki"
 
 [resources]
 [resources.sources.main]
@@ -81,8 +81,8 @@ sha256 = "0b4e97bdd01ab627a8a9cb5bf652708e34a9322509cb8fcb9db0fb12b6a3e6ef"
 autoupdate.strategy = "latest_github_tag"
 
 [resources.sources.yunohostplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.0.zip"
-sha256 = "60032781016d2bdcecce4ad5ae91e72407e64a994f63661e27a7a935ba52d50b"
+url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.1.zip"
+sha256 = "43012db78928dd59539c764029880e3f74f82972e494f7ebf1e365d5f8763c6a"
 
 [resources.sources.importerplugin]
 url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.1.zip"
