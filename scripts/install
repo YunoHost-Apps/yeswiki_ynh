@@ -17,7 +17,7 @@ ynh_script_progression --message="Setting up source files..." --weight=5
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-chown -R $app:www-data $install_dir
+chown -R ${app}:www-data $install_dir
 chmod -R u=rwX,g=rX,o-rwx $install_dir
 
 #=================================================
@@ -92,6 +92,8 @@ ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostp
 
 # Add config at the end of wakka.config.php
 ynh_replace_string --match_string=");" --replace_string="  'dataSources' => [\n'yunohost-cli' => [\n'formId' => '5', // form id used in local bazar\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp', // importer class name (without Importer suffix)\n],\n],\n);" --target_file="$install_dir/wakka.config.php"
+SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
+ynh_replace_string --match_string=");" --replace_string="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --target_file="$install_dir/wakka.config.php"
 
 # Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
@@ -101,9 +103,10 @@ ynh_add_config --template="sudoers" --destination="/etc/sudoers.d/$app"
 chown root:root /etc/sudoers.d/$app
 
 # Add a post app install hook to sync the app importer
-ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh"
-chown root:root /etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh
-chmod +x /etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh
+mkdir -p /etc/yunohost/hooks.d/post_app_install
+ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
+chmod +x /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
 
 # At last, run the YunoHost app importer
 ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
@@ -144,7 +147,7 @@ fi
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-chown -R $app:www-data $install_dir
+chown -R ${app}:www-data $install_dir
 chmod -R u=rwX,g=rX,o-rwx $install_dir
 chmod g-rwx $install_dir/wakka.config.php
 

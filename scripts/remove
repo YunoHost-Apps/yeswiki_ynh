@@ -24,7 +24,7 @@ ynh_remove_fpm_config
 ynh_secure_remove --file="/etc/sudoers/$app"
 
 # Remove post app install hook
-ynh_secure_remove --file="/etc/yunohost/hooks.d/post_app_install/$app_sync_app_importer.sh"
+ynh_secure_remove --file="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
 
 #=================================================
 # END OF SCRIPT
