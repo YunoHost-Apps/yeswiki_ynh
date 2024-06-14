@@ -34,6 +34,18 @@ ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 ynh_backup --src_path="/etc/php/$phpversion/fpm/pool.d/$app.conf"
 
 #=================================================
+# BACKUP THE IMPORTER PLUGIN SUDOERS FILE
+#=================================================
+
+ynh_backup --src_path="/etc/sudoers.d/$app"
+
+#=================================================
+# BACKUP THE IMPORTER PLUGIN POST APP INSTALL HOOK
+#=================================================
+
+ynh_backup --src_path="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+
+#=================================================
 # BACKUP THE MYSQL DATABASE
 #=================================================
 ynh_print_info --message="Backing up the MySQL database..."
