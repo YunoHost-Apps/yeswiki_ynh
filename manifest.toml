@@ -59,6 +59,8 @@ default = "YesWiki"
 [install.authprovider]
 ask.en = "Choose the authentification type"
 ask.fr = "Choisissez le système d'authentification"
+help.en = "Choose Yunohost SSO to restrict auth to the YunoHost users, choose YesWiki to have an independant user base managed by YesWiki."
+help.fr = "Choisir Yunohost SSO pour n'utiliser que la base d'utilisateurices de YunoHost ou choisir YesWiki pour une base indépendante gérée par YesWiki."
 type = "select"
 choices = ["Yunohost SSO", "YesWiki"]
 default = "Yunohost SSO"
@@ -100,7 +102,7 @@ sha256 = "e83a21eaa911b7beb2d845a16c896b2d4d4db2a9d5d2dfca8f0b7c910a329203"
 main.url = "/"
 
 [resources.apt]
-packages = "mariadb-server, php8.2-zip, php8.2-curl, php8.2-gd, php8.2-dom, php8.2-mysql, php8.2-ldap"
+packages = "mariadb-server, php8.2-zip, php8.2-curl, php8.2-gd, php8.2-dom, php8.2-mysql, php8.2-ldap, php8.2-zip"
 
 [resources.database]
 type = "mysql"
