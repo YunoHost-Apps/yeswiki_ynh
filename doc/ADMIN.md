@@ -1,5 +1,5 @@
 #### LDAP/SSO integration
 
-LDAP integration is now enabled on new installs. It is possible to disable it on older installs by removing the loginldap plugin. **Warning: only do this if you know credentials for a wiki admin account !**
+SSO authentication is supported by default. It is possible to choose the standalone YesWiki authentication during install.
 
-At the moment SSO authentication is not supported. It is necessary to login on the wiki.
+If you upgraded from YesWiki version < 4.4.4 and want to use the SSO authentication, you must add `"enable_yunohost_sso" => true,` in the `wakka.config.php` file.

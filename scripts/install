@@ -61,16 +61,12 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
         "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
         "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
         "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
-        "admin_email=$admin%40$domain" "submit=Continue"
+        "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
 if [ "${wikimodel}" = "CLIC" ]; then
         # restore original yeswiki model
         mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
-
-# authorization of html
-# (kind of strange, should be doable using the previous curl?)
-ynh_replace_string --match_string="'allow_raw_html' => false," --replace_string="'allow_raw_html' => true," --target_file="$install_dir/wakka.config.php"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE IMPORTER PLUGIN
