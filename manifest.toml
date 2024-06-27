@@ -93,8 +93,8 @@ url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.1.zip"
 sha256 = "43012db78928dd59539c764029880e3f74f82972e494f7ebf1e365d5f8763c6a"
 
 [resources.sources.importerplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.2.zip"
-sha256 = "681cf7e325796363490bd296fa0c0a7d04b8a3a8fa8f85731effa073e1a4bfb3"
+url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.3.zip"
+sha256 = "638dc760a4750441c13f05456bf31243066b2c6aca8bab2f94c49e9c0a1ff840"
 
 [resources.sources.ferme]
 url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
