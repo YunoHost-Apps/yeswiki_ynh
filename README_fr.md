@@ -5,7 +5,7 @@ Il NE doit PAS être modifié à la main.
 
 # YesWiki pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/yeswiki.svg)](https://dash.yunohost.org/appci/app/yeswiki) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)
+[![Niveau d’intégration](https://dash.yunohost.org/integration/yeswiki.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)
 
 [![Installer YesWiki avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
@@ -26,7 +26,7 @@ Néanmoins, avec un YesWiki on peut fabriquer un site internet aux usages multip
 - Cultiver un bout de liberté...
 
 
-**Version incluse :** 4.4.4~ynh8
+**Version incluse :** 4.4.4~ynh9
 
 **Démo :** <https://ferme.yeswiki.net/?CreerSonWiki>
 
