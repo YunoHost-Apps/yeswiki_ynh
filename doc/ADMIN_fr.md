@@ -1,5 +1,5 @@
 #### Intégration LDAP/SSO
 
-L'intégration au LDAP est maintenant activée pour les nouvelles installations. Il est possible de la désactiver sur les anciennes installations en retirant l'extension loginldap. **Attention : Ne pas retirer l'extension sans connaitre d'identifiants administrateurs du wiki**
+L'authentification SSO est prise en charge, mais peut être remplacée par une authentification propre à YesWiki.
 
-Pour le moment l'authentification SSO n'est pas prise en charge. Il est nécessaire de se connecter sur le wiki.
+Si vous mettez à jour depuis une version de YesWiki < 4.4.4 et que vous voulez utiliser l'authentification SSO de YunoHost, vous devez ajouter `"enable_yunohost_sso" => true,` dans le fichier `wakka.config.php`.
