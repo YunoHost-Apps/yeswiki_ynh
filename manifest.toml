@@ -5,9 +5,9 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.4~ynh8"
+version = "4.4.4~ynh9"
 
-maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf"]
+maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
 [upstream]
 license = "AGPL-3.0-only"
@@ -76,6 +76,12 @@ help.fr = "Si vous souhaitez un nom avec des espacements : remplacez les par %20
 type = "string"
 default = "YesWiki"
 
+[install.allow_robots]
+ask.en = "Allow search engines indexing"
+ask.fr = "Permettre l'indexation par les moteurs de recherche"
+type = "boolean"
+default = true
+
 [resources]
 [resources.sources.main]
 url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.4.tar.gz"
@@ -87,8 +93,8 @@ url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.1.zip"
 sha256 = "43012db78928dd59539c764029880e3f74f82972e494f7ebf1e365d5f8763c6a"
 
 [resources.sources.importerplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.1.zip"
-sha256 = "443f46bb4b1316a408bee4cee1f69ef8f16ae072e9e2761f4dca641e20303c71"
+url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.2.zip"
+sha256 = "681cf7e325796363490bd296fa0c0a7d04b8a3a8fa8f85731effa073e1a4bfb3"
 
 [resources.sources.ferme]
 url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
@@ -102,7 +108,7 @@ sha256 = "e83a21eaa911b7beb2d845a16c896b2d4d4db2a9d5d2dfca8f0b7c910a329203"
 main.url = "/"
 
 [resources.apt]
-packages = "mariadb-server, php8.2-zip, php8.2-curl, php8.2-gd, php8.2-dom, php8.2-mysql, php8.2-ldap, php8.2-zip"
+packages = "mariadb-server, php8.2-curl, php8.2-gd, php8.2-dom, php8.2-mysql, php8.2-ldap, php8.2-zip"
 
 [resources.database]
 type = "mysql"
