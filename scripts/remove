@@ -20,11 +20,21 @@ ynh_remove_nginx_config
 # Remove the dedicated PHP-FPM config
 ynh_remove_fpm_config
 
+
+#=================================================
 # Remove sudoers file
+#=================================================
+ynh_script_progression --message="Removing sudoers file..." --weight=1
 ynh_secure_remove --file="/etc/sudoers/$app"
 
-# Remove post app install hook
+#=================================================
+# Remove hooks
+#=================================================
+ynh_script_progression --message="Removing hooks..." --weight=1
 ynh_secure_remove --file="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+ynh_secure_remove --file="/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+ynh_secure_remove --file="/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
+ynh_secure_remove --file="/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
 
 #=================================================
 # END OF SCRIPT
