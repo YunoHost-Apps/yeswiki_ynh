@@ -25,7 +25,7 @@ ynh_remove_fpm_config
 # Remove sudoers file
 #=================================================
 ynh_script_progression --message="Removing sudoers file..." --weight=1
-ynh_secure_remove --file="/etc/sudoers/$app"
+rm "/etc/sudoers/$app"
 
 #=================================================
 # Remove hooks
