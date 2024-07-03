@@ -87,7 +87,7 @@ mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
 # Add config at the end of wakka.config.php
-ynh_replace_string --match_string=");" --replace_string="  'dataSources' => [\n'yunohost-cli' => [\n'formId' => '5', // form id used in local bazar\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp', // importer class name (without Importer suffix)\n],\n],\n);" --target_file="$install_dir/wakka.config.php"
+ynh_replace_string --match_string=");" --replace_string="  'dataSources' => [\n'yunohost-apps' => [\n'formId' => '5', // form id used in local bazar\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp', // importer class name (without Importer suffix)\n],\n],\n);" --target_file="$install_dir/wakka.config.php"
 SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
 ynh_replace_string --match_string=");" --replace_string="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --target_file="$install_dir/wakka.config.php"
 
@@ -100,14 +100,36 @@ chown root:root /etc/sudoers.d/$app
 
 # Add a post app install hook to sync the app importer
 mkdir -p /etc/yunohost/hooks.d/post_app_install
+chmod 700 /etc/yunohost/hooks.d/post_app_install
 ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
-chmod +x /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
+
+# Add a post app remove hook to sync the app importer
+mkdir -p /etc/yunohost/hooks.d/post_app_remove
+chmod 700 /etc/yunohost/hooks.d/post_app_remove
+ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh
+
+# Add a post user create hook to sync the user importer
+mkdir -p /etc/yunohost/hooks.d/post_user_create
+chmod 700 /etc/yunohost/hooks.d/post_user_create
+ynh_add_config --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
+
+# Add a post user delete hook to sync the user importer
+mkdir -p /etc/yunohost/hooks.d/post_user_delete
+chmod 700 /etc/yunohost/hooks.d/post_user_delete
+ynh_add_config --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 
 # At last, run the YunoHost app importer
 ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
 pushd $install_dir
-ynh_exec_as $app ./yeswicli importer:sync -s yunohost-cli
+ynh_exec_as $app ./yeswicli importer:sync -s yunohost-apps
 popd
 
 if [ "${authprovider}" = "Yunohost SSO" ]; then
