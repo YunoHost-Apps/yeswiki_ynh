@@ -1,26 +1,17 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# CHECK VERSION
-#=================================================
-
-upgrade_type=$(ynh_check_app_version_changed)
+ynh_app_setting_set_default --key=php_upload_max_filesize --value=500M
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]; then
-	ynh_script_progression --message="Upgrading source files..." --weight=5
+# FIXME: this is still supported but the recommendation is now to *always* re-setup the app sources wether or not the upstream sources changed
+if ynh_app_upstream_version_changed; then
+	ynh_script_progression "Upgrading source files..."
 
 	# Download, check integrity, uncompress and patch the source from app.src
 	# TODO : find a way to sync stable extensions list to avoid hardcoded extensions folders to keep
@@ -29,47 +20,45 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]; then
 		cd $install_dir
 		for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
 	)"
-	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
 
-	ynh_replace_string --match_string="yeswiki_release' \?=> \?'.*',$" --replace_string="yeswiki_release' => '$(ynh_app_upstream_version)'," --target_file="$install_dir/wakka.config.php"
+	ynh_replace --match="yeswiki_release' \?=> \?'.*',$" --replace="yeswiki_release' => '$(ynh_app_upstream_version)'," --file="$install_dir/wakka.config.php"
 fi
 
-chmod -R o-rwx "$install_dir"
-chown -R ${app}:www-data "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R ${app}:www-data "$install_dir"
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=low --footprint=low
+ynh_config_add_phpfpm
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
-#=================================================
-# SPECIFIC UPGRADE
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing composer dependencies..."
+ynh_script_progression "Installing composer dependencies..."
 
-ynh_exec_warn_less ynh_install_composer --phpversion="$phpversion" --workdir="$install_dir"
+ynh_composer_install
+ynh_composer_exec install --no-dev
 
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
 
-ynh_script_progression --message="Upgrading Yunohost plugin..." --weight=3
+ynh_script_progression "Upgrading Yunohost plugin..."
 
 # Download yunohost plugin from yeswiki repository
-ynh_secure_remove "$install_dir/tools/yunohost"
+ynh_safe_rm "$install_dir/tools/yunohost"
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
 # Download importer plugin from yeswiki repository
-ynh_secure_remove "$install_dir/tools/importer"
+ynh_safe_rm "$install_dir/tools/importer"
 mkdir -p "$install_dir/tools/importer"
 ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
 
@@ -77,27 +66,27 @@ ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerp
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
 # Add app user in sudoers to authorize to launch yunohost cli commands without password
-ynh_add_config --template="sudoers" --destination="/etc/sudoers.d/$app"
-chown root:root /etc/sudoers.d/$app
+ynh_config_add --template="sudoers" --destination="/etc/sudoers.d/$app"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown root:root /etc/sudoers.d/$app
 
 # Add a post app install hook to sync the app importer
 mkdir -p /etc/yunohost/hooks.d/post_app_install
-ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+ynh_config_add --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
 chmod +x /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
 
 if [ $(grep yunohost_sso_domain "$install_dir/wakka.config.php" | wc -l) = "0" ]; then
   SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
-  ynh_replace_string --match_string="'wakka_version'" --replace_string="'yunohost_sso_domain' => '${SSO_DOMAIN}',\n  'wakka_version'" --target_file="$install_dir/wakka.config.php"
+  ynh_replace --match="'wakka_version'" --replace="'yunohost_sso_domain' => '${SSO_DOMAIN}',\n  'wakka_version'" --file="$install_dir/wakka.config.php"
 fi
 
 # ToDo : Add app importer config in wakka.config.php if it is not already there ?
 
 # At last, run the YunoHost app importer if its data source is configured
 if [ $(grep yunohost-cli "$install_dir/wakka.config.php" | wc -l) != "0" ]; then
-  ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
+  ynh_script_progression "Import YunoHost apps in bazar"
   pushd $install_dir
-  ynh_exec_as $app ./yeswicli importer:sync -s yunohost-cli
+  ynh_exec_as_app ./yeswicli importer:sync -s yunohost-cli
   popd
 fi
 
@@ -105,12 +94,12 @@ fi
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-chown -R ${app}:www-data $install_dir
-chmod -R u=rwX,g=rX,o-rwx $install_dir
-chmod g-rwx $install_dir/wakka.config.php
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R ${app}:www-data $install_dir
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R u=rwX,g=rX,o-rwx $install_dir
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod g-rwx $install_dir/wakka.config.php
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"

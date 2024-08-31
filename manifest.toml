@@ -17,7 +17,8 @@ admindoc = "https://yeswiki.net/?DocumentatioN"
 code = "https://github.com/YesWiki/yeswiki"
 
 [integration]
-yunohost = ">= 11.2"
+yunohost = ">= 11.2.18"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 ldap = true
@@ -103,6 +104,7 @@ sha256 = "e83a21eaa911b7beb2d845a16c896b2d4d4db2a9d5d2dfca8f0b7c910a329203"
 [resources.system_user]
 
 [resources.install_dir]
+group = "www-data:r-x"
 
 [resources.permissions]
 main.url = "/"
