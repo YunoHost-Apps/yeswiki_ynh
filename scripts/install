@@ -48,20 +48,20 @@ admin_temp_pass=$(ynh_string_random --length=20)
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
 if [ "${wikimodel}" = "CLIC" ]; then
-        # replace default yeswiki model with CLIC model
-        mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
-        cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
+  # replace default yeswiki model with CLIC model
+  mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
+  cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
 fi
 
 ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name_escaped" \
-        "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
-        "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
-        "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
-        "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
+  "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
+  "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
+  "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
+  "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
 if [ "${wikimodel}" = "CLIC" ]; then
-        # restore original yeswiki model
-        mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
+  # restore original yeswiki model
+  mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
 
 #=================================================
@@ -105,21 +105,21 @@ chmod 700 /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
 # Add a post app remove hook to sync the app importer
 mkdir -p /etc/yunohost/hooks.d/post_app_remove
 chmod 700 /etc/yunohost/hooks.d/post_app_remove
-ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+ynh_config_add --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh
 chmod 700 /etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh
 
 # Add a post user create hook to sync the user importer
 mkdir -p /etc/yunohost/hooks.d/post_user_create
 chmod 700 /etc/yunohost/hooks.d/post_user_create
-ynh_add_config --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
+ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
 chmod 700 /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
 
 # Add a post user delete hook to sync the user importer
 mkdir -p /etc/yunohost/hooks.d/post_user_delete
 chmod 700 /etc/yunohost/hooks.d/post_user_delete
-ynh_add_config --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
+ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 chmod 700 /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 
@@ -130,32 +130,32 @@ ynh_exec_as_app ./yeswicli importer:sync -s yunohost-apps
 popd
 
 if [ "${authprovider}" = "Yunohost SSO" ]; then
-        #=================================================
-        # CONFIGURE YUNOHOST PLUGIN
-        #=================================================
-        ynh_script_progression "Enable YunoHost SSO"
+  #=================================================
+  # CONFIGURE YUNOHOST PLUGIN
+  #=================================================
+  ynh_script_progression "Enable YunoHost SSO"
 
-        # Add config at the end of wakka.config.php
-        ynh_replace --match=");" --replace="  'enable_yunohost_sso' => true,\n);" --file="$install_dir/wakka.config.php"
+  # Add config at the end of wakka.config.php
+  ynh_replace --match=");" --replace="  'enable_yunohost_sso' => true,\n);" --file="$install_dir/wakka.config.php"
 fi
 
 if [ "${wikimodel}" = "CLIC" ]; then
-        #=================================================
-        # DOWNLOAD AND CONFIGURE FERME PLUGIN
-        #=================================================
-        ynh_script_progression "Configure ferme plugin"
+  #=================================================
+  # DOWNLOAD AND CONFIGURE FERME PLUGIN
+  #=================================================
+  ynh_script_progression "Configure ferme plugin"
 
-        # Download ferme plugin from yeswiki repository
-        mkdir -p "$install_dir/tools/ferme"
-        ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
+  # Download ferme plugin from yeswiki repository
+  mkdir -p "$install_dir/tools/ferme"
+  ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
 
-        # copy css presets and files from CLIC
-        cp -R ../source/CLIC/custom/* $install_dir/custom/
-        cp -R ../source/CLIC/files/* $install_dir/files/
+  # copy css presets and files from CLIC
+  cp -R ../source/CLIC/custom/* $install_dir/custom/
+  cp -R ../source/CLIC/files/* $install_dir/files/
 
-        # update configuration
-        ynh_replace --match=");" --replace="  'favorite_preset' => 'custom/clic.css',\n);" --file="$install_dir/wakka.config.php"
-        ynh_replace --match=");" --replace="  'favicon' => 'files/faviconclic.png',\n);" --file="$install_dir/wakka.config.php"
+  # update configuration
+  ynh_replace --match=");" --replace="  'favorite_preset' => 'custom/clic.css',\n);" --file="$install_dir/wakka.config.php"
+  ynh_replace --match=");" --replace="  'favicon' => 'files/faviconclic.png',\n);" --file="$install_dir/wakka.config.php"
 fi
 
 #=================================================
