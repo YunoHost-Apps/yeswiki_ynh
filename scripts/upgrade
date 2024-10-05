@@ -63,7 +63,7 @@ chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
 # Add app user in sudoers to authorize to launch yunohost cli commands without password
 ynh_config_add --template="sudoers" --destination="/etc/sudoers.d/$app"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown root:root /etc/sudoers.d/$app
+chown root:root /etc/sudoers.d/$app
 
 # Add a post app install hook to sync the app importer
 mkdir -p /etc/yunohost/hooks.d/post_app_install
