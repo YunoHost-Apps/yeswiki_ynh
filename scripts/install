@@ -10,24 +10,17 @@ ynh_app_setting_set --key=php_upload_max_filesize --value=500M
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R ${app}:www-data $install_dir
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R u=rwX,g=rX,o-rwx $install_dir
 #=================================================
-# PHP-FPM CONFIGURATION
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression "Adding system configurations related to $app ..."
+ynh_script_progression "Adding system configurations related to $app..."
 
-# Create a dedicated PHP-FPM config
 ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
 ynh_config_add_nginx
 
-#=================================================
-# SPECIFIC SETUP
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
@@ -39,8 +32,6 @@ ynh_composer_exec install --no-dev
 #=================================================
 # SETUP APPLICATION WITH CURL
 #=================================================
-
-# Installation with curl
 ynh_script_progression "Finalizing installation..."
 
 admin_temp_pass=$(ynh_string_random --length=20)
@@ -48,7 +39,7 @@ admin_temp_pass=$(ynh_string_random --length=20)
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
 if [ "${wikimodel}" = "CLIC" ]; then
-  # replace default yeswiki model with CLIC model
+  # Replace default yeswiki model with CLIC model
   mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
   cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
 fi
@@ -60,7 +51,7 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
   "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
 if [ "${wikimodel}" = "CLIC" ]; then
-  # restore original yeswiki model
+  # Restore original yeswiki model
   mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
 
@@ -78,7 +69,7 @@ ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerp
 #=================================================
 ynh_script_progression "Configure yunohost plugin"
 
-# Download yeswiki plugin from yeswiki repository
+# Download yeswiki plugin from YesWiki repository
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
@@ -90,7 +81,7 @@ ynh_replace --match=");" --replace="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\
 # Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
-# Add app user in sudoers to authorize to launch yunohost cli commands without password
+# Add app user in sudoers to authorize to launch YunoHost CLI commands without password
 ynh_config_add --template="sudoers" --destination="/etc/sudoers.d/$app"
 chown root:root /etc/sudoers.d/$app
 
@@ -145,26 +136,18 @@ if [ "${wikimodel}" = "CLIC" ]; then
   #=================================================
   ynh_script_progression "Configure ferme plugin"
 
-  # Download ferme plugin from yeswiki repository
+  # Download ferme plugin from YesWiki repository
   mkdir -p "$install_dir/tools/ferme"
   ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
 
-  # copy css presets and files from CLIC
+  # Copy CSS presets and files from CLIC
   cp -R ../source/CLIC/custom/* $install_dir/custom/
   cp -R ../source/CLIC/files/* $install_dir/files/
 
-  # update configuration
+  # Update configuration
   ynh_replace --match=");" --replace="  'favorite_preset' => 'custom/clic.css',\n);" --file="$install_dir/wakka.config.php"
   ynh_replace --match=");" --replace="  'favicon' => 'files/faviconclic.png',\n);" --file="$install_dir/wakka.config.php"
 fi
-
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R ${app}:www-data $install_dir
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R u=rwX,g=rX,o-rwx $install_dir
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod g-rwx $install_dir/wakka.config.php
 
 #=================================================
 # END OF SCRIPT
