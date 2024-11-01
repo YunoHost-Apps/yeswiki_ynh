@@ -37,7 +37,7 @@ However, with a YesWiki we can build a website with multiple uses:
 ## Documentaciones y recursos
 
 - Sitio web oficial: <https://yeswiki.net/>
-- Documentación administrador oficial: <https://yeswiki.net/?DocumentatioN>
+- Documentación administrador oficial: <https://yeswiki.net/?doc>
 - Repositorio del código fuente oficial de la aplicación : <https://github.com/YesWiki/yeswiki>
 - Catálogo YunoHost: <https://apps.yunohost.org/app/yeswiki>
 - Reportar un error: <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>

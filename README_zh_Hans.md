@@ -37,7 +37,7 @@ However, with a YesWiki we can build a website with multiple uses:
 ## 文档与资源
 
 - 官方应用网站： <https://yeswiki.net/>
-- 官方管理文档： <https://yeswiki.net/?DocumentatioN>
+- 官方管理文档： <https://yeswiki.net/?doc>
 - 上游应用代码库： <https://github.com/YesWiki/yeswiki>
 - YunoHost 商店： <https://apps.yunohost.org/app/yeswiki>
 - 报告 bug： <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>

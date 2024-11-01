@@ -37,7 +37,7 @@ However, with a YesWiki we can build a website with multiple uses:
 ## Dokumentasi dan sumber daya
 
 - Website aplikasi resmi: <https://yeswiki.net/>
-- Dokumentasi admin resmi: <https://yeswiki.net/?DocumentatioN>
+- Dokumentasi admin resmi: <https://yeswiki.net/?doc>
 - Depot kode aplikasi hulu: <https://github.com/YesWiki/yeswiki>
 - Gudang YunoHost: <https://apps.yunohost.org/app/yeswiki>
 - Laporkan bug: <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>
