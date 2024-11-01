@@ -28,7 +28,9 @@ ynh_backup "/etc/php/$php_version/fpm/pool.d/$app.conf"
 # BACKUP THE IMPORTER PLUGIN SUDOERS FILE
 #=================================================
 
-ynh_backup "/etc/sudoers.d/$app"
+if [ -d "/etc/sudoers.d/$app" ]; then
+  ynh_backup "/etc/sudoers.d/$app"
+fi
 
 #=================================================
 # BACKUP THE IMPORTERS HOOKS

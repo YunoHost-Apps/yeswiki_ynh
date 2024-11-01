@@ -7,13 +7,13 @@ description.fr = "Wiki facile et rapide à prendre en main"
 
 version = "4.4.5~ynh1"
 
-maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
+maintainers = ["Eric Gaspar", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
 [upstream]
 license = "AGPL-3.0-only"
 website = "https://yeswiki.net/"
 demo = "https://ferme.yeswiki.net/?CreerSonWiki"
-admindoc = "https://yeswiki.net/?DocumentatioN"
+admindoc = "https://yeswiki.net/?doc"
 code = "https://github.com/YesWiki/yeswiki"
 
 [integration]
