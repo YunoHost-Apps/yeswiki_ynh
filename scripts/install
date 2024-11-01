@@ -10,7 +10,6 @@ ynh_app_setting_set --key=php_upload_max_filesize --value=500M
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
@@ -18,14 +17,10 @@ ynh_setup_source --dest_dir="$install_dir"
 #=================================================
 ynh_script_progression "Adding system configurations related to $app ..."
 
-# Create a dedicated PHP-FPM config
 ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
 ynh_config_add_nginx
 
-#=================================================
-# SPECIFIC SETUP
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
@@ -37,8 +32,6 @@ ynh_composer_exec install --no-dev
 #=================================================
 # SETUP APPLICATION WITH CURL
 #=================================================
-
-# Installation with curl
 ynh_script_progression "Finalizing installation..."
 
 admin_temp_pass=$(ynh_string_random --length=20)
@@ -46,7 +39,7 @@ admin_temp_pass=$(ynh_string_random --length=20)
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
 if [ "${wikimodel}" = "CLIC" ]; then
-  # replace default yeswiki model with CLIC model
+  # Replace default YesWiki model with CLIC model
   mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
   cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
 fi
@@ -58,7 +51,7 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
   "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
 if [ "${wikimodel}" = "CLIC" ]; then
-  # restore original yeswiki model
+  # restore original YesWiki model
   mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
 
@@ -67,14 +60,14 @@ fi
 #=================================================
 ynh_script_progression "Configure importer plugin"
 
-# Download importer plugin from yeswiki repository
+# Download importer plugin from YesWiki repository
 mkdir -p "$install_dir/tools/importer"
 ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
-ynh_script_progression "Configure yunohost plugin"
+ynh_script_progression "Configure YunoHost plugin"
 
 # Download yeswiki plugin from yeswiki repository
 mkdir -p "$install_dir/tools/yunohost"
@@ -88,7 +81,7 @@ ynh_replace --match=");" --replace="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\
 # Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
-# Add app user in sudoers to authorize to launch yunohost cli commands without password
+# Add app user in sudoers to authorize to launch YunoHost CLI commands without password
 ynh_config_add --template="sudoers" --destination="/etc/sudoers.d/$app"
 chown root:root /etc/sudoers.d/$app
 
@@ -143,15 +136,15 @@ if [ "${wikimodel}" = "CLIC" ]; then
   #=================================================
   ynh_script_progression "Configure ferme plugin"
 
-  # Download ferme plugin from yeswiki repository
+  # Download ferme plugin from YesWiki repository
   mkdir -p "$install_dir/tools/ferme"
   ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
 
-  # copy css presets and files from CLIC
+  # copy CSS presets and files from CLIC
   cp -R ../source/CLIC/custom/* $install_dir/custom/
   cp -R ../source/CLIC/files/* $install_dir/files/
 
-  # update configuration
+  # Update configuration
   ynh_replace --match=");" --replace="  'favorite_preset' => 'custom/clic.css',\n);" --file="$install_dir/wakka.config.php"
   ynh_replace --match=");" --replace="  'favicon' => 'files/faviconclic.png',\n);" --file="$install_dir/wakka.config.php"
 fi
