@@ -60,11 +60,11 @@ default = "YesWiki"
 [install.authprovider]
 ask.en = "Choose the authentification type"
 ask.fr = "Choisissez le système d'authentification"
-help.en = "Choose Yunohost SSO to restrict auth to the YunoHost users, choose YesWiki to have an independant user base managed by YesWiki."
-help.fr = "Choisir Yunohost SSO pour n'utiliser que la base d'utilisateurices de YunoHost ou choisir YesWiki pour une base indépendante gérée par YesWiki."
+help.en = "Choose YunoHost SSO to restrict auth to the YunoHost users, choose YesWiki to have an independant user base managed by YesWiki."
+help.fr = "Choisir YunoHost SSO pour n'utiliser que la base d'utilisateurices de YunoHost ou choisir YesWiki pour une base indépendante gérée par YesWiki."
 type = "select"
-choices = ["Yunohost SSO", "YesWiki"]
-default = "Yunohost SSO"
+choices = ["YunoHost SSO", "YesWiki"]
+default = "YunoHost SSO"
 
 [install.admin]
 type = "user"

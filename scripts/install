@@ -69,7 +69,7 @@ ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerp
 #=================================================
 ynh_script_progression "Configure YunoHost plugin"
 
-# Download yeswiki plugin from yeswiki repository
+# Download YesWiki plugin from YesWiki repository
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
