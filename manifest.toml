@@ -90,7 +90,7 @@ sha256 = "b07191634aad96722e21b2898da6ed9ed80c1b6567e39d4bc94e7006e7c4fc07"
 autoupdate.strategy = "latest_github_tag"
 
 [resources.sources.yunohostplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.1.zip"
+url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.3.zip"
 sha256 = "43012db78928dd59539c764029880e3f74f82972e494f7ebf1e365d5f8763c6a"
 
 [resources.sources.importerplugin]
