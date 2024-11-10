@@ -23,7 +23,7 @@ ynh_backup "/etc/php/$php_version/fpm/pool.d/$app.conf"
 # BACKUP VARIOUS FILES
 #=================================================
 
-if [ -d "/etc/sudoers.d/$app" ]; then
+if [ -f "/etc/sudoers.d/$app" ]; then
   ynh_backup "/etc/sudoers.d/$app"
 fi
 
