@@ -12,7 +12,12 @@ ynh_config_remove_nginx
 
 ynh_config_remove_phpfpm
 
-ynh_safe_rm "/etc/sudoers/$app"
+#=================================================
+# Remove sudoers file
+#=================================================
+ynh_script_progression "Removing sudoers file..."
+
+ynh_safe_rm "/etc/sudoers.d/$app"
 
 #=================================================
 # Remove hooks

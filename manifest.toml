@@ -5,15 +5,15 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.4.4~ynh9"
+version = "4.4.5~ynh1"
 
-maintainers = ["Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
+maintainers = ["Eric Gaspar", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
 [upstream]
 license = "AGPL-3.0-only"
 website = "https://yeswiki.net/"
 demo = "https://ferme.yeswiki.net/?CreerSonWiki"
-admindoc = "https://yeswiki.net/?DocumentatioN"
+admindoc = "https://yeswiki.net/?doc"
 code = "https://github.com/YesWiki/yeswiki"
 
 [integration]
@@ -60,11 +60,11 @@ default = "YesWiki"
 [install.authprovider]
 ask.en = "Choose the authentification type"
 ask.fr = "Choisissez le système d'authentification"
-help.en = "Choose Yunohost SSO to restrict auth to the YunoHost users, choose YesWiki to have an independant user base managed by YesWiki."
-help.fr = "Choisir Yunohost SSO pour n'utiliser que la base d'utilisateurices de YunoHost ou choisir YesWiki pour une base indépendante gérée par YesWiki."
+help.en = "Choose YunoHost SSO to restrict auth to the YunoHost users, choose YesWiki to have an independant user base managed by YesWiki."
+help.fr = "Choisir YunoHost SSO pour n'utiliser que la base d'utilisateurices de YunoHost ou choisir YesWiki pour une base indépendante gérée par YesWiki."
 type = "select"
-choices = ["Yunohost SSO", "YesWiki"]
-default = "Yunohost SSO"
+choices = ["YunoHost SSO", "YesWiki"]
+default = "YunoHost SSO"
 
 [install.admin]
 type = "user"
@@ -85,8 +85,8 @@ default = true
 
 [resources]
 [resources.sources.main]
-url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.4.tar.gz"
-sha256 = "0b4e97bdd01ab627a8a9cb5bf652708e34a9322509cb8fcb9db0fb12b6a3e6ef"
+url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.4.5.tar.gz"
+sha256 = "b07191634aad96722e21b2898da6ed9ed80c1b6567e39d4bc94e7006e7c4fc07"
 autoupdate.strategy = "latest_github_tag"
 
 [resources.sources.yunohostplugin]

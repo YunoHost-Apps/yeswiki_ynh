@@ -39,7 +39,7 @@ admin_temp_pass=$(ynh_string_random --length=20)
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
 if [ "${wikimodel}" = "CLIC" ]; then
-  # Replace default yeswiki model with CLIC model
+  # Replace default YesWiki model with CLIC model
   mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
   cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
 fi
@@ -51,7 +51,7 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
   "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
 if [ "${wikimodel}" = "CLIC" ]; then
-  # Restore original yeswiki model
+  # restore original YesWiki model
   mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
 
@@ -60,16 +60,16 @@ fi
 #=================================================
 ynh_script_progression "Configure importer plugin"
 
-# Download importer plugin from yeswiki repository
+# Download importer plugin from YesWiki repository
 mkdir -p "$install_dir/tools/importer"
 ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
-ynh_script_progression "Configure yunohost plugin"
+ynh_script_progression "Configure YunoHost plugin"
 
-# Download yeswiki plugin from YesWiki repository
+# Download YesWiki plugin from YesWiki repository
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
@@ -87,7 +87,6 @@ chown root:root /etc/sudoers.d/$app
 
 # Add a post app install hook to sync the app importer
 mkdir -p /etc/yunohost/hooks.d/post_app_install
-
 chmod 700 /etc/yunohost/hooks.d/post_app_install
 ynh_config_add --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
@@ -140,7 +139,7 @@ if [ "${wikimodel}" = "CLIC" ]; then
   mkdir -p "$install_dir/tools/ferme"
   ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
 
-  # Copy CSS presets and files from CLIC
+  # copy CSS presets and files from CLIC
   cp -R ../source/CLIC/custom/* $install_dir/custom/
   cp -R ../source/CLIC/files/* $install_dir/files/
 

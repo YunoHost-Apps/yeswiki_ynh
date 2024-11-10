@@ -4,4 +4,4 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-composer_version=2.7.7
+composer_version=2.8.1
