@@ -113,6 +113,9 @@ ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/h
 chown root:root /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 chmod 700 /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 
+# use the correct php version in yeswicli
+ynh_replace --match="php " --replace="php${php_version} " --file="$install_dir/yeswicli"
+
 # At last, run the YunoHost app importer
 ynh_script_progression "Import YunoHost apps in bazar"
 pushd $install_dir

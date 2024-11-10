@@ -99,6 +99,9 @@ if [ $(grep yunohost-cli "$install_dir/wakka.config.php" | wc -l) != "0" ]; then
 fi
 # ToDo : Add app importer config in wakka.config.php if it is not already there ? (need to find a formid that is not already used)
 
+# use the correct php version in yeswicli
+ynh_replace --match="php " --replace="php${php_version} " --file="$install_dir/yeswicli"
+
 # At last, run the YunoHost app importer if its data source is configured
 if [ $(grep yunohost-cli "$install_dir/wakka.config.php" | wc -l) != "0" ]; then
   ynh_script_progression "Import YunoHost apps in bazar"
