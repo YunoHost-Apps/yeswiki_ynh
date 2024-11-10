@@ -27,10 +27,10 @@ if [ -d "/etc/sudoers.d/$app" ]; then
   ynh_backup "/etc/sudoers.d/$app"
 fi
 
-ynh_backup --src_path="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
-ynh_backup --src_path="/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
-ynh_backup --src_path="/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
-ynh_backup --src_path="/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
+ynh_backup "/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+ynh_backup "/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+ynh_backup "/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
+ynh_backup "/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
 
 #=================================================
 # BACKUP THE MYSQL DATABASE
