@@ -13,9 +13,9 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
-# PHP-FPM CONFIGURATION
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression "Adding system configurations related to $app ..."
+ynh_script_progression "Adding system configurations related to $app..."
 
 ynh_config_add_phpfpm
 
