@@ -63,7 +63,13 @@ ynh_script_progression "Configure importer plugin"
 # Download importer plugin from YesWiki repository
 mkdir -p "$install_dir/tools/importer"
 ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
-_ynh_apply_default_permissions $install_dir/tools/importer
+
+# we tried this : _ynh_apply_default_permissions $install_dir/tools/importer
+# but it is not working correctly
+# so we do it like that :
+chown -R ${app}:www-data $install_dir/tools/importer
+chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/importer
+# do not fix it if it ain't broken ;-)
 
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
@@ -73,7 +79,13 @@ ynh_script_progression "Configure YunoHost plugin"
 # Download YesWiki plugin from YesWiki repository
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
-_ynh_apply_default_permissions $install_dir/tools/yunohost
+
+# we tried this : _ynh_apply_default_permissions $install_dir/tools/yunohost
+# but it is not working correctly
+# so we do it like that :
+chown -R ${app}:www-data $install_dir/tools/yunohost
+chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/yunohost
+# do not fix it if it ain't broken ;-)
 
 # Add config at the end of wakka.config.php
 ynh_replace --match=");" --replace="  'dataSources' => [\n'yunohost-apps' => [\n'formId' => '5', // form id used in local bazar\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp', // importer class name (without Importer suffix)\n],\n],\n);" --file="$install_dir/wakka.config.php"
@@ -143,7 +155,14 @@ if [ "${wikimodel}" = "CLIC" ]; then
   # Download ferme plugin from YesWiki repository
   mkdir -p "$install_dir/tools/ferme"
   ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
-  _ynh_apply_default_permissions $install_dir/tools/ferme
+
+  # we tried this : _ynh_apply_default_permissions $install_dir/tools/ferme
+  # but it is not working correctly
+  # so we do it like that :
+  chown -R ${app}:www-data $install_dir/tools/ferme
+  chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/ferme
+  # do not fix it if it ain't broken ;-)
+
 
   # copy CSS presets and files from CLIC
   cp -R ../source/CLIC/custom/* $install_dir/custom/
