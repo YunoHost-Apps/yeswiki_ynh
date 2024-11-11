@@ -26,7 +26,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Paketatutako bertsioa:** 4.4.4~ynh9
+**Paketatutako bertsioa:** 4.4.5~ynh1
 
 **Demoa:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
@@ -37,7 +37,7 @@ However, with a YesWiki we can build a website with multiple uses:
 ## Dokumentazioa eta baliabideak
 
 - Aplikazioaren webgune ofiziala: <https://yeswiki.net/>
-- Administratzaileen dokumentazio ofiziala: <https://yeswiki.net/?DocumentatioN>
+- Administratzaileen dokumentazio ofiziala: <https://yeswiki.net/?doc>
 - Jatorrizko aplikazioaren kode-gordailua: <https://github.com/YesWiki/yeswiki>
 - YunoHost Denda: <https://apps.yunohost.org/app/yeswiki>
 - Eman errore baten berri: <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>

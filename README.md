@@ -26,7 +26,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Shipped version:** 4.4.4~ynh9
+**Shipped version:** 4.4.5~ynh1
 
 **Demo:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
@@ -37,7 +37,7 @@ However, with a YesWiki we can build a website with multiple uses:
 ## Documentation and resources
 
 - Official app website: <https://yeswiki.net/>
-- Official admin documentation: <https://yeswiki.net/?DocumentatioN>
+- Official admin documentation: <https://yeswiki.net/?doc>
 - Upstream app code repository: <https://github.com/YesWiki/yeswiki>
 - YunoHost Store: <https://apps.yunohost.org/app/yeswiki>
 - Report a bug: <https://github.com/YunoHost-Apps/yeswiki_ynh/issues>

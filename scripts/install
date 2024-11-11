@@ -1,154 +1,180 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
+
+ynh_app_setting_set --key=php_upload_max_filesize --value=500M
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=5
+ynh_script_progression "Setting up source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-chown -R ${app}:www-data $install_dir
-chmod -R u=rwX,g=rX,o-rwx $install_dir
-
 #=================================================
-# PHP-FPM CONFIGURATION
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding system configurations related to $app ..." --weight=1
+ynh_script_progression "Adding system configurations related to $app..."
 
-# Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=low --footprint=low
+ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
-#=================================================
-# SPECIFIC SETUP
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing composer dependencies..."
+ynh_script_progression "Installing composer dependencies..."
 
-ynh_exec_warn_less ynh_install_composer --phpversion="$phpversion" --workdir="$install_dir"
+ynh_composer_install
+ynh_composer_exec install --no-dev
 
 #=================================================
 # SETUP APPLICATION WITH CURL
 #=================================================
+ynh_script_progression "Finalizing installation..."
 
-# Installation with curl
-ynh_script_progression --message="Finalizing installation..." --weight=2
-
-admin_temp_pass=$(ynh_string_random 20)
+admin_temp_pass=$(ynh_string_random --length=20)
 
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
 if [ "${wikimodel}" = "CLIC" ]; then
-        # replace default yeswiki model with CLIC model
-        mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
-        cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
+  # Replace default YesWiki model with CLIC model
+  mv $install_dir/setup/sql/default-content.sql $install_dir/setup/sql/default-content.sql.original
+  cp ../conf/CLIC/default-content.sql $install_dir/setup/sql/default-content.sql
 fi
 
 ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name_escaped" \
-        "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
-        "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
-        "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
-        "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
+  "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
+  "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
+  "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
+  "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
 if [ "${wikimodel}" = "CLIC" ]; then
-        # restore original yeswiki model
-        mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
+  # restore original YesWiki model
+  mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
 
 #=================================================
 # DOWNLOAD AND CONFIGURE IMPORTER PLUGIN
 #=================================================
-ynh_script_progression --message="Configure importer plugin" --weight=1
+ynh_script_progression "Configure importer plugin"
 
-# Download importer plugin from yeswiki repository
+# Download importer plugin from YesWiki repository
 mkdir -p "$install_dir/tools/importer"
 ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
+
+# we tried this : _ynh_apply_default_permissions $install_dir/tools/importer
+# but it is not working correctly
+# so we do it like that :
+chown -R ${app}:www-data $install_dir/tools/importer
+chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/importer
+# do not fix it if it ain't broken ;-)
 
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
-ynh_script_progression --message="Configure yunohost plugin" --weight=2
+ynh_script_progression "Configure YunoHost plugin"
 
-# Download yeswiki plugin from yeswiki repository
+# Download YesWiki plugin from YesWiki repository
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
+# we tried this : _ynh_apply_default_permissions $install_dir/tools/yunohost
+# but it is not working correctly
+# so we do it like that :
+chown -R ${app}:www-data $install_dir/tools/yunohost
+chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/yunohost
+# do not fix it if it ain't broken ;-)
+
 # Add config at the end of wakka.config.php
-ynh_replace_string --match_string=");" --replace_string="  'dataSources' => [\n'yunohost-cli' => [\n'formId' => '5', // form id used in local bazar\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp', // importer class name (without Importer suffix)\n],\n],\n);" --target_file="$install_dir/wakka.config.php"
+ynh_replace --match=");" --replace="  'dataSources' => [\n'yunohost-apps' => [\n'formId' => '5', // form id used in local bazar\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp', // importer class name (without Importer suffix)\n],\n],\n);" --file="$install_dir/wakka.config.php"
 SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
-ynh_replace_string --match_string=");" --replace_string="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --target_file="$install_dir/wakka.config.php"
+ynh_replace --match=");" --replace="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --file="$install_dir/wakka.config.php"
 
 # Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
-# Add app user in sudoers to authorize to launch yunohost cli commands without password
-ynh_add_config --template="sudoers" --destination="/etc/sudoers.d/$app"
+# Add app user in sudoers to authorize to launch YunoHost CLI commands without password
+ynh_config_add --template="sudoers" --destination="/etc/sudoers.d/$app"
 chown root:root /etc/sudoers.d/$app
 
 # Add a post app install hook to sync the app importer
 mkdir -p /etc/yunohost/hooks.d/post_app_install
-ynh_add_config --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+chmod 700 /etc/yunohost/hooks.d/post_app_install
+ynh_config_add --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
 chown root:root /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
-chmod +x /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh
+
+# Add a post app remove hook to sync the app importer
+mkdir -p /etc/yunohost/hooks.d/post_app_remove
+chmod 700 /etc/yunohost/hooks.d/post_app_remove
+ynh_config_add --template="sync_app_importer.sh" --destination="/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh
+
+# Add a post user create hook to sync the user importer
+mkdir -p /etc/yunohost/hooks.d/post_user_create
+chmod 700 /etc/yunohost/hooks.d/post_user_create
+ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
+
+# Add a post user delete hook to sync the user importer
+mkdir -p /etc/yunohost/hooks.d/post_user_delete
+chmod 700 /etc/yunohost/hooks.d/post_user_delete
+ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
+chown root:root /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
+chmod 700 /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
+
+# use the correct php version in yeswicli
+ynh_replace --match="php " --replace="php${php_version} " --file="$install_dir/yeswicli"
 
 # At last, run the YunoHost app importer
-ynh_script_progression --message="Import YunoHost apps in bazar" --weight=2
+ynh_script_progression "Import YunoHost apps in bazar"
 pushd $install_dir
-ynh_exec_as $app ./yeswicli importer:sync -s yunohost-cli
+ynh_exec_as_app ./yeswicli importer:sync -s yunohost-apps
 popd
 
-if [ "${authprovider}" = "Yunohost SSO" ]; then
-        #=================================================
-        # CONFIGURE YUNOHOST PLUGIN
-        #=================================================
-        ynh_script_progression --message="Enable YunoHost SSO" --weight=1
+if [ "${authprovider}" = "YunoHost SSO" ]; then
+  #=================================================
+  # CONFIGURE YUNOHOST PLUGIN
+  #=================================================
+  ynh_script_progression "Enable YunoHost SSO"
 
-        # Add config at the end of wakka.config.php
-        ynh_replace_string --match_string=");" --replace_string="  'enable_yunohost_sso' => true,\n);" --target_file="$install_dir/wakka.config.php"
+  # Add config at the end of wakka.config.php
+  ynh_replace --match=");" --replace="  'enable_yunohost_sso' => true,\n);" --file="$install_dir/wakka.config.php"
 fi
 
 if [ "${wikimodel}" = "CLIC" ]; then
-        #=================================================
-        # DOWNLOAD AND CONFIGURE FERME PLUGIN
-        #=================================================
-        ynh_script_progression --message="Configure ferme plugin" --weight=2
+  #=================================================
+  # DOWNLOAD AND CONFIGURE FERME PLUGIN
+  #=================================================
+  ynh_script_progression "Configure ferme plugin"
 
-        # Download ferme plugin from yeswiki repository
-        mkdir -p "$install_dir/tools/ferme"
-        ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
+  # Download ferme plugin from YesWiki repository
+  mkdir -p "$install_dir/tools/ferme"
+  ynh_setup_source --dest_dir="$install_dir/tools/ferme" --source_id="ferme"
 
-        # copy css presets and files from CLIC
-        cp -R ../source/CLIC/custom/* $install_dir/custom/
-        cp -R ../source/CLIC/files/* $install_dir/files/
+  # we tried this : _ynh_apply_default_permissions $install_dir/tools/ferme
+  # but it is not working correctly
+  # so we do it like that :
+  chown -R ${app}:www-data $install_dir/tools/ferme
+  chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/ferme
+  # do not fix it if it ain't broken ;-)
 
-        # update configuration
-        ynh_replace_string --match_string=");" --replace_string="  'favorite_preset' => 'custom/clic.css',\n);" --target_file="$install_dir/wakka.config.php"
-        ynh_replace_string --match_string=");" --replace_string="  'favicon' => 'files/faviconclic.png',\n);" --target_file="$install_dir/wakka.config.php"
+
+  # copy CSS presets and files from CLIC
+  cp -R ../source/CLIC/custom/* $install_dir/custom/
+  cp -R ../source/CLIC/files/* $install_dir/files/
+
+  # Update configuration
+  ynh_replace --match=");" --replace="  'favorite_preset' => 'custom/clic.css',\n);" --file="$install_dir/wakka.config.php"
+  ynh_replace --match=");" --replace="  'favicon' => 'files/faviconclic.png',\n);" --file="$install_dir/wakka.config.php"
 fi
-
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
-chown -R ${app}:www-data $install_dir
-chmod -R u=rwX,g=rX,o-rwx $install_dir
-chmod g-rwx $install_dir/wakka.config.php
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"

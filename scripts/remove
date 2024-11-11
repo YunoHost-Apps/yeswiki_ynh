@@ -1,33 +1,36 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# REMOVE NGINX CONFIGURATION
+# REMOVE SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Removing NGINX web server configuration..." --weight=1
+ynh_script_progression "Removing system configurations related to $app..."
 
-# Remove the dedicated NGINX config
-ynh_remove_nginx_config
+ynh_config_remove_nginx
 
-# Remove the dedicated PHP-FPM config
-ynh_remove_fpm_config
+ynh_config_remove_phpfpm
 
+#=================================================
 # Remove sudoers file
-ynh_secure_remove --file="/etc/sudoers/$app"
+#=================================================
+ynh_script_progression "Removing sudoers file..."
 
-# Remove post app install hook
-ynh_secure_remove --file="/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+ynh_safe_rm "/etc/sudoers.d/$app"
+
+#=================================================
+# Remove hooks
+#=================================================
+ynh_script_progression "Removing hooks..."
+
+ynh_safe_rm "/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+ynh_safe_rm "/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+ynh_safe_rm "/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
+ynh_safe_rm "/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Removal of $app completed" --last
+ynh_script_progression "Removal of $app completed"
