@@ -122,7 +122,7 @@ pushd $install_dir
 ynh_exec_as_app ./yeswicli importer:sync -s yunohost-apps
 popd
 
-if [ "${authprovider}" = "Yunohost SSO" ]; then
+if [ "${authprovider}" = "YunoHost SSO" ]; then
   #=================================================
   # CONFIGURE YUNOHOST PLUGIN
   #=================================================
