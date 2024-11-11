@@ -21,23 +21,19 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.con
 
 ynh_replace --match="yeswiki_release' \?=> \?'.*',$" --replace="yeswiki_release' => '$(ynh_app_upstream_version)'," --file="$install_dir/wakka.config.php"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R ${app}:www-data "$install_dir"
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
 
-# Create a dedicated PHP-FPM config
 ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
 ynh_config_add_nginx
 
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
-ynh_script_progression "Installing composer dependencies..."
+ynh_script_progression "Installing Composer dependencies..."
 
 ynh_composer_install
 ynh_composer_exec install --no-dev
@@ -45,15 +41,14 @@ ynh_composer_exec install --no-dev
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
+ynh_script_progression "Upgrading YunoHost plugin..."
 
-ynh_script_progression "Upgrading Yunohost plugin..."
-
-# Download yunohost plugin from yeswiki repository
+# Download yunohost plugin from YesWiki repository
 ynh_safe_rm "$install_dir/tools/yunohost"
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
-# Download importer plugin from yeswiki repository
+# Download importer plugin from YesWiki repository
 ynh_safe_rm "$install_dir/tools/importer"
 mkdir -p "$install_dir/tools/importer"
 ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
@@ -61,7 +56,7 @@ ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerp
 # Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
-# Add app user in sudoers to authorize to launch yunohost cli commands without password
+# Add app user in sudoers to authorize to launch YunoHost CLI commands without password
 ynh_config_add --template="sudoers" --destination="/etc/sudoers.d/$app"
 chown root:root /etc/sudoers.d/$app
 
@@ -104,6 +99,9 @@ if [ $(grep yunohost-cli "$install_dir/wakka.config.php" | wc -l) != "0" ]; then
 fi
 # ToDo : Add app importer config in wakka.config.php if it is not already there ? (need to find a formid that is not already used)
 
+# use the correct php version in yeswicli
+ynh_replace --match="php " --replace="php${php_version} " --file="$install_dir/yeswicli"
+
 # At last, run the YunoHost app importer if its data source is configured
 if [ $(grep yunohost-cli "$install_dir/wakka.config.php" | wc -l) != "0" ]; then
   ynh_script_progression "Import YunoHost apps in bazar"
@@ -111,14 +109,6 @@ if [ $(grep yunohost-cli "$install_dir/wakka.config.php" | wc -l) != "0" ]; then
   ynh_exec_as_app ./yeswicli importer:sync -s yunohost-apps
   popd
 fi
-
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R ${app}:www-data $install_dir
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R u=rwX,g=rX,o-rwx $install_dir
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod g-rwx $install_dir/wakka.config.php
 
 #=================================================
 # END OF SCRIPT
