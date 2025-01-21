@@ -5,7 +5,9 @@
 
 # YunoHost 上的 YesWiki
 
-[![集成程度](https://dash.yunohost.org/integration/yeswiki.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/yeswiki)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
+![工作状态](https://apps.yunohost.org/badge/state/yeswiki)
+![维护状态](https://apps.yunohost.org/badge/maintained/yeswiki)
 
 [![使用 YunoHost 安装 YesWiki](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
@@ -26,7 +28,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**分发版本：** 4.4.5~ynh2
+**分发版本：** 4.5.0~ynh1
 
 **演示：** <https://ferme.yeswiki.net/?CreerSonWiki>
 

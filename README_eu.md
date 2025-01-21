@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # YesWiki YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/yeswiki.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/yeswiki)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/yeswiki)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/yeswiki)
 
 [![Instalatu YesWiki YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
@@ -26,7 +28,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Paketatutako bertsioa:** 4.4.5~ynh2
+**Paketatutako bertsioa:** 4.5.0~ynh1
 
 **Demoa:** <https://ferme.yeswiki.net/?CreerSonWiki>
 

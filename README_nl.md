@@ -5,7 +5,9 @@ Hij mag NIET handmatig aangepast worden.
 
 # YesWiki voor Yunohost
 
-[![Integratieniveau](https://dash.yunohost.org/integration/yeswiki.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/) ![Mate van functioneren](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Onderhoudsstatus](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)
+[![Integratieniveau](https://apps.yunohost.org/badge/integration/yeswiki)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
+![Mate van functioneren](https://apps.yunohost.org/badge/state/yeswiki)
+![Onderhoudsstatus](https://apps.yunohost.org/badge/maintained/yeswiki)
 
 [![YesWiki met Yunohost installeren](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
@@ -26,7 +28,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Geleverde versie:** 4.4.5~ynh2
+**Geleverde versie:** 4.5.0~ynh1
 
 **Demo:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
