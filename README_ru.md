@@ -5,7 +5,9 @@
 
 # YesWiki для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/yeswiki.svg)](https://ci-apps.yunohost.org/ci/apps/yeswiki/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/yeswiki.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/yeswiki.maintain.svg)
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/yeswiki)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
+![Состояние работы](https://apps.yunohost.org/badge/state/yeswiki)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/yeswiki)
 
 [![Установите YesWiki с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=yeswiki)
 
@@ -26,7 +28,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Поставляемая версия:** 4.4.5~ynh2
+**Поставляемая версия:** 4.5.0~ynh1
 
 **Демо-версия:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
