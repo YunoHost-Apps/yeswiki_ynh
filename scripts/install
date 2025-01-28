@@ -76,6 +76,9 @@ chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/importer
 #=================================================
 ynh_script_progression "Configure YunoHost plugin"
 
+# In order to use this extension, we need to provide a cached file with the yunohost version
+cache_yunohost_version
+
 # Download YesWiki plugin from YesWiki repository
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
