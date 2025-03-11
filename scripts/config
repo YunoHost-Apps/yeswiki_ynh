@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#=================================================
+# GENERIC STARTING
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+source _common.sh
+source /usr/share/yunohost/helpers
+
+ynh_abort_if_errors
+
+ynh_app_config_apply() {
+    _ynh_app_config_apply
+
+    if [ "${changed[with_sftp]}" == "true" ] && [ $with_sftp -eq 1 ]
+    then
+        ynh_system_user_add_group --username=$app --groups="sftp.app"
+
+        if [ ! "$password" == "" ]
+        then
+            chpasswd <<< "${app}:${password}"
+        fi
+    elif [ "${changed[with_sftp]}" == "true" ] && [ $with_sftp -eq 0 ]
+    then
+        ynh_system_user_del_group --username=$app --groups="sftp.app"
+    fi
+    
+    if [ "${changed[password]}" == "true" ] && [ ! "$password" == "" ]
+    then
+        chpasswd <<< "${app}:${password}"
+    fi
+
+}
+
+ynh_app_config_run $1
+
