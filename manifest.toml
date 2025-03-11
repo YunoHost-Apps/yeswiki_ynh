@@ -87,7 +87,7 @@ default = true
 ask.en = "Do you need a SFTP access?"
 ask.fr = "Avez-vous besoin d'un accès SFTP ?"
 type = "boolean"
-default = true
+default = false
 
 [install.password]
 type = "password"
