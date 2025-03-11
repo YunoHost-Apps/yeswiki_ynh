@@ -83,6 +83,18 @@ ask.fr = "Permettre l'indexation par les moteurs de recherche"
 type = "boolean"
 default = true
 
+[install.with_sftp]
+ask.en = "Do you need a SFTP access?"
+ask.fr = "Avez-vous besoin d'un accès SFTP ?"
+type = "boolean"
+default = true
+
+[install.password]
+type = "password"
+optional = true
+help.en = "Optional, this corresponds to the password for SFTP access, if you enabled it"
+help.fr = "Optionnel, corresponds au mot de passe pour l'accès SFTP, si vous l'avez activé"
+
 [resources]
 [resources.sources.main]
 url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.0.tar.gz"

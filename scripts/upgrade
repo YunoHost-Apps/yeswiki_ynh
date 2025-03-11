@@ -29,6 +29,15 @@ ynh_config_add_phpfpm
 
 ynh_config_add_nginx
 
+# If with_sftp doesn't exist, create it
+if [ -z "${with_sftp:-}" ]; then
+	with_sftp=1
+	ynh_app_setting_set --app=$app --key=with_sftp --value=$with_sftp
+fi
+
+# Ensure password is a setting even if empty, for the config panel
+ynh_app_setting_set --app=$app --key=password --value="$password"
+
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
