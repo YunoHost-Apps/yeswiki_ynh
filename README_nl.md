@@ -28,7 +28,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Geleverde versie:** 4.5.0~ynh1
+**Geleverde versie:** 4.5.1~ynh1
 
 **Demo:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
