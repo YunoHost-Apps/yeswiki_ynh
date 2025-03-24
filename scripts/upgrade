@@ -40,6 +40,15 @@ ynh_app_setting_set --app=$app --key=password --value="$password"
 
 
 #=================================================
+# INSTALL COMPOSER DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing Composer dependencies..."
+
+ynh_composer_install
+ynh_composer_exec install --no-dev
+
+
+#=================================================
 # ADAPT FILE PERMISSIONS FOR SFTP CHROOT
 #=================================================
 chown -R $app:www-data "$install_dir"
@@ -50,14 +59,6 @@ setfacl -m g:$app:r-x "$install_dir"
 setfacl -m g:www-data:r-x "$install_dir"
 chmod 750 "$install_dir"
 
-
-#=================================================
-# INSTALL COMPOSER DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing Composer dependencies..."
-
-ynh_composer_install
-ynh_composer_exec install --no-dev
 
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN

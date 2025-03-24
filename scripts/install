@@ -62,6 +62,15 @@ fi
 
 
 #=================================================
+# INSTALL COMPOSER DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing composer dependencies..."
+
+ynh_composer_install
+ynh_composer_exec install --no-dev
+
+
+#=================================================
 # ADAPT FILE PERMISSIONS FOR SFTP CHROOT
 #=================================================
 chown -R $app:www-data "$install_dir"
@@ -72,14 +81,6 @@ setfacl -m g:$app:r-x "$install_dir"
 setfacl -m g:www-data:r-x "$install_dir"
 chmod 750 "$install_dir"
 
-
-#=================================================
-# INSTALL COMPOSER DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing composer dependencies..."
-
-ynh_composer_install
-ynh_composer_exec install --no-dev
 
 #=================================================
 # SETUP APPLICATION WITH CURL
