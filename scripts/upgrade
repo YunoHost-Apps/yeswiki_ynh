@@ -38,6 +38,19 @@ fi
 # Ensure password is a setting even if empty, for the config panel
 ynh_app_setting_set --app=$app --key=password --value="$password"
 
+
+#=================================================
+# ADAPT FILE PERMISSIONS FOR SFTP CHROOT
+#=================================================
+chown -R $app:www-data "$install_dir"
+# Home directory of the user needs to be owned by root to allow
+# SFTP connections
+chown root:root "$install_dir"
+setfacl -m g:$app:r-x "$install_dir"
+setfacl -m g:www-data:r-x "$install_dir"
+chmod 750 "$install_dir"
+
+
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
