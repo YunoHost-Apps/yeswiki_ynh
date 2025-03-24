@@ -29,6 +29,15 @@ ynh_config_add_phpfpm
 
 ynh_config_add_nginx
 
+# If with_sftp doesn't exist, create it
+if [ -z "${with_sftp:-}" ]; then
+	with_sftp=0
+	ynh_app_setting_set --app=$app --key=with_sftp --value=$with_sftp
+  # Ensure password is a setting even if empty, for the config panel
+  ynh_app_setting_set --app=$app --key=password --value=""
+fi
+
+
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
@@ -37,10 +46,26 @@ ynh_script_progression "Installing Composer dependencies..."
 ynh_composer_install
 ynh_composer_exec install --no-dev
 
+
+#=================================================
+# ADAPT FILE PERMISSIONS FOR SFTP CHROOT
+#=================================================
+chown -R $app:www-data "$install_dir"
+# Home directory of the user needs to be owned by root to allow
+# SFTP connections
+chown root:root "$install_dir"
+setfacl -m g:$app:r-x "$install_dir"
+setfacl -m g:www-data:r-x "$install_dir"
+chmod 750 "$install_dir"
+
+
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
 ynh_script_progression "Upgrading YunoHost plugin..."
+
+# In order to use yunohost extension, we need to provide a cached file with the yunohost version
+cache_yunohost_version
 
 # Download yunohost plugin from YesWiki repository
 ynh_safe_rm "$install_dir/tools/yunohost"

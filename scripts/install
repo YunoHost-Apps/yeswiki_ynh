@@ -6,6 +6,25 @@ source /usr/share/yunohost/helpers
 ynh_app_setting_set --key=php_upload_max_filesize --value=500M
 
 #=================================================
+# RETRIEVE ARGUMENTS FROM THE MANIFEST
+#=================================================
+password=$YNH_APP_ARG_PASSWORD
+
+#=================================================
+# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
+#=================================================
+ynh_script_progression --message="Validating installation parameters..." --weight=2
+
+[ $with_sftp -eq 0 ] || [ "$password" != "" ] || ynh_die --message="You need to set a password to enable SFTP"
+
+#=================================================
+# STORE SETTINGS FROM MANIFEST
+#=================================================
+ynh_script_progression --message="Storing installation settings..." --weight=1
+
+ynh_app_setting_set --app=$app --key=password --value=$password
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
@@ -20,6 +39,26 @@ ynh_script_progression "Adding system configurations related to $app..."
 ynh_config_add_phpfpm
 
 ynh_config_add_nginx
+
+#=================================================
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Configuring system user..."
+
+if [ $with_sftp -eq 1 ]
+then
+    groups="sftp.app"
+else
+    groups=""
+fi
+
+ynh_system_user_create --username=$app --home_dir="$install_dir" --groups="$groups"
+
+if [ $with_sftp -eq 1 ]
+then
+    # Add the password to this user
+    chpasswd <<< "${app}:${password}"
+fi
 
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
@@ -56,6 +95,17 @@ if [ "${wikimodel}" = "CLIC" ]; then
 fi
 
 #=================================================
+# ADAPT FILE PERMISSIONS FOR SFTP CHROOT
+#=================================================
+chown -R $app:www-data "$install_dir"
+# Home directory of the user needs to be owned by root to allow
+# SFTP connections
+chown root:root "$install_dir"
+setfacl -m g:$app:r-x "$install_dir"
+setfacl -m g:www-data:r-x "$install_dir"
+chmod 750 "$install_dir"
+
+#=================================================
 # DOWNLOAD AND CONFIGURE IMPORTER PLUGIN
 #=================================================
 ynh_script_progression "Configure importer plugin"
@@ -75,6 +125,9 @@ chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/importer
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
 #=================================================
 ynh_script_progression "Configure YunoHost plugin"
+
+# In order to use this extension, we need to provide a cached file with the yunohost version
+cache_yunohost_version
 
 # Download YesWiki plugin from YesWiki repository
 mkdir -p "$install_dir/tools/yunohost"
