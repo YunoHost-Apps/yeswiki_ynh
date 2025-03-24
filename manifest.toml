@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.5.0~ynh1"
+version = "4.5.2~ynh1"
 
 maintainers = ["Eric Gaspar", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -97,21 +97,21 @@ help.fr = "Optionnel, corresponds au mot de passe pour l'accès SFTP, si vous l'
 
 [resources]
 [resources.sources.main]
-url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.0.tar.gz"
-sha256 = "4c24b19b8e7e4e1950fbae32d18756203665714bfe1acc3973dd7d6424f35784"
+url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.2.tar.gz"
+sha256 = "5c074e488879cf88af50032d502d0de089cd1fafcf55914411c6786de7942f05"
 autoupdate.strategy = "latest_github_tag"
 
 [resources.sources.yunohostplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.4.zip"
-sha256 = "bc16413bb57633cd047e8e3d8810224f81f04652d56f9123ccfcd32f91f2e9c3"
+url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.5.zip"
+sha256 = "d2f7077a699050d23363dc6fbb690800531fd0444c12271a28cfa051fac5985b"
 
 [resources.sources.importerplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.3.zip"
-sha256 = "638dc760a4750441c13f05456bf31243066b2c6aca8bab2f94c49e9c0a1ff840"
+url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.4.zip"
+sha256 = "5aeb62c002b5c4df84e5bf3d97c0c0e2868b103eb76d6f0b5acb8f8e52388bf1"
 
 [resources.sources.ferme]
-url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.1.8.zip"
-sha256 = "e83a21eaa911b7beb2d845a16c896b2d4d4db2a9d5d2dfca8f0b7c910a329203"
+url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.1.zip"
+sha256 = "0a9b2ad81c59d8e539dc3d4bbbeff768772366599887cd9b3c3541250f63b13b"
 
 [resources.system_user]
 
