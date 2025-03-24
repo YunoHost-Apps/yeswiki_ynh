@@ -60,7 +60,6 @@ then
     chpasswd <<< "${app}:${password}"
 fi
 
-
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
@@ -68,19 +67,6 @@ ynh_script_progression "Installing composer dependencies..."
 
 ynh_composer_install
 ynh_composer_exec install --no-dev
-
-
-#=================================================
-# ADAPT FILE PERMISSIONS FOR SFTP CHROOT
-#=================================================
-chown -R $app:www-data "$install_dir"
-# Home directory of the user needs to be owned by root to allow
-# SFTP connections
-chown root:root "$install_dir"
-setfacl -m g:$app:r-x "$install_dir"
-setfacl -m g:www-data:r-x "$install_dir"
-chmod 750 "$install_dir"
-
 
 #=================================================
 # SETUP APPLICATION WITH CURL
@@ -107,6 +93,17 @@ if [ "${wikimodel}" = "CLIC" ]; then
   # restore original YesWiki model
   mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
+
+#=================================================
+# ADAPT FILE PERMISSIONS FOR SFTP CHROOT
+#=================================================
+chown -R $app:www-data "$install_dir"
+# Home directory of the user needs to be owned by root to allow
+# SFTP connections
+chown root:root "$install_dir"
+setfacl -m g:$app:r-x "$install_dir"
+setfacl -m g:www-data:r-x "$install_dir"
+chmod 750 "$install_dir"
 
 #=================================================
 # DOWNLOAD AND CONFIGURE IMPORTER PLUGIN
