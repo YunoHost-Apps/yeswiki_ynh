@@ -3,26 +3,22 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
-ynh_app_setting_set --key=php_upload_max_filesize --value=500M
+#=================================================
+# STORE SETTINGS FROM MANIFEST
+#=================================================
+ynh_script_progression "Storing installation settings..."
 
-#=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
-#=================================================
 password=$YNH_APP_ARG_PASSWORD
+ynh_app_setting_set --app=$app --key=password --value=$password
+
+ynh_app_setting_set --key=php_upload_max_filesize --value=500M
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
-ynh_script_progression --message="Validating installation parameters..." --weight=2
+ynh_script_progression "Validating installation parameters..."
 
 [ $with_sftp -eq 0 ] || [ "$password" != "" ] || ynh_die --message="You need to set a password to enable SFTP"
-
-#=================================================
-# STORE SETTINGS FROM MANIFEST
-#=================================================
-ynh_script_progression --message="Storing installation settings..." --weight=1
-
-ynh_app_setting_set --app=$app --key=password --value=$password
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -43,7 +39,7 @@ ynh_config_add_nginx
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Configuring system user..."
+ynh_script_progression "Configuring system user..."
 
 if [ $with_sftp -eq 1 ]
 then
