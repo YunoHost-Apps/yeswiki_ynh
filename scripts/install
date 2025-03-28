@@ -93,6 +93,7 @@ fi
 #=================================================
 # ADAPT FILE PERMISSIONS FOR SFTP CHROOT
 #=================================================
+
 chown -R $app:www-data "$install_dir"
 # Home directory of the user needs to be owned by root to allow
 # SFTP connections
@@ -225,8 +226,9 @@ fi
 #=================================================
 # RUN THE MIGRATIONS
 #=================================================
+
 pushd $install_dir
-ynh_exec_as_app ./yeswicli migrate
+  ynh_exec_as_app ./yeswicli migrate
 popd
 
 #=================================================
