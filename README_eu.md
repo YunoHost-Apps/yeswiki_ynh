@@ -48,7 +48,7 @@ However, with a YesWiki we can build a website with multiple uses:
 
 Bidali `pull request`a [`testing` abarrera](https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing).
 
-`testing` abarra probatzeko, ondorengoa egin:
+`testing` abarra probatzeko, honakoa egin:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/yeswiki_ynh/tree/testing --debug
