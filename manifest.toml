@@ -5,9 +5,9 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.5.2~ynh1"
+version = "4.5.3~ynh1"
 
-maintainers = ["Eric Gaspar", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
+maintainers = ["eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
 [upstream]
 license = "AGPL-3.0-only"
@@ -21,8 +21,11 @@ yunohost = ">= 11.2.30"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
+
 ldap = true
+
 sso = true
+
 disk = "100M"
 ram.build = "200M"
 ram.runtime = "50M"
@@ -97,8 +100,8 @@ help.fr = "Optionnel, corresponds au mot de passe pour l'accès SFTP, si vous l'
 
 [resources]
 [resources.sources.main]
-url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.2.tar.gz"
-sha256 = "5c074e488879cf88af50032d502d0de089cd1fafcf55914411c6786de7942f05"
+url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.3.tar.gz"
+sha256 = "7221f575e6f0d014626ed20faf5e271f2e58dabe20b71a253c76d1e05842a380"
 autoupdate.strategy = "latest_github_tag"
 
 [resources.sources.yunohostplugin]
