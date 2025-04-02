@@ -37,7 +37,6 @@ if [ -z "${with_sftp:-}" ]; then
   ynh_app_setting_set --app=$app --key=password --value=""
 fi
 
-
 #=================================================
 # INSTALL COMPOSER DEPENDENCIES
 #=================================================
@@ -46,10 +45,10 @@ ynh_script_progression "Installing Composer dependencies..."
 ynh_composer_install
 ynh_composer_exec install --no-dev
 
-
 #=================================================
 # ADAPT FILE PERMISSIONS FOR SFTP CHROOT
 #=================================================
+
 chown -R $app:www-data "$install_dir"
 # Home directory of the user needs to be owned by root to allow
 # SFTP connections
@@ -57,7 +56,6 @@ chown root:root "$install_dir"
 setfacl -m g:$app:r-x "$install_dir"
 setfacl -m g:www-data:r-x "$install_dir"
 chmod 750 "$install_dir"
-
 
 #=================================================
 # DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
@@ -137,8 +135,9 @@ fi
 #=================================================
 # RUN THE MIGRATIONS
 #=================================================
+
 pushd $install_dir
-ynh_exec_as_app ./yeswicli migrate
+  ynh_exec_as_app ./yeswicli migrate
 popd
 
 #=================================================
