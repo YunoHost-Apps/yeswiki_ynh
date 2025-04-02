@@ -3,7 +3,7 @@ Este archivo README esta generado automaticamente<https://github.com/YunoHost/ap
 No se debe editar a mano.
 -->
 
-# YesWiki para Yunohost
+# YesWiki para YunoHost
 
 [![Nivel de integración](https://apps.yunohost.org/badge/integration/yeswiki)](https://ci-apps.yunohost.org/ci/apps/yeswiki/)
 ![Estado funcional](https://apps.yunohost.org/badge/state/yeswiki)
@@ -28,7 +28,7 @@ However, with a YesWiki we can build a website with multiple uses:
 - Cultivate a bit of freedom...
 
 
-**Versión actual:** 4.5.2~ynh1
+**Versión actual:** 4.5.3~ynh1
 
 **Demo:** <https://ferme.yeswiki.net/?CreerSonWiki>
 
