@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.5.4~ynh1"
+version = "4.5.4~ynh2"
 
 maintainers = ["eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
