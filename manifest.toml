@@ -125,7 +125,7 @@ group = "www-data:r-x"
 main.url = "/"
 
 [resources.apt]
-packages = "mariadb-server, php8.4-curl, php8.4-gd, php8.4-dom, php8.4-mysql, php8.4-ldap, php8.4-zip"
+packages = "mariadb-server, php8.3-curl, php8.3-gd, php8.3-dom, php8.3-mysql, php8.3-ldap, php8.3-zip"
 
 [resources.database]
 type = "mysql"
