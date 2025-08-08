@@ -5,9 +5,9 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.5.4~ynh2"
+version = "4.5.4~ynh3"
 
-maintainers = ["eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
+maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
 [upstream]
 license = "AGPL-3.0-only"
@@ -17,7 +17,7 @@ admindoc = "https://yeswiki.net/?doc"
 code = "https://github.com/YesWiki/yeswiki"
 
 [integration]
-yunohost = ">= 11.2.30"
+yunohost = ">= 12.0.9"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
@@ -31,101 +31,102 @@ ram.build = "200M"
 ram.runtime = "50M"
 
 [install]
-[install.domain]
-type = "domain"
+  [install.domain]
+  type = "domain"
 
-[install.path]
-type = "path"
-default = "/yeswiki"
+  [install.path]
+  type = "path"
+  default = "/yeswiki"
 
-[install.init_main_permission]
-help.en = "If YesWiki is made public anyone will be able to view the wiki"
-help.fr = "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
-type = "group"
-default = "visitors"
+  [install.init_main_permission]
+  help.en = "If YesWiki is made public anyone will be able to view the wiki"
+  help.fr = "Si YesWiki est rendu publique toute personne pourra consulter le wiki"
+  type = "group"
+  default = "visitors"
 
-[install.language]
-ask.en = "Choose the application language"
-ask.fr = "Choisissez la langue de l'application"
-type = "select"
-choices = ["fr", "en", "ca", "es", "nl", "pt"]
-default = "fr"
+  [install.language]
+  ask.en = "Choose the application language"
+  ask.fr = "Choisissez la langue de l'application"
+  type = "select"
+  choices = ["fr", "en", "ca", "es", "nl", "pt"]
+  default = "fr"
 
-[install.wikimodel]
-ask.en = "Choose the wiki model"
-ask.fr = "Choisissez le modèle de wiki"
-help.en = "YesWiki installs a default YesWiki installation, CLIC will change default look and add a view with installed yunohost apps."
-help.fr = "YesWiki est une installation par défaut de YesWiki, CLIC change le look et les pages par défaut pour ajouter la vue des applications YunoHost installées."
-type = "select"
-choices = ["YesWiki", "CLIC"]
-default = "YesWiki"
+  [install.wikimodel]
+  ask.en = "Choose the wiki model"
+  ask.fr = "Choisissez le modèle de wiki"
+  help.en = "YesWiki installs a default YesWiki installation, CLIC will change default look and add a view with installed yunohost apps."
+  help.fr = "YesWiki est une installation par défaut de YesWiki, CLIC change le look et les pages par défaut pour ajouter la vue des applications YunoHost installées."
+  type = "select"
+  choices = ["YesWiki", "CLIC"]
+  default = "YesWiki"
 
-[install.authprovider]
-ask.en = "Choose the authentification type"
-ask.fr = "Choisissez le système d'authentification"
-help.en = "Choose YunoHost SSO to restrict auth to the YunoHost users, choose YesWiki to have an independant user base managed by YesWiki."
-help.fr = "Choisir YunoHost SSO pour n'utiliser que la base d'utilisateurices de YunoHost ou choisir YesWiki pour une base indépendante gérée par YesWiki."
-type = "select"
-choices = ["YunoHost SSO", "YesWiki"]
-default = "YunoHost SSO"
+  [install.authprovider]
+  ask.en = "Choose the authentification type"
+  ask.fr = "Choisissez le système d'authentification"
+  help.en = "Choose YunoHost SSO to restrict auth to the YunoHost users, choose YesWiki to have an independant user base managed by YesWiki."
+  help.fr = "Choisir YunoHost SSO pour n'utiliser que la base d'utilisateurices de YunoHost ou choisir YesWiki pour une base indépendante gérée par YesWiki."
+  type = "select"
+  choices = ["YunoHost SSO", "YesWiki"]
+  default = "YunoHost SSO"
 
-[install.admin]
-type = "user"
+  [install.admin]
+  type = "user"
 
-[install.wiki_name]
-ask.en = "Choose the wiki name"
-ask.fr = "Choisissez le nom de votre wiki"
-help.en = "If you want a name with spaces: replace them with %20 for each space."
-help.fr = "Si vous souhaitez un nom avec des espacements : remplacez les par %20 pour chaque espace"
-type = "string"
-default = "YesWiki"
+  [install.wiki_name]
+  ask.en = "Choose the wiki name"
+  ask.fr = "Choisissez le nom de votre wiki"
+  help.en = "If you want a name with spaces: replace them with %20 for each space."
+  help.fr = "Si vous souhaitez un nom avec des espacements : remplacez les par %20 pour chaque espace"
+  type = "string"
+  default = "YesWiki"
 
-[install.allow_robots]
-ask.en = "Allow search engines indexing"
-ask.fr = "Permettre l'indexation par les moteurs de recherche"
-type = "boolean"
-default = true
+  [install.allow_robots]
+  ask.en = "Allow search engines indexing"
+  ask.fr = "Permettre l'indexation par les moteurs de recherche"
+  type = "boolean"
+  default = true
 
-[install.with_sftp]
-ask.en = "Do you need a SFTP access?"
-ask.fr = "Avez-vous besoin d'un accès SFTP ?"
-type = "boolean"
-default = false
+  [install.with_sftp]
+  ask.en = "Do you need a SFTP access?"
+  ask.fr = "Avez-vous besoin d'un accès SFTP ?"
+  type = "boolean"
+  default = false
 
-[install.password]
-type = "password"
-optional = true
-help.en = "Optional, this corresponds to the password for SFTP access, if you enabled it"
-help.fr = "Optionnel, corresponds au mot de passe pour l'accès SFTP, si vous l'avez activé"
+  [install.password]
+  type = "password"
+  optional = true
+  help.en = "Optional, this corresponds to the password for SFTP access, if you enabled it"
+  help.fr = "Optionnel, corresponds au mot de passe pour l'accès SFTP, si vous l'avez activé"
 
 [resources]
-[resources.sources.main]
-url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.4.tar.gz"
-sha256 = "efdb0258eede3206c75fe027a9a4fb245092834075e586797f629fb8b4561e18"
-autoupdate.strategy = "latest_github_tag"
+  [resources.sources.main]
+  url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.4.tar.gz"
+  sha256 = "efdb0258eede3206c75fe027a9a4fb245092834075e586797f629fb8b4561e18"
+  autoupdate.strategy = "latest_github_tag"
 
-[resources.sources.yunohostplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.5.zip"
-sha256 = "d2f7077a699050d23363dc6fbb690800531fd0444c12271a28cfa051fac5985b"
+  [resources.sources.yunohostplugin]
+  url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.5.zip"
+  sha256 = "d2f7077a699050d23363dc6fbb690800531fd0444c12271a28cfa051fac5985b"
 
-[resources.sources.importerplugin]
-url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.4.zip"
-sha256 = "134058aad4a8328a380255da3e1564972ccf85a4fae44df551ea41ba4073a756"
+  [resources.sources.importerplugin]
+  url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.4.zip"
+  sha256 = "134058aad4a8328a380255da3e1564972ccf85a4fae44df551ea41ba4073a756"
 
-[resources.sources.ferme]
-url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.1.zip"
-sha256 = "0a9b2ad81c59d8e539dc3d4bbbeff768772366599887cd9b3c3541250f63b13b"
+  [resources.sources.ferme]
+  url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.1.zip"
+  sha256 = "0a9b2ad81c59d8e539dc3d4bbbeff768772366599887cd9b3c3541250f63b13b"
 
-[resources.system_user]
+  [resources.system_user]
+  allow_email = true
 
-[resources.install_dir]
-group = "www-data:r-x"
+  [resources.install_dir]
+  group = "www-data:r-x"
 
-[resources.permissions]
-main.url = "/"
+  [resources.permissions]
+  main.url = "/"
 
-[resources.apt]
-packages = "mariadb-server, php8.2-curl, php8.2-gd, php8.2-dom, php8.2-mysql, php8.2-ldap, php8.2-zip"
+  [resources.apt]
+  packages = "mariadb-server, php8.3, php8.3-bcmath, php8.3-cli, php8.3-common, php8.3-curl, php8.3-fpm, php8.3-gd, php8.3-gmp, php8.3-igbinary, php8.3-imagick, php8.3-imap, php8.3-intl, php8.3-mbstring, php8.3-mysql, php8.3-opcache, php8.3-readline, php8.3-sqlite3, php8.3-xml, php8.3-xmlrpc, php8.3-zip, php8.3-dom, php8.3-ldap"
 
-[resources.database]
-type = "mysql"
+  [resources.database]
+  type = "mysql"
