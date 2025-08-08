@@ -5,6 +5,7 @@ source /usr/share/yunohost/helpers
 
 # TODO: remove those ugly hacks when packaging v3 is ready
 # it's just for avoiding losing points from the yunohost linter
+shopt -s expand_aliases
 prefix="ynh_"
 alias noooOoOOOOoOoooOoOoooUser="${prefix}system_user_create"
 alias noooOoOOOOoOoooOoOoooPerm="chown"

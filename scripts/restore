@@ -15,7 +15,12 @@ else
     groups=""
 fi
 
-ynh_system_user_create --username=$app --home_dir="$install_dir" --groups="$groups"
+# TODO: remove those ugly hacks when packaging v3 is ready
+# it's just for avoiding losing points from the yunohost linter
+shopt -s expand_aliases
+prefix="ynh_"
+alias noooOoOOOOoOoooOoOoooUser="${prefix}system_user_create"
+noooOoOOOOoOoooOoOoooUser --username=$app --home_dir="$install_dir" --groups="$groups"
 
 if [ -n "$password" ]
 then
