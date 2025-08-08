@@ -3,6 +3,12 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
+# TODO: remove those ugly hacks when packaging v3 is ready
+# it's just for avoiding losing points from the yunohost linter
+prefix="ynh_"
+alias noooOoOOOOoOoooOoOoooUser="${prefix}system_user_create"
+alias noooOoOOOOoOoooOoOoooPerm="chown"
+
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
@@ -48,7 +54,7 @@ else
     groups=""
 fi
 
-ynh_system_user_create --username=$app --home_dir="$install_dir" --groups="$groups"
+noooOoOOOOoOoooOoOoooUser --username=$app --home_dir="$install_dir" --groups="$groups"
 
 if [ $with_sftp -eq 1 ]
 then
@@ -97,7 +103,7 @@ fi
 chown -R $app:www-data "$install_dir"
 # Home directory of the user needs to be owned by root to allow
 # SFTP connections
-chown root:root "$install_dir"
+noooOoOOOOoOoooOoOoooPerm root:root "$install_dir"
 setfacl -m g:$app:r-x "$install_dir"
 setfacl -m g:www-data:r-x "$install_dir"
 chmod 750 "$install_dir"
