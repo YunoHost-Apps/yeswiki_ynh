@@ -137,6 +137,9 @@ if grep -q yunohost-apps "$install_dir/wakka.config.php"; then
   popd
 fi
 
+# one final fix of permissions
+chown -R $app:www-data "$install_dir"
+
 #=================================================
 # RUN THE MIGRATIONS
 #=================================================
