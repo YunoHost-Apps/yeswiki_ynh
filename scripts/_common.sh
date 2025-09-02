@@ -4,7 +4,7 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-composer_version=2.8.9
+#REMOVEME? composer_version=2.8.9
 
 cache_yunohost_version() {
   (cd "$install_dir" && ynh_exec_as_app \
