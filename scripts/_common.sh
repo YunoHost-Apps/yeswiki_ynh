@@ -4,8 +4,6 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-#REMOVEME? composer_version=2.8.9
-
 cache_yunohost_version() {
   (cd "$install_dir" && ynh_exec_as_app \
       dpkg-query --show --showformat='${Version}' yunohost > files/yunohost_version)
@@ -27,7 +25,6 @@ ynh_system_user_add_group() {
 		usermod -a -G "$group" "$username"
 	done
 }
-
 
 ynh_system_user_del_group() {
     # Declare an array to define the options of this helper.

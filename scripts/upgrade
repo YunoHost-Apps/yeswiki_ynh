@@ -46,7 +46,6 @@ fi
 #=================================================
 ynh_script_progression "Installing Composer dependencies..."
 
-#REMOVEME? ynh_composer_install
 ynh_composer_exec install --no-dev
 
 #=================================================
