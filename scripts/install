@@ -15,7 +15,6 @@ alias noooOoOOOOoOoooOoOoooPerm="chown"
 #=================================================
 ynh_script_progression "Storing installation settings..."
 
-password=$YNH_APP_ARG_PASSWORD
 ynh_app_setting_set --app=$app --key=password --value=$password
 
 ynh_app_setting_set --key=php_upload_max_filesize --value=500M
