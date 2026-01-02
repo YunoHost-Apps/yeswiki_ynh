@@ -67,7 +67,6 @@ fi
 #=================================================
 ynh_script_progression "Installing composer dependencies..."
 
-ynh_composer_install
 ynh_composer_exec install --no-dev
 
 #=================================================
