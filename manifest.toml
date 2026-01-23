@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.5.4~ynh4"
+version = "4.5.5~ynh1"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -17,13 +17,12 @@ admindoc = "https://yeswiki.net/?doc"
 code = "https://github.com/YesWiki/yeswiki"
 
 [integration]
-yunohost = ">= 12.0.9"
+yunohost = ">= 12.1.38"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 
 ldap = true
-
 sso = true
 
 disk = "100M"
@@ -100,21 +99,21 @@ ram.runtime = "50M"
 
 [resources]
   [resources.sources.main]
-  url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.4.tar.gz"
-  sha256 = "efdb0258eede3206c75fe027a9a4fb245092834075e586797f629fb8b4561e18"
+  url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.5.tar.gz"
+  sha256 = "83e829994095ef336afc730aed44dec3c02e9889d83d15828dd36983847482f0"
   autoupdate.strategy = "latest_github_tag"
 
   [resources.sources.yunohostplugin]
-  url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.5.zip"
-  sha256 = "d2f7077a699050d23363dc6fbb690800531fd0444c12271a28cfa051fac5985b"
+  url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.6.zip"
+  sha256 = "bd12db375ea893e12be2a8d73f8981761199d824121c1640f9c46f3590a3a05e"
 
   [resources.sources.importerplugin]
   url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.4.zip"
   sha256 = "134058aad4a8328a380255da3e1564972ccf85a4fae44df551ea41ba4073a756"
 
   [resources.sources.ferme]
-  url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.1.zip"
-  sha256 = "0a9b2ad81c59d8e539dc3d4bbbeff768772366599887cd9b3c3541250f63b13b"
+  url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.2.zip"
+  sha256 = "46f7040349aa50c1b819df23d6319d54afdfe5f2efd6bb56643484d1c599a9f1"
 
   [resources.system_user]
   allow_email = true
@@ -130,3 +129,6 @@ ram.runtime = "50M"
 
   [resources.database]
   type = "mysql"
+
+  [resources.composer]
+  version = "2.9.2"
