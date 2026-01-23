@@ -1,0 +1,2 @@
+This file avoids an error for the YunoHost linter, that considers that not LDAP is needed..
+.. but it can be setup if you use the ldap extension with in the config `'dc=yunohost,dc=org'` as provider

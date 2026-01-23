@@ -105,7 +105,7 @@ ram.runtime = "50M"
 
   [resources.sources.yunohostplugin]
   url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.6.zip"
-  sha256 = "bf52954e5bd5640a977b1e0e4f8e3ffd132d91cab894004cf8495b5a6fc91c41"
+  sha256 = "bd12db375ea893e12be2a8d73f8981761199d824121c1640f9c46f3590a3a05e"
 
   [resources.sources.importerplugin]
   url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.4.zip"
@@ -113,7 +113,7 @@ ram.runtime = "50M"
 
   [resources.sources.ferme]
   url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.2.zip"
-  sha256 = "5020c4199e02f1902e399107ae29b9d80ed2052f788339a79783a12783fa5998"
+  sha256 = "46f7040349aa50c1b819df23d6319d54afdfe5f2efd6bb56643484d1c599a9f1"
 
   [resources.system_user]
   allow_email = true
