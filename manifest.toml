@@ -22,7 +22,7 @@ helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 
-ldap = false
+ldap = true
 sso = true
 
 disk = "100M"
@@ -104,16 +104,16 @@ ram.runtime = "50M"
   autoupdate.strategy = "latest_github_tag"
 
   [resources.sources.yunohostplugin]
-  url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.5.zip"
-  sha256 = "d2f7077a699050d23363dc6fbb690800531fd0444c12271a28cfa051fac5985b"
+  url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.6.zip"
+  sha256 = "bf52954e5bd5640a977b1e0e4f8e3ffd132d91cab894004cf8495b5a6fc91c41"
 
   [resources.sources.importerplugin]
   url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.4.zip"
   sha256 = "134058aad4a8328a380255da3e1564972ccf85a4fae44df551ea41ba4073a756"
 
   [resources.sources.ferme]
-  url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.1.zip"
-  sha256 = "0a9b2ad81c59d8e539dc3d4bbbeff768772366599887cd9b3c3541250f63b13b"
+  url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.2.zip"
+  sha256 = "5020c4199e02f1902e399107ae29b9d80ed2052f788339a79783a12783fa5998"
 
   [resources.system_user]
   allow_email = true
