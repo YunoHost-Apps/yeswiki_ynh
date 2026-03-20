@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.5.5~ynh1"
+version = "4.6.0~ynh1"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -99,8 +99,8 @@ ram.runtime = "50M"
 
 [resources]
   [resources.sources.main]
-  url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.5.5.tar.gz"
-  sha256 = "83e829994095ef336afc730aed44dec3c02e9889d83d15828dd36983847482f0"
+  url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.6.0.tar.gz"
+  sha256 = "e3d4732406352f516919ef521aaf90c4233f30f9d08208ec167e5c2fe14bd101"
   autoupdate.strategy = "latest_github_tag"
 
   [resources.sources.yunohostplugin]
