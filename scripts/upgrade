@@ -15,7 +15,7 @@ alias noooOoOOOOoOoooOoOoooPerm="chown"
 ynh_script_progression "Upgrading source files..."
 
 # TODO : find a way to sync stable extensions list to avoid hardcoded extensions folders to keep
-noncore_extensions="$(echo tools/{accountactivationbyemail,advancedsearch,benevolat,ferme,fontautoinstall,importer,ipblock,lms,login-sso,logincas,loginldap,maintenance,multideletepages,nextcloudconnector,publication,qrcode,stats,tabdyn,twolevels,webhooks,yunohost})"
+noncore_extensions="$(echo tools/{accountactivationbyemail,advancedsearch,benevolat,ferme,fontautoinstall,fulltextsearch,importer,ipblock,lms,login-sso,logincas,loginldap,maintenance,multideletepages,nextcloudconnector,publication,qrcode,stats,tabdyn,twolevels,webhooks,yunohost})"
 ferme_instances="$(
   cd $install_dir
   for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
