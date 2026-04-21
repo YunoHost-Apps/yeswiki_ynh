@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.6.1~ynh1"
+version = "4.6.1~ynh2"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -99,9 +99,10 @@ ram.runtime = "50M"
 
 [resources]
   [resources.sources.main]
-  url = "https://github.com/YesWiki/yeswiki/archive/refs/tags/v4.6.1.tar.gz"
-  sha256 = "536a02c0a1317cb4eb04b794b0d3b436d383d03799798b22970abba59953591f"
-  autoupdate.strategy = "latest_github_tag"
+  url = "https://github.com/YesWiki/yeswiki/releases/download/v4.6.1/yeswiki-v4.6.1.zip"
+  sha256 = "eb5886088940678e96106d70d52172c43b0f40708a5ca9e64792b5d4d43b9173"
+  autoupdate.strategy = "latest_github_release"
+  autoupdate.asset = "https:\/\/github\.com\/YesWiki\/yeswiki\/releases\/download\/v\d+\.\d+\.\d+\/yeswiki-v\d+\.\d+\.\d+\.zip"
 
   [resources.sources.yunohostplugin]
   url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.6.zip"
