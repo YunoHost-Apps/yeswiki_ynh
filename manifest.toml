@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.6.1~ynh2"
+version = "4.6.1~ynh3"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -105,16 +105,25 @@ ram.runtime = "50M"
   autoupdate.asset = "yeswiki-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.yunohostplugin]
-  url = "https://repository.yeswiki.net/doryphore/extension-yunohost-1.0.6.zip"
-  sha256 = "bd12db375ea893e12be2a8d73f8981761199d824121c1640f9c46f3590a3a05e"
+  url = "https://github.com/YesWiki/yeswiki-extension-yunohost/releases/download/v1.0.6/yeswiki-extension-yunohost-v1.0.6.zip"
+  sha256 = "4295456d985debae3818659a20abedcc8f61b0a1786983c7c0c207059e5a0de4"
+  autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-yunohost"
+  autoupdate.strategy = "latest_github_release"
+  autoupdate.asset = "yeswiki-extension-yunohost-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.importerplugin]
-  url = "https://repository.yeswiki.net/doryphore/extension-importer-1.0.4.zip"
-  sha256 = "134058aad4a8328a380255da3e1564972ccf85a4fae44df551ea41ba4073a756"
+  url = "https://github.com/YesWiki/yeswiki-extension-importer/releases/download/v1.0.4/yeswiki-extension-importer-v1.0.4.zip"
+  sha256 = "026fa36487b5be257ac610a09ec508588c25afa8c4e186f018834d603e56088d"
+  autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-importer"
+  autoupdate.strategy = "latest_github_release"
+  autoupdate.asset = "yeswiki-extension-importer-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.ferme]
-  url = "https://repository.yeswiki.net/doryphore/extension-ferme-1.2.2.zip"
-  sha256 = "46f7040349aa50c1b819df23d6319d54afdfe5f2efd6bb56643484d1c599a9f1"
+  url = "https://github.com/YesWiki/yeswiki-extension-ferme/releases/download/v1.2.2/yeswiki-extension-ferme-v1.2.2.zip"
+  sha256 = "9075a311523be99576e57e1a2b3d8916bff10b8689678aea81ecbf6684b4b0e4"
+  autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-ferme"
+  autoupdate.strategy = "latest_github_release"
+  autoupdate.asset = "yeswiki-extension-ferme-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.system_user]
   allow_email = true
