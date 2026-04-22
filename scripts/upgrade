@@ -14,8 +14,19 @@ alias noooOoOOOOoOoooOoOoooPerm="chown"
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-# TODO : find a way to sync stable extensions list to avoid hardcoded extensions folders to keep
-noncore_extensions="$(echo tools/{accountactivationbyemail,advancedsearch,benevolat,ferme,fontautoinstall,fulltextsearch,importer,ipblock,lms,login-sso,logincas,loginldap,maintenance,multideletepages,nextcloudconnector,publication,qrcode,stats,tabdyn,twolevels,webhooks,yunohost})"
+# list all official stable extensions from the yeswiki repository
+remote_extensions=$(curl -s --connect-timeout 5 https://repository.yeswiki.net/doryphore/packages.json | jq -r '[keys[] | select(startswith("extension-")) | "tools/" + sub("extension-"; "")] | sort | join(" ")' 2>/dev/null)
+
+if [ -z "$remote_extensions" ]; then
+    echo "Warning: Could not fetch packages.json, using fallback list."
+    noncore_extensions="tools/accountactivationbyemail tools/advancedsearch tools/benevolat tools/ferme tools/fontautoinstall tools/fulltextsearch tools/importer tools/ipblock tools/lms tools/logincas tools/loginldap tools/maintenance tools/multideletepages tools/nextcloudconnector tools/publication tools/qrcode tools/stats tools/tabdyn tools/twolevels tools/webhooks"
+else
+    noncore_extensions="$remote_extensions"
+fi
+
+noncore_extensions="$noncore_extensions tools/yunohost"
+
+# list all the yeswiki installed with the ferme extension
 ferme_instances="$(
   cd $install_dir
   for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
