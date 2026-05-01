@@ -89,9 +89,6 @@ ram.runtime = "50M"
   ask.fr = "Mot de passe de l'administrateur du wiki"
   type = "password"
   visible = "authprovider == 'YesWiki'"
-  pattern.regexp = ".{6,}"
-  pattern.error.en = "The password must be at least 6 characters long"
-  pattern.error.fr = "Le mot de passe doit contenir au moins 6 caractères"
 
   [install.wiki_name]
   ask.en = "Choose the wiki name"
