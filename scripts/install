@@ -67,9 +67,19 @@ fi
 #=================================================
 ynh_script_progression "Finalizing installation..."
 
-admin_temp_pass=$(ynh_string_random --length=20)
-
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
+
+if [ "${authprovider}" = "YesWiki" ]; then
+    curl_admin_name="$wiki_admin_name"
+    curl_admin_password=$(python3 -c "import urllib.parse; print(urllib.parse.quote(input(), safe=''))" <<< "$wiki_admin_password")
+    curl_admin_password_conf="$curl_admin_password"
+    curl_admin_email=$(echo "$wiki_admin_email" | sed 's/@/%40/g')
+else
+    curl_admin_name="$admin"
+    curl_admin_password=$(ynh_string_random --length=20)
+    curl_admin_password_conf="$curl_admin_password"
+    curl_admin_email="$admin%40$domain"
+fi
 
 if [ "${wikimodel}" = "CLIC" ]; then
   # Replace default YesWiki model with CLIC model
@@ -80,8 +90,8 @@ fi
 ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language]=$language" "config[wakka_name]=$wiki_name_escaped" \
   "config[root_page]=PagePrincipale" "config[mysql_host]=localhost" \
   "config[mysql_database]=$app" "config[mysql_user]=$db_user" "config[mysql_password]=$db_pwd" "config[table_prefix]=yeswiki_" \
-  "admin_name=$admin" "admin_password=$admin_temp_pass" "admin_password_conf=$admin_temp_pass" \
-  "admin_email=$admin%40$domain" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
+  "admin_name=$curl_admin_name" "admin_password=$curl_admin_password" "admin_password_conf=$curl_admin_password_conf" \
+  "admin_email=$curl_admin_email" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
 if [ "${wikimodel}" = "CLIC" ]; then
   # restore original YesWiki model

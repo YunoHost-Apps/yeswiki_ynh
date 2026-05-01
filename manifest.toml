@@ -70,6 +70,28 @@ ram.runtime = "50M"
 
   [install.admin]
   type = "user"
+  visible = "authprovider != 'YesWiki'"
+
+  [install.wiki_admin_name]
+  ask.en = "Wiki admin username"
+  ask.fr = "Nom d'utilisateur de l'administrateur du wiki"
+  type = "string"
+  visible = "authprovider == 'YesWiki'"
+
+  [install.wiki_admin_email]
+  ask.en = "Wiki admin email"
+  ask.fr = "Email de l'administrateur du wiki"
+  type = "email"
+  visible = "authprovider == 'YesWiki'"
+
+  [install.wiki_admin_password]
+  ask.en = "Wiki admin password"
+  ask.fr = "Mot de passe de l'administrateur du wiki"
+  type = "password"
+  visible = "authprovider == 'YesWiki'"
+  pattern.regexp = ".{6,}"
+  pattern.error.en = "The password must be at least 6 characters long"
+  pattern.error.fr = "Le mot de passe doit contenir au moins 6 caractères"
 
   [install.wiki_name]
   ask.en = "Choose the wiki name"
@@ -94,8 +116,9 @@ ram.runtime = "50M"
   [install.password]
   type = "password"
   optional = true
-  help.en = "Optional, this corresponds to the password for SFTP access, if you enabled it"
-  help.fr = "Optionnel, corresponds au mot de passe pour l'accès SFTP, si vous l'avez activé"
+  visible = "with_sftp"
+  help.en = "This corresponds to the password for SFTP access"
+  help.fr = "Corresponds au mot de passe pour l'accès SFTP"
 
 [resources]
   [resources.sources.main]
