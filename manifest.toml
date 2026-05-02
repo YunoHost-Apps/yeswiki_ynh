@@ -79,8 +79,10 @@ ram.runtime = "50M"
   [install.wiki_admin_password]
   ask.en = "Wiki admin password"
   ask.fr = "Mot de passe de l'administrateur du wiki"
-  type = "password"
+  type = "string"
   visible = "authprovider == 'YesWiki'"
+  optional = true
+  default = ""
 
   [install.wiki_name]
   ask.en = "Choose the wiki name"
@@ -103,8 +105,10 @@ ram.runtime = "50M"
   default = false
 
   [install.password]
-  type = "password"
+  type = "string"
   visible = "with_sftp"
+  optional = true
+  default = ""
   help.en = "This corresponds to the password for SFTP access"
   help.fr = "Corresponds au mot de passe pour l'accès SFTP"
 
