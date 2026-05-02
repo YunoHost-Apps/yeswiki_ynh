@@ -71,24 +71,28 @@ ram.runtime = "50M"
   [install.admin]
   type = "user"
   visible = "authprovider != 'YesWiki'"
+  optional = true
 
   [install.wiki_admin_name]
   ask.en = "Wiki admin username"
   ask.fr = "Nom d'utilisateur de l'administrateur du wiki"
   type = "string"
   visible = "authprovider == 'YesWiki'"
+  optional = true
 
   [install.wiki_admin_email]
   ask.en = "Wiki admin email"
   ask.fr = "Email de l'administrateur du wiki"
   type = "email"
   visible = "authprovider == 'YesWiki'"
+  optional = true
 
   [install.wiki_admin_password]
   ask.en = "Wiki admin password"
   ask.fr = "Mot de passe de l'administrateur du wiki"
   type = "password"
   visible = "authprovider == 'YesWiki'"
+  optional = true
 
   [install.wiki_name]
   ask.en = "Choose the wiki name"
