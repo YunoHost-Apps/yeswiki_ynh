@@ -8,6 +8,7 @@ test_format = 1.0
 
     args.wikimodel = "YesWiki"
     args.authprovider = "YunoHost SSO"
+    args.admin_email = "admin@example.com"
     args.wiki_name = "YesWiki"
     args.allow_robots = true
     args.with_sftp = "1"
@@ -17,4 +18,17 @@ test_format = 1.0
     # Commits to test upgrade from
     # -------------------------------
 
-    test_upgrade_from.2372ed8.name = "4.4.1~ynh1"
+    test_upgrade_from.2372ed8.name = "4.5.5~ynh1"
+
+[test.yeswiki_auth]
+
+    args.authprovider = "YesWiki"
+    args.admin_email = "admin@example.com"
+    args.wiki_admin_password = "SuperDuper_StrongPassw0rd"
+    args.with_sftp = false
+
+[test.no_sftp]
+
+    args.authprovider = "YunoHost SSO"
+    args.admin_email = "admin@example.com"
+    args.with_sftp = false

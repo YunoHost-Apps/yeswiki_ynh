@@ -11,6 +11,14 @@ alias noooOoOOOOoOoooOoOoooUser="${prefix}system_user_create"
 alias noooOoOOOOoOoooOoOoooPerm="chown"
 
 #=================================================
+# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
+#=================================================
+ynh_script_progression "Validating installation parameters..."
+
+[ $with_sftp -eq 0 ] || [ "$password" != "" ] || ynh_die --message="You need to set a password to enable SFTP"
+[ "${authprovider}" != "YesWiki" ] || [ ${#wiki_admin_password} -ge 6 ] || ynh_die --message="The wiki admin password must be at least 6 characters long"
+
+#=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
 ynh_script_progression "Storing installation settings..."
@@ -18,17 +26,6 @@ ynh_script_progression "Storing installation settings..."
 ynh_app_setting_set --app=$app --key=password --value=$password
 
 ynh_app_setting_set --key=php_upload_max_filesize --value=500M
-
-#=================================================
-# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
-#=================================================
-ynh_script_progression "Validating installation parameters..."
-
-[ $with_sftp -eq 0 ] || [ "$password" != "" ] || ynh_die --message="You need to set a password to enable SFTP"
-[ "${authprovider}" != "YunoHost SSO" ] || [ "$admin" != "" ] || ynh_die --message="You need to provide an admin user for YunoHost SSO authentication"
-[ "${authprovider}" != "YesWiki" ] || [ "$wiki_admin_name" != "" ] || ynh_die --message="You need to provide a wiki admin username"
-[ "${authprovider}" != "YesWiki" ] || [ "$wiki_admin_email" != "" ] || ynh_die --message="You need to provide a wiki admin email"
-[ "${authprovider}" != "YesWiki" ] || [ ${#wiki_admin_password} -ge 6 ] || ynh_die --message="The wiki admin password must be at least 6 characters long"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -73,17 +70,14 @@ ynh_script_progression "Finalizing installation..."
 
 wiki_name_escaped=$(echo "$wiki_name" | sed 's/ /%20/g')
 
+curl_admin_name="$admin"
+curl_admin_email=$(echo "$admin_email" | sed 's/@/%40/g')
 if [ "${authprovider}" = "YesWiki" ]; then
-    curl_admin_name="$wiki_admin_name"
     curl_admin_password=$(python3 -c "import urllib.parse; print(urllib.parse.quote(input(), safe=''))" <<< "$wiki_admin_password")
-    curl_admin_password_conf="$curl_admin_password"
-    curl_admin_email=$(echo "$wiki_admin_email" | sed 's/@/%40/g')
 else
-    curl_admin_name="$admin"
     curl_admin_password=$(ynh_string_random --length=20)
-    curl_admin_password_conf="$curl_admin_password"
-    curl_admin_email="$admin%40$domain"
 fi
+curl_admin_password_conf="$curl_admin_password"
 
 if [ "${wikimodel}" = "CLIC" ]; then
   # Replace default YesWiki model with CLIC model
