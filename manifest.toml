@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.6.3~ynh1"
+version = "4.6.3~ynh2"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -120,8 +120,8 @@ ram.runtime = "50M"
   autoupdate.asset = "yeswiki-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.yunohostplugin]
-  url = "https://github.com/YesWiki/yeswiki-extension-yunohost/releases/download/v1.0.6/yeswiki-extension-yunohost-v1.0.6.zip"
-  sha256 = "4295456d985debae3818659a20abedcc8f61b0a1786983c7c0c207059e5a0de4"
+  url = "https://github.com/YesWiki/yeswiki-extension-yunohost/releases/download/v1.0.7/yeswiki-extension-yunohost-v1.0.7.zip"
+  sha256 = "597017afba558a3be6e68f7bf70a4799444a73033be1efe9189e2d2373adc102"
   autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-yunohost"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-extension-yunohost-v\\d+\\.\\d+\\.\\d+\\.zip"
