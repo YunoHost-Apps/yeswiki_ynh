@@ -105,6 +105,8 @@ ram.runtime = "50M"
   default = false
 
   [install.password]
+  ask.en = "SFTP password"
+  ask.fr = "Mot de passe SFTP"
   type = "string"
   visible = "with_sftp"
   optional = true
