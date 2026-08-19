@@ -76,7 +76,7 @@ ram.runtime = "50M"
   ask.fr = "Email de l'administrateur"
   type = "email"
   visible = "authprovider == 'YesWiki'"
-  optional = "authprovider == 'YunoHost SSO'"
+  optional = true
   default = ""
 
   [install.wiki_admin_password]
