@@ -20,6 +20,10 @@ test_format = 1.0
 
     test_upgrade_from.de0c868914426054920ad625464641963e374e85.name = "4.6.1~ynh1"
 
+# [test.app_importer]
+# 
+#     args.with_app_importer = "1"
+# 
 # [test.yeswiki_auth]
 #
 #     args.authprovider = "YesWiki"

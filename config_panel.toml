@@ -22,3 +22,15 @@ name.fr = "Configuration de YesWiki"
         visible = "with_sftp"
         help.en = "If a password already exist, leave blank and it will not be replaced."
         help.fr = "Si un mot de passe existe déjà, laissez vide et il ne sera pas remplacé."
+
+    [main.importer]
+    name.en = "YunoHost apps importer"
+    name.fr = "Importateur d'applications YunoHost"
+
+        [main.importer.with_app_importer]
+        ask.en = "Import the YunoHost apps into the wiki"
+        ask.fr = "Importer les applications YunoHost dans le wiki"
+        type = "boolean"
+        default = false
+        help.en = "Feeds the bazar database 5 of the wiki with the apps installed on the server, and keeps it in sync when apps are installed or removed. Turning it off stops the sync, the entries already imported are left untouched."
+        help.fr = "Alimente la base de données bazar 5 du wiki avec les applications installées sur le serveur, et la tient à jour lors de l'installation ou la suppression d'applications. La désactiver arrête la synchronisation, les fiches déjà importées sont conservées."

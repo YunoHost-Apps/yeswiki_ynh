@@ -39,6 +39,17 @@ ynh_app_config_apply() {
         chpasswd <<< "${app}:${password}"
     fi
 
+    if [ "${changed[with_app_importer]}" == "true" ] && [ $with_app_importer -eq 1 ]
+    then
+        app_importer_config_add
+        app_importer_hooks_add
+        app_importer_sync
+    elif [ "${changed[with_app_importer]}" == "true" ] && [ $with_app_importer -eq 0 ]
+    then
+        app_importer_hooks_remove
+        app_importer_config_remove
+    fi
+
 }
 
 ynh_app_config_run $1

@@ -95,6 +95,14 @@ ram.runtime = "50M"
   type = "string"
   default = "YesWiki"
 
+  [install.with_app_importer]
+  ask.en = "Import the YunoHost apps into the wiki"
+  ask.fr = "Importer les applications YunoHost dans le wiki"
+  help.en = "Feeds a bazar database of the wiki with the apps installed on the server, and keeps it in sync when apps are installed or removed. The CLIC model has a page displaying them."
+  help.fr = "Alimente une base de données bazar du wiki avec les applications installées sur le serveur, et la tient à jour lors de l'installation ou la suppression d'applications. Le modèle CLIC dispose d'une page qui les affiche."
+  type = "boolean"
+  default = false
+
   [install.allow_robots]
   ask.en = "Allow search engines indexing"
   ask.fr = "Permettre l'indexation par les moteurs de recherche"
