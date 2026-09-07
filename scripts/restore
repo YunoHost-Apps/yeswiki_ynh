@@ -53,8 +53,15 @@ ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_restore "/etc/sudoers.d/$app"
 
-ynh_restore "/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
-ynh_restore "/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+# The app importer hooks are only in the archive when the importer is enabled
+if [ -f "$YNH_CWD/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh" ]; then
+  ynh_restore "/etc/yunohost/hooks.d/post_app_install/${app}_sync_app_importer.sh"
+fi
+
+if [ -f "$YNH_CWD/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh" ]; then
+  ynh_restore "/etc/yunohost/hooks.d/post_app_remove/${app}_sync_app_importer.sh"
+fi
+
 ynh_restore "/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
 ynh_restore "/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
 
