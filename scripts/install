@@ -63,6 +63,12 @@ then
     chpasswd <<< "${app}:${password}"
 fi
 
+if [ "$admin_email" = "" ]
+then
+  # Use YunoHost user email if no admin_email was provided by user
+  admin_email=$(ynh_user_get_info --username="$admin" --key=mail)
+fi
+
 #=================================================
 # SETUP APPLICATION WITH CURL
 #=================================================
