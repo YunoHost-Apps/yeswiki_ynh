@@ -231,6 +231,9 @@ fi
 ynh_script_progression "Configure mail sending through YunoHost"
 mail_config_run add "$app" "$domain"
 
+ynh_script_progression "Configuring the SSO headers..."
+sso_headers_config
+
 # one final fix of permissions
 chown -R $app:www-data "$install_dir"
 
