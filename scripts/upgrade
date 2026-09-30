@@ -150,6 +150,9 @@ else
   app_importer_config_remove
 fi
 
+ynh_script_progression "Configure mail sending through YunoHost"
+mail_config_run add "$app" "$domain"
+
 # one final fix of permissions
 chown -R $app:www-data "$install_dir"
 
@@ -157,9 +160,19 @@ chown -R $app:www-data "$install_dir"
 # RUN THE MIGRATIONS
 #=================================================
 
+if farm_has_wikis; then
+  ynh_script_progression "Upgrading the extensions of the farm..."
+  farm_upgrade_master_extensions
+fi
+
 pushd $install_dir
   ynh_exec_as_app ./yeswicli migrate
 popd
+
+if farm_has_wikis; then
+  ynh_script_progression "Updating the farm wikis..."
+  farm_update_wikis
+fi
 
 #=================================================
 # END OF SCRIPT
