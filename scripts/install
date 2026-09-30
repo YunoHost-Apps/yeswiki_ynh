@@ -153,8 +153,7 @@ chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/yunohost
 if [ $with_app_importer -eq 1 ]; then
   app_importer_config_add
 fi
-SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
-ynh_replace --match=");" --replace="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --file="$install_dir/wakka.config.php"
+ynh_replace --match=");" --replace="  'yunohost_sso_domain' => '${domain}',\n);" --file="$install_dir/wakka.config.php"
 
 # Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh

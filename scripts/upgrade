@@ -129,10 +129,7 @@ ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/h
 noooOoOOOOoOoooOoOoooPerm root:root /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 chmod 700 /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 
-if ! grep -q yunohost_sso_domain "$install_dir/wakka.config.php"; then
-  SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
-  ynh_replace --match="'wakka_version'" --replace="'yunohost_sso_domain' => '${SSO_DOMAIN}',\n  'wakka_version'" --file="$install_dir/wakka.config.php"
-fi
+sso_domain_config "$domain"
 
 if grep -q yunohost-cli "$install_dir/wakka.config.php"; then
   ynh_replace --match="'yunohost-cli'" --replace="'yunohost-apps'" --file="$install_dir/wakka.config.php"

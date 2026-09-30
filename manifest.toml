@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.6.7~ynh3"
+version = "4.6.8~ynh1"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -127,28 +127,28 @@ ram.runtime = "50M"
 
 [resources]
   [resources.sources.main]
-  url = "https://github.com/YesWiki/yeswiki/releases/download/v4.6.7/yeswiki-v4.6.7.zip"
-  sha256 = "420174f1a99d0a1e2adc4dffc1ab787bf2a121632d0539052734f7a799bad455"
+  url = "https://github.com/YesWiki/yeswiki/releases/download/v4.6.8/yeswiki-v4.6.8.zip"
+  sha256 = "02f18566163cab0f727b08c09793e553fd3c5c41673ad368412197958f65f0f2"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.yunohostplugin]
-  url = "https://github.com/YesWiki/yeswiki-extension-yunohost/releases/download/v4.1.1/yeswiki-extension-yunohost-v4.1.1.zip"
-  sha256 = "4535c3d16c4e44eed4b5d6bca5abbc7d3134ab6884237cccb2e8290ed7eab5c4"
+  url = "https://github.com/YesWiki/yeswiki-extension-yunohost/releases/download/v4.1.2/yeswiki-extension-yunohost-v4.1.2.zip"
+  sha256 = "1f3b3c58dc1929954bf0ae43d7ad701172cf0f64b82898eb9ffdc4a0924cb7b4"
   autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-yunohost"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-extension-yunohost-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.importerplugin]
-  url = "https://github.com/YesWiki/yeswiki-extension-importer/releases/download/v1.1.2/yeswiki-extension-importer-v1.1.2.zip"
-  sha256 = "0e5cc2046710cef1f0ad913918deaf52c6e1bc46f1b8253748ae1dd41da6157e"
+  url = "https://github.com/YesWiki/yeswiki-extension-importer/releases/download/v4.1.3/yeswiki-extension-importer-v4.1.3.zip"
+  sha256 = "994f1940043e911f375f8c2f6f919481bfbef86b8b71b707372a870460a1f272"
   autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-importer"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-extension-importer-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.ferme]
-  url = "https://github.com/YesWiki/yeswiki-extension-ferme/releases/download/v1.2.7/yeswiki-extension-ferme-v1.2.7.zip"
-  sha256 = "efeeab6953c642383632820fce2bd45f1fedd80f63b079ca85d8568ed1c09fc1"
+  url = "https://github.com/YesWiki/yeswiki-extension-ferme/releases/download/v4.2.5/yeswiki-extension-ferme-v4.2.5.zip"
+  sha256 = "392c3ca1cee60d23c2d7d20c5c2b20fbe6a5e0edb3f5020be2b779ddc09a06e9"
   autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-ferme"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-extension-ferme-v\\d+\\.\\d+\\.\\d+\\.zip"

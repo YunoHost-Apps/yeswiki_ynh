@@ -157,3 +157,18 @@ sso_headers_config() {
     ynh_permission_url --permission=main --auth_header=false
   fi
 }
+
+# The SSO cookie only covers the domain it was set on and its subdomains, so the portal must be the wiki's own domain or one of its parents.
+sso_domain_config() {
+  local wiki_domain="$1"
+  local config="$install_dir/wakka.config.php"
+  local current
+  if ! grep -q "'yunohost_sso_domain'" "$config"; then
+    ynh_replace --match="'wakka_version'" --replace="'yunohost_sso_domain' => '$wiki_domain',\n  'wakka_version'" --file="$config"
+    return 0
+  fi
+  current=$(grep -oP "'yunohost_sso_domain' => '\K[^']*" "$config" || true)
+  if [ "$wiki_domain" != "$current" ] && [[ "$wiki_domain" != *".$current" || -z "$current" ]]; then
+    ynh_replace --match="'yunohost_sso_domain' => '[^']*'" --replace="'yunohost_sso_domain' => '$wiki_domain'" --file="$config"
+  fi
+}
