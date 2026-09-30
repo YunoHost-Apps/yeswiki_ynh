@@ -27,10 +27,10 @@ fi
 noncore_extensions="$noncore_extensions tools/yunohost"
 
 # list all the yeswiki installed with the ferme extension
-ferme_instances="$(
+ferme_instances=$(
   cd $install_dir
   for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
-)"
+)
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
 
 ynh_replace --match="yeswiki_release' \?=> \?'.*',$" --replace="yeswiki_release' => '$(ynh_app_upstream_version)'," --file="$install_dir/wakka.config.php"

@@ -145,6 +145,7 @@ farm_update_wikis() {
         || ynh_print_warn "Some farm wikis could not be updated, see the log above"
     fi
   popd
+}
 
 # Without the YunoHost SSO plugin nothing reads the SSO header, and a herse needs the visitor's own Basic auth to reach PHP.
 sso_headers_config() {
