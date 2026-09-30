@@ -27,10 +27,10 @@ fi
 noncore_extensions="$noncore_extensions tools/yunohost"
 
 # list all the yeswiki installed with the ferme extension
-ferme_instances="$(
+ferme_instances=$(
   cd $install_dir
   for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
-)"
+)
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
 
 ynh_replace --match="yeswiki_release' \?=> \?'.*',$" --replace="yeswiki_release' => '$(ynh_app_upstream_version)'," --file="$install_dir/wakka.config.php"
@@ -129,10 +129,7 @@ ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/h
 noooOoOOOOoOoooOoOoooPerm root:root /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 chmod 700 /etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh
 
-if ! grep -q yunohost_sso_domain "$install_dir/wakka.config.php"; then
-  SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
-  ynh_replace --match="'wakka_version'" --replace="'yunohost_sso_domain' => '${SSO_DOMAIN}',\n  'wakka_version'" --file="$install_dir/wakka.config.php"
-fi
+sso_domain_config "$domain"
 
 if grep -q yunohost-cli "$install_dir/wakka.config.php"; then
   ynh_replace --match="'yunohost-cli'" --replace="'yunohost-apps'" --file="$install_dir/wakka.config.php"
@@ -150,6 +147,12 @@ else
   app_importer_config_remove
 fi
 
+ynh_script_progression "Configure mail sending through YunoHost"
+mail_config_run add "$app" "$domain"
+
+ynh_script_progression "Configuring the SSO headers..."
+sso_headers_config
+
 # one final fix of permissions
 chown -R $app:www-data "$install_dir"
 
@@ -157,9 +160,19 @@ chown -R $app:www-data "$install_dir"
 # RUN THE MIGRATIONS
 #=================================================
 
+if farm_has_wikis; then
+  ynh_script_progression "Upgrading the extensions of the farm..."
+  farm_upgrade_master_extensions
+fi
+
 pushd $install_dir
   ynh_exec_as_app ./yeswicli migrate
 popd
+
+if farm_has_wikis; then
+  ynh_script_progression "Updating the farm wikis..."
+  farm_update_wikis
+fi
 
 #=================================================
 # END OF SCRIPT

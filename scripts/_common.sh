@@ -61,7 +61,7 @@ app_importer_config_add() {
     return 0
   fi
 
-  ynh_replace --match=");" --replace="  'dataSources' => [\n'yunohost-apps' => [\n'formId' => '5', // form id used in local bazar\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp', // importer class name (without Importer suffix)\n],\n],\n);" --file="$config_file"
+  ynh_replace --match="^\([])]\);$" --replace="  'dataSources' => [\n'yunohost-apps' => [\n'formId' => '5',\n'lang' => 'fr',\n'importer' => 'YunohostCLIApp',\n],\n],\n\1;" --file="$config_file"
   chown $app:www-data "$config_file"
 }
 
@@ -70,7 +70,7 @@ app_importer_config_remove() {
 
   [ -f "$config_file" ] || return 0
 
-  perl -0pi -e "s/^  'dataSources' => \[\n'yunohost-apps' => \[\n(?:(?!\],).*\n)*\],\n\],\n//m" "$config_file"
+  perl -0pi -e "s/^ *'dataSources' => \[\n *'yunohost-apps' => \[\n(?:(?! *\],).*\n)* *\],\n *\],\n//m" "$config_file"
   chown $app:www-data "$config_file"
 }
 
@@ -96,4 +96,79 @@ app_importer_sync() {
   pushd "$install_dir"
     ynh_exec_as_app ./yeswicli importer:sync -s yunohost-apps
   popd
+}
+
+#=================================================
+# YUNOHOST MAIL SETTINGS
+#=================================================
+
+mail_config_run() {
+  local script
+  script="$(realpath ../conf/mail_config.php)"
+  pushd "$install_dir"
+    YNH_MAIL_PWD="$mail_pwd" "php$php_version" "$script" "$@"
+    chown $app:www-data wakka.config.php
+    find . -mindepth 2 -maxdepth 2 -name wakka.config.php -exec chown $app:www-data {} +
+  popd
+}
+
+#=================================================
+# FERME
+#=================================================
+
+farm_has_wikis() {
+  [ -d "$install_dir/tools/ferme" ] && compgen -G "$install_dir/*/wakka.config.php" >/dev/null
+}
+
+farm_upgrade_master_extensions() {
+  local extension
+  pushd "$install_dir"
+    for extension in $noncore_extensions; do
+      case "$extension" in
+        tools/yunohost|tools/importer) continue ;;
+      esac
+      [ -d "$extension" ] || continue
+      ynh_exec_as_app ./yeswicli upgrade "${extension#tools/}" \
+        || ynh_print_warn "Could not upgrade the ${extension#tools/} extension of the farm"
+    done
+  popd
+}
+
+farm_update_wikis() {
+  pushd "$install_dir"
+    if ! ynh_exec_as_app ./yeswicli ferme:update --help | grep -q -- '--extensions-only'; then
+      ynh_print_warn "This version of the ferme extension cannot update its wikis from the command line, they were left as they are"
+    else
+      ynh_exec_as_app ./yeswicli ferme:update --extensions-only --no-ansi \
+        || ynh_print_warn "Some extensions of the farm wikis could not be upgraded, see the log above"
+      ynh_exec_as_app ./yeswicli ferme:update --nobackup --no-ansi \
+        || ynh_print_warn "Some farm wikis could not be updated, see the log above"
+    fi
+  popd
+}
+
+# Without the YunoHost SSO plugin nothing reads the SSO header, and a herse needs the visitor's own Basic auth to reach PHP.
+sso_headers_config() {
+  if grep -q "'enable_yunohost_sso' => true" "$install_dir/wakka.config.php"; then
+    ynh_app_setting_delete --key=protect_against_basic_auth_spoofing
+    ynh_permission_url --permission=main --auth_header=true
+  else
+    ynh_app_setting_set --key=protect_against_basic_auth_spoofing --value=false
+    ynh_permission_url --permission=main --auth_header=false
+  fi
+}
+
+# The SSO cookie only covers the domain it was set on and its subdomains, so the portal must be the wiki's own domain or one of its parents.
+sso_domain_config() {
+  local wiki_domain="$1"
+  local config="$install_dir/wakka.config.php"
+  local current
+  if ! grep -q "'yunohost_sso_domain'" "$config"; then
+    ynh_replace --match="'wakka_version'" --replace="'yunohost_sso_domain' => '$wiki_domain',\n  'wakka_version'" --file="$config"
+    return 0
+  fi
+  current=$(grep -oP "'yunohost_sso_domain' => '\K[^']*" "$config" || true)
+  if [ "$wiki_domain" != "$current" ] && [[ "$wiki_domain" != *".$current" || -z "$current" ]]; then
+    ynh_replace --match="'yunohost_sso_domain' => '[^']*'" --replace="'yunohost_sso_domain' => '$wiki_domain'" --file="$config"
+  fi
 }

@@ -17,6 +17,11 @@ ynh_script_progression "Updating configuration..."
 
 ynh_replace --match="https://$old_domain${old_path%/}" --replace="https://$new_domain${new_path%/}" --file="$install_dir/wakka.config.php"
 
+if [ "$old_domain" != "$new_domain" ]; then
+  mail_config_run change_url "$app" "$old_domain" "$new_domain"
+  sso_domain_config "$new_domain"
+fi
+
 #=================================================
 # END OF SCRIPT
 #=================================================

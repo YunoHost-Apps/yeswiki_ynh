@@ -153,8 +153,7 @@ chmod -R u=rwX,g=rX,o-rwx $install_dir/tools/yunohost
 if [ $with_app_importer -eq 1 ]; then
   app_importer_config_add
 fi
-SSO_DOMAIN=$(yunohost domain main-domain | sed -e 's/.*: //')
-ynh_replace --match=");" --replace="  'yunohost_sso_domain' => '${SSO_DOMAIN}',\n);" --file="$install_dir/wakka.config.php"
+ynh_replace --match=");" --replace="  'yunohost_sso_domain' => '${domain}',\n);" --file="$install_dir/wakka.config.php"
 
 # Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
@@ -227,6 +226,12 @@ if [ "${wikimodel}" = "CLIC" ]; then
   ynh_replace --match=");" --replace="  'favorite_preset' => 'custom/clic.css',\n);" --file="$install_dir/wakka.config.php"
   ynh_replace --match=");" --replace="  'favicon' => 'files/faviconclic.png',\n);" --file="$install_dir/wakka.config.php"
 fi
+
+ynh_script_progression "Configure mail sending through YunoHost"
+mail_config_run add "$app" "$domain"
+
+ynh_script_progression "Configuring the SSO headers..."
+sso_headers_config
 
 # one final fix of permissions
 chown -R $app:www-data "$install_dir"
