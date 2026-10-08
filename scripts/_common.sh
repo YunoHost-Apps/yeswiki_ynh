@@ -149,7 +149,9 @@ farm_update_wikis() {
 
 # Without the YunoHost SSO plugin nothing reads the SSO header, and a herse needs the visitor's own Basic auth to reach PHP.
 sso_headers_config() {
-  if grep -q "'enable_yunohost_sso' => true" "$install_dir/wakka.config.php"; then
+  local sso_enabled
+  sso_enabled=$("php$php_version" -r '$wakkaConfig = []; include $argv[1]; echo empty($wakkaConfig["enable_yunohost_sso"]) ? 0 : 1;' "$install_dir/wakka.config.php")
+  if [ "$sso_enabled" = "1" ]; then
     ynh_app_setting_delete --key=protect_against_basic_auth_spoofing
     ynh_permission_url --permission=main --auth_header=true
   else
