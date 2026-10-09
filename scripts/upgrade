@@ -166,7 +166,7 @@ if farm_has_wikis; then
 fi
 
 pushd $install_dir
-  ynh_exec_as_app ./yeswicli migrate
+  ynh_exec_as_app env YESWIKI_FERME_MIGRATING=1 ./yeswicli migrate
 popd
 
 if farm_has_wikis; then
