@@ -1,22 +1,16 @@
 #!/bin/bash
 
-#=================================================
-# COMMON VARIABLES AND CUSTOM HELPERS
-#=================================================
-
 cache_yunohost_version() {
   (cd "$install_dir" && ynh_exec_as_app \
       dpkg-query --show --showformat='${Version}' yunohost > files/yunohost_version)
 }
 
 ynh_system_user_add_group() {
-    # Declare an array to define the options of this helper.
     local legacy_args=uhs
     local -A args_array=([u]=username= [g]=groups=)
     local username
     local groups
 
-    # Manage arguments with getopts
     ynh_handle_getopts_args "$@"
     groups="${groups:-}"
 
@@ -27,13 +21,11 @@ ynh_system_user_add_group() {
 }
 
 ynh_system_user_del_group() {
-    # Declare an array to define the options of this helper.
     local legacy_args=uhs
     local -A args_array=([u]=username= [g]=groups=)
     local username
     local groups
 
-    # Manage arguments with getopts
     ynh_handle_getopts_args "$@"
     groups="${groups:-}"
 
@@ -43,14 +35,6 @@ ynh_system_user_del_group() {
 	done
 }
 
-#=================================================
-# YUNOHOST APP IMPORTER
-#=================================================
-# The importer feeds the bazar form 5 of the wiki with the apps installed on
-# the server. It is opt-in, see the with_app_importer setting.
-
-# TODO: remove those ugly hacks when packaging v3 is ready
-# it's just for avoiding losing points from the yunohost linter
 shopt -s expand_aliases
 alias noooOoOOOOoOoooOoOoooPerm="chown"
 
@@ -98,10 +82,6 @@ app_importer_sync() {
   popd
 }
 
-#=================================================
-# YUNOHOST MAIL SETTINGS
-#=================================================
-
 mail_config_run() {
   local script
   script="$(realpath ../conf/mail_config.php)"
@@ -111,10 +91,6 @@ mail_config_run() {
     find . -mindepth 2 -maxdepth 2 -name wakka.config.php -exec chown $app:www-data {} +
   popd
 }
-
-#=================================================
-# FERME
-#=================================================
 
 farm_has_wikis() {
   [ -d "$install_dir/tools/ferme" ] && compgen -G "$install_dir/*/wakka.config.php" >/dev/null
@@ -145,6 +121,113 @@ farm_update_wikis() {
         || ynh_print_warn "Some farm wikis could not be updated, see the log above"
     fi
   popd
+}
+
+# Folder next to the install dir, on the same disk, where the farm wikis' content waits during an upgrade
+farm_parking_dir() {
+  echo "$(dirname "$install_dir")/.${app}-ferme-parking"
+}
+
+# Copies what is in $1 and missing from $2 into $2, then deletes $1, which is kept when the copy fails
+merge_into() {
+  if ! cp --archive --no-clobber "$1/." "$2/"; then
+    ynh_print_warn "Could not merge $1 into $2, both are left as they are"
+    return 1
+  fi
+  rm --recursive --force -- "$1"
+}
+
+# Moves the files/ and private/ folders of every farm wiki to the parking, out of the backups and of ynh_setup_source
+farm_park() {
+  local parking config wiki name entry
+  parking=$(farm_parking_dir)
+  for config in "$install_dir"/*/wakka.config.php; do
+    [ -f "$config" ] || continue
+    wiki=$(dirname -- "$config")
+    name=$(basename -- "$wiki")
+    for entry in files private; do
+      if [ ! -d "$wiki/$entry" ] || [ -L "$wiki/$entry" ]; then
+        continue
+      fi
+      mkdir --parents "$parking/$name"
+      if [ -e "$parking/$name/$entry" ]; then
+        merge_into "$wiki/$entry" "$parking/$name/$entry" || true
+      else
+        mv -- "$wiki/$entry" "$parking/$name/$entry"
+      fi
+    done
+  done
+}
+
+# Puts the parked folders back into their farm wikis
+farm_unpark() {
+  local parking parked name entry target
+  parking=$(farm_parking_dir)
+  [ -d "$parking" ] || return 0
+  for parked in "$parking"/*/; do
+    [ -d "$parked" ] || continue
+    name=$(basename -- "$parked")
+    if [ ! -f "$install_dir/$name/wakka.config.php" ]; then
+      ynh_print_warn "The farm wiki $name is gone, its files stay in $parking/$name"
+      continue
+    fi
+    for entry in files private; do
+      [ -d "$parked/$entry" ] || continue
+      target="$install_dir/$name/$entry"
+      if [ -d "$target" ] && [ ! -L "$target" ] && ! merge_into "$target" "$parked/$entry"; then
+        continue
+      fi
+      mv --no-target-directory -- "$parked/$entry" "$target"
+    done
+    rmdir -- "$parked" 2>/dev/null || true
+  done
+  rmdir -- "$parking" 2>/dev/null || true
+}
+
+# Moves files/ and private/ of the master wiki into the data dir and leaves symlinks in their place
+data_dir_link() {
+  local entry
+  for entry in files private; do
+    if [ -d "$install_dir/$entry" ] && [ ! -L "$install_dir/$entry" ]; then
+      if [ -z "$(ls -A "$data_dir/$entry" 2>/dev/null)" ]; then
+        rmdir "$data_dir/$entry" 2>/dev/null || true
+        mv --no-target-directory "$install_dir/$entry" "$data_dir/$entry"
+      else
+        merge_into "$install_dir/$entry" "$data_dir/$entry" || ynh_die --message="$install_dir/$entry could not be moved to $data_dir/$entry"
+      fi
+      chown -R $app:www-data "$data_dir/$entry"
+    fi
+    mkdir --parents "$data_dir/$entry"
+    chown $app:www-data "$data_dir/$entry"
+    ln --symbolic --force --no-dereference "$data_dir/$entry" "$install_dir/$entry"
+  done
+}
+
+# Renames the app's cron jobs with a dot, which cron skips, so they leave the wikis alone during an upgrade
+cron_pause() {
+  local job
+  for job in "/etc/cron.d/$app" "/etc/cron.d/$app"-*; do
+    [ -f "$job" ] || continue
+    [[ "$(basename "$job")" == *.* ]] && continue
+    mv "$job" "$job.ynh-paused"
+  done
+  local waited=0
+  while pgrep -u "$app" -f "includes/commands/console" >/dev/null && [ $waited -lt 300 ]; do
+    sleep 5
+    waited=$((waited + 5))
+  done
+  if pgrep -u "$app" -f "includes/commands/console" >/dev/null; then
+    ynh_print_warn "A cron job of $app is still running after 5 minutes, carrying on anyway"
+  fi
+}
+
+# Gives the app's cron jobs their names back
+cron_resume() {
+  local job
+  for job in "/etc/cron.d/$app.ynh-paused" "/etc/cron.d/$app"-*.ynh-paused; do
+    [ -f "$job" ] || continue
+    mv "$job" "${job%.ynh-paused}"
+  done
 }
 
 # Without the YunoHost SSO plugin nothing reads the SSO header, and a herse needs the visitor's own Basic auth to reach PHP.
