@@ -1,22 +1,16 @@
 #!/bin/bash
 
-#=================================================
-# COMMON VARIABLES AND CUSTOM HELPERS
-#=================================================
-
 cache_yunohost_version() {
   (cd "$install_dir" && ynh_exec_as_app \
       dpkg-query --show --showformat='${Version}' yunohost > files/yunohost_version)
 }
 
 ynh_system_user_add_group() {
-    # Declare an array to define the options of this helper.
     local legacy_args=uhs
     local -A args_array=([u]=username= [g]=groups=)
     local username
     local groups
 
-    # Manage arguments with getopts
     ynh_handle_getopts_args "$@"
     groups="${groups:-}"
 
@@ -27,13 +21,11 @@ ynh_system_user_add_group() {
 }
 
 ynh_system_user_del_group() {
-    # Declare an array to define the options of this helper.
     local legacy_args=uhs
     local -A args_array=([u]=username= [g]=groups=)
     local username
     local groups
 
-    # Manage arguments with getopts
     ynh_handle_getopts_args "$@"
     groups="${groups:-}"
 
@@ -43,14 +35,6 @@ ynh_system_user_del_group() {
 	done
 }
 
-#=================================================
-# YUNOHOST APP IMPORTER
-#=================================================
-# The importer feeds the bazar form 5 of the wiki with the apps installed on
-# the server. It is opt-in, see the with_app_importer setting.
-
-# TODO: remove those ugly hacks when packaging v3 is ready
-# it's just for avoiding losing points from the yunohost linter
 shopt -s expand_aliases
 alias noooOoOOOOoOoooOoOoooPerm="chown"
 
@@ -98,10 +82,6 @@ app_importer_sync() {
   popd
 }
 
-#=================================================
-# YUNOHOST MAIL SETTINGS
-#=================================================
-
 mail_config_run() {
   local script
   script="$(realpath ../conf/mail_config.php)"
@@ -111,10 +91,6 @@ mail_config_run() {
     find . -mindepth 2 -maxdepth 2 -name wakka.config.php -exec chown $app:www-data {} +
   popd
 }
-
-#=================================================
-# FERME
-#=================================================
 
 farm_has_wikis() {
   [ -d "$install_dir/tools/ferme" ] && compgen -G "$install_dir/*/wakka.config.php" >/dev/null
