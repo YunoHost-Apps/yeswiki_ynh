@@ -32,7 +32,7 @@ ferme_instances=$(
   cd $install_dir
   for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname -- "$p"; done
 )
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php custom themes $noncore_extensions $ferme_instances"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php custom private themes $noncore_extensions $ferme_instances"
 
 data_dir_link
 

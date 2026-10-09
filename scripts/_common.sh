@@ -184,23 +184,29 @@ farm_unpark() {
   rmdir -- "$parking" 2>/dev/null || true
 }
 
-# Moves files/ and private/ of the master wiki into the data dir and leaves symlinks in their place
+# Keeps files/ of the master wiki in the data dir behind a symlink, and private/ in the install dir where the ferme renames into it
 data_dir_link() {
-  local entry
-  for entry in files private; do
-    if [ -d "$install_dir/$entry" ] && [ ! -L "$install_dir/$entry" ]; then
-      if [ -z "$(ls -A "$data_dir/$entry" 2>/dev/null)" ]; then
-        rmdir "$data_dir/$entry" 2>/dev/null || true
-        mv --no-target-directory "$install_dir/$entry" "$data_dir/$entry"
-      else
-        merge_into "$install_dir/$entry" "$data_dir/$entry" || ynh_die --message="$install_dir/$entry could not be moved to $data_dir/$entry"
-      fi
-      chown -R $app:www-data "$data_dir/$entry"
+  if [ -L "$install_dir/private" ]; then
+    rm "$install_dir/private"
+    if [ -d "$data_dir/private" ]; then
+      mv --no-target-directory "$data_dir/private" "$install_dir/private"
+    else
+      mkdir "$install_dir/private"
     fi
-    mkdir --parents "$data_dir/$entry"
-    chown $app:www-data "$data_dir/$entry"
-    ln --symbolic --force --no-dereference "$data_dir/$entry" "$install_dir/$entry"
-  done
+    chown $app:www-data "$install_dir/private"
+  fi
+  if [ -d "$install_dir/files" ] && [ ! -L "$install_dir/files" ]; then
+    if [ -z "$(ls -A "$data_dir/files" 2>/dev/null)" ]; then
+      rmdir "$data_dir/files" 2>/dev/null || true
+      mv --no-target-directory "$install_dir/files" "$data_dir/files"
+    else
+      merge_into "$install_dir/files" "$data_dir/files" || ynh_die --message="$install_dir/files could not be moved to $data_dir/files"
+    fi
+    chown -R $app:www-data "$data_dir/files"
+  fi
+  mkdir --parents "$data_dir/files"
+  chown $app:www-data "$data_dir/files"
+  ln --symbolic --force --no-dereference "$data_dir/files" "$install_dir/files"
 }
 
 # Renames the app's cron jobs with a dot, which cron skips, so they leave the wikis alone during an upgrade
