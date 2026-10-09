@@ -9,7 +9,14 @@ ynh_print_info "Declaring files to be backed up..."
 # BACKUP THE APP MAIN DIR
 #=================================================
 
+if [ "${BACKUP_CORE_ONLY:-0}" -eq 1 ] && farm_has_wikis; then
+  ynh_print_info "Parking the farm wikis' files out of the safety backup..."
+  farm_park
+fi
+
 ynh_backup "$install_dir"
+
+ynh_backup "$data_dir"
 
 #=================================================
 # SYSTEM CONFIGURATION

@@ -26,12 +26,21 @@ fi
 
 noncore_extensions="$noncore_extensions tools/yunohost"
 
-# list all the yeswiki installed with the ferme extension
+cron_pause
+
+if farm_has_wikis; then
+  farm_park
+fi
+
+data_dir_link
+
 ferme_instances=$(
   cd $install_dir
-  for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
+  for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname -- "$p"; done
 )
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php custom themes $noncore_extensions $ferme_instances"
+
+data_dir_link
 
 ynh_replace --match="yeswiki_release' \?=> \?'.*',$" --replace="yeswiki_release' => '$(ynh_app_upstream_version)'," --file="$install_dir/wakka.config.php"
 
@@ -153,8 +162,10 @@ mail_config_run add "$app" "$domain"
 ynh_script_progression "Configuring the SSO headers..."
 sso_headers_config
 
-# one final fix of permissions
 chown -R $app:www-data "$install_dir"
+
+ynh_script_progression "Putting the farm wikis' files back..."
+farm_unpark
 
 #=================================================
 # RUN THE MIGRATIONS
@@ -173,6 +184,8 @@ if farm_has_wikis; then
   ynh_script_progression "Updating the farm wikis..."
   farm_update_wikis
 fi
+
+cron_resume
 
 #=================================================
 # END OF SCRIPT

@@ -34,6 +34,8 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
+data_dir_link
+
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
@@ -234,7 +236,7 @@ ynh_script_progression "Configuring the SSO headers..."
 sso_headers_config
 
 # one final fix of permissions
-chown -R $app:www-data "$install_dir"
+chown -R $app:www-data "$install_dir" "$data_dir"
 
 #=================================================
 # RUN THE MIGRATIONS
