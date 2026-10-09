@@ -5,16 +5,10 @@ source /usr/share/yunohost/helpers
 
 ynh_app_setting_set_default --key=php_upload_max_filesize --value=500M
 
-# TODO: remove those ugly hacks when packaging v3 is ready
-# it's just for avoiding losing points from the yunohost linter
 alias noooOoOOOOoOoooOoOoooPerm="chown"
 
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
 ynh_script_progression "Upgrading source files..."
 
-# list all official stable extensions from the yeswiki repository
 remote_extensions=$(curl -s --connect-timeout 5 https://repository.yeswiki.net/doryphore/packages.json | jq -r '[keys[] | select(startswith("extension-")) | "tools/" + sub("extension-"; "")] | sort | join(" ")' 2>/dev/null)
 
 if [ -z "$remote_extensions" ]; then
@@ -26,34 +20,36 @@ fi
 
 noncore_extensions="$noncore_extensions tools/yunohost"
 
-# list all the yeswiki installed with the ferme extension
+cron_pause
+
+if farm_has_wikis; then
+  farm_park
+fi
+
+data_dir_link
+
 ferme_instances=$(
   cd $install_dir
-  for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname "$p"; done
+  for p in $(ls -- */wakka.config.php 2>/dev/null); do dirname -- "$p"; done
 )
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php files custom private themes $noncore_extensions $ferme_instances"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env wakka.config.php custom themes $noncore_extensions $ferme_instances"
+
+data_dir_link
 
 ynh_replace --match="yeswiki_release' \?=> \?'.*',$" --replace="yeswiki_release' => '$(ynh_app_upstream_version)'," --file="$install_dir/wakka.config.php"
 
-#=================================================
-# REAPPLY SYSTEM CONFIGURATIONS
-#=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
 
 ynh_config_add_phpfpm
 
 ynh_config_add_nginx
 
-# If with_sftp doesn't exist, create it
 if [ -z "${with_sftp:-}" ]; then
 	with_sftp=0
 	ynh_app_setting_set --app=$app --key=with_sftp --value=$with_sftp
-  # Ensure password is a setting even if empty, for the config panel
   ynh_app_setting_set --app=$app --key=password --value=""
 fi
 
-# The app importer used to be installed unconditionally, it is now opt-in.
-# Installs made before that keep whatever they currently have configured.
 if [ -z "${with_app_importer:-}" ]; then
   if grep -qE "'yunohost-(cli|apps)'" "$install_dir/wakka.config.php"; then
     with_app_importer=1
@@ -63,66 +59,46 @@ if [ -z "${with_app_importer:-}" ]; then
   ynh_app_setting_set --app=$app --key=with_app_importer --value=$with_app_importer
 fi
 
-#=================================================
-# INSTALL COMPOSER DEPENDENCIES
-#=================================================
 ynh_script_progression "Installing Composer dependencies..."
 
 ynh_composer_exec install --no-dev
 
-#=================================================
-# ADAPT FILE PERMISSIONS FOR SFTP CHROOT
-#=================================================
-
 chown -R $app:www-data "$install_dir"
-# Home directory of the user needs to be owned by root to allow
-# SFTP connections
 shopt -s expand_aliases
 noooOoOOOOoOoooOoOoooPerm root:root "$install_dir"
 setfacl -m g:$app:r-x "$install_dir"
 setfacl -m g:www-data:r-x "$install_dir"
 chmod 750 "$install_dir"
 
-#=================================================
-# DOWNLOAD AND CONFIGURE YUNOHOST PLUGIN
-#=================================================
 ynh_script_progression "Upgrading YunoHost plugin..."
 
-# In order to use yunohost extension, we need to provide a cached file with the yunohost version
 cache_yunohost_version
 
-# Download yunohost plugin from YesWiki repository
 ynh_safe_rm "$install_dir/tools/yunohost"
 mkdir -p "$install_dir/tools/yunohost"
 ynh_setup_source --dest_dir="$install_dir/tools/yunohost" --source_id="yunohostplugin"
 
-# Download importer plugin from YesWiki repository
 ynh_safe_rm "$install_dir/tools/importer"
 mkdir -p "$install_dir/tools/importer"
 ynh_setup_source --dest_dir="$install_dir/tools/importer" --source_id="importerplugin"
 
-# Ensure that scripts are executable
 chmod +x $install_dir/tools/yunohost/private/scripts/*.sh
 
-# Add app user in sudoers to authorize to launch YunoHost CLI commands without password
 ynh_config_add --template="sudoers" --destination="/etc/sudoers.d/$app"
 noooOoOOOOoOoooOoOoooPerm root:root /etc/sudoers.d/$app
 
-# Add post app install and remove hooks to keep the app importer in sync
 if [ $with_app_importer -eq 1 ]; then
   app_importer_hooks_add
 else
   app_importer_hooks_remove
 fi
 
-# Add a post user create hook to sync the user importer
 mkdir -p /etc/yunohost/hooks.d/post_user_create
 chmod 700 /etc/yunohost/hooks.d/post_user_create
 ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh"
 noooOoOOOOoOoooOoOoooPerm root:root /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
 chmod 700 /etc/yunohost/hooks.d/post_user_create/${app}_sync_user_importer.sh
 
-# Add a post user delete hook to sync the user importer
 mkdir -p /etc/yunohost/hooks.d/post_user_delete
 chmod 700 /etc/yunohost/hooks.d/post_user_delete
 ynh_config_add --template="sync_user_importer.sh" --destination="/etc/yunohost/hooks.d/post_user_delete/${app}_sync_user_importer.sh"
@@ -135,10 +111,8 @@ if grep -q yunohost-cli "$install_dir/wakka.config.php"; then
   ynh_replace --match="'yunohost-cli'" --replace="'yunohost-apps'" --file="$install_dir/wakka.config.php"
 fi
 
-# use the correct php version in yeswicli
 ynh_replace --match="php " --replace="php${php_version} " --file="$install_dir/yeswicli"
 
-# At last, run the YunoHost app importer if it is enabled
 if [ $with_app_importer -eq 1 ]; then
   app_importer_config_add
   ynh_script_progression "Import YunoHost apps in bazar"
@@ -153,12 +127,10 @@ mail_config_run add "$app" "$domain"
 ynh_script_progression "Configuring the SSO headers..."
 sso_headers_config
 
-# one final fix of permissions
 chown -R $app:www-data "$install_dir"
 
-#=================================================
-# RUN THE MIGRATIONS
-#=================================================
+ynh_script_progression "Putting the farm wikis' files back..."
+farm_unpark
 
 if farm_has_wikis; then
   ynh_script_progression "Upgrading the extensions of the farm..."
@@ -174,8 +146,6 @@ if farm_has_wikis; then
   farm_update_wikis
 fi
 
-#=================================================
-# END OF SCRIPT
-#=================================================
+cron_resume
 
 ynh_script_progression "Upgrade of $app completed"
