@@ -20,6 +20,8 @@ fi
 
 noncore_extensions="$noncore_extensions tools/yunohost"
 
+maintenance_on
+
 cron_pause
 
 if farm_has_wikis; then
@@ -147,5 +149,7 @@ if farm_has_wikis; then
 fi
 
 cron_resume
+
+maintenance_off
 
 ynh_script_progression "Upgrade of $app completed"
