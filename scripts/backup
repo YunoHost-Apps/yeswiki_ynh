@@ -5,9 +5,12 @@ source /usr/share/yunohost/helpers
 
 ynh_print_info "Declaring files to be backed up..."
 
-if [ "${BACKUP_CORE_ONLY:-0}" -eq 1 ] && farm_has_wikis; then
-  ynh_print_info "Parking the farm wikis' files out of the safety backup..."
-  farm_park
+if [ "${BACKUP_CORE_ONLY:-0}" -eq 1 ]; then
+  maintenance_on
+  if farm_has_wikis; then
+    ynh_print_info "Parking the farm wikis' files out of the safety backup..."
+    farm_park
+  fi
 fi
 
 ynh_backup "$install_dir"

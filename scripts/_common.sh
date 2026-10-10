@@ -137,7 +137,7 @@ merge_into() {
   rm --recursive --force -- "$1"
 }
 
-# Moves the files/ and private/ folders of every farm wiki to the parking, out of the backups and of ynh_setup_source
+# Moves the files/, private/ and cache/ folders of every farm wiki to the parking, out of the backups and of ynh_setup_source
 farm_park() {
   local parking config wiki name entry
   parking=$(farm_parking_dir)
@@ -145,7 +145,7 @@ farm_park() {
     [ -f "$config" ] || continue
     wiki=$(dirname -- "$config")
     name=$(basename -- "$wiki")
-    for entry in files private; do
+    for entry in files private cache; do
       if [ ! -d "$wiki/$entry" ] || [ -L "$wiki/$entry" ]; then
         continue
       fi
@@ -171,7 +171,7 @@ farm_unpark() {
       ynh_print_warn "The farm wiki $name is gone, its files stay in $parking/$name"
       continue
     fi
-    for entry in files private; do
+    for entry in files private cache; do
       [ -d "$parked/$entry" ] || continue
       target="$install_dir/$name/$entry"
       if [ -d "$target" ] && [ ! -L "$target" ] && ! merge_into "$target" "$parked/$entry"; then
@@ -207,6 +207,17 @@ data_dir_link() {
   mkdir --parents "$data_dir/files"
   chown $app:www-data "$data_dir/files"
   ln --symbolic --force --no-dereference "$data_dir/files" "$install_dir/files"
+}
+
+# Puts up the page nginx serves instead of the wikis while they are being backed up or upgraded
+maintenance_on() {
+  cp "$(dirname "${BASH_SOURCE[0]}")/../conf/maintenance.html" "/var/www/.$app-maintenance.html"
+  chmod 644 "/var/www/.$app-maintenance.html"
+}
+
+# Takes the maintenance page down
+maintenance_off() {
+  rm --force "/var/www/.$app-maintenance.html"
 }
 
 # Renames the app's cron jobs with a dot, which cron skips, so they leave the wikis alone during an upgrade

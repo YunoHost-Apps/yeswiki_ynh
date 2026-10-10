@@ -64,4 +64,6 @@ ynh_systemctl --service=nginx --action=reload
 
 cron_resume
 
+maintenance_off
+
 ynh_script_progression "Restoration completed for $app"
