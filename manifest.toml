@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.7.0~ynh4"
+version = "4.7.1~ynh1"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -127,8 +127,8 @@ ram.runtime = "50M"
 
 [resources]
   [resources.sources.main]
-  url = "https://github.com/YesWiki/yeswiki/releases/download/v4.7.0/yeswiki-v4.7.0.zip"
-  sha256 = "d092dbe04abe36c9e2ab57f3c850b766bc2293601096d0980c1fd2d7929f0703"
+  url = "https://github.com/YesWiki/yeswiki/releases/download/v4.7.1/yeswiki-v4.7.1.zip"
+  sha256 = "e0cc1e9fce23f851a1bebc445cd182059be7881df2a4ad09b34fcf7fa9d1f5d8"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-v\\d+\\.\\d+\\.\\d+\\.zip"
 
