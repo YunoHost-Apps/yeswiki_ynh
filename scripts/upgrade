@@ -7,8 +7,6 @@ ynh_app_setting_set_default --key=php_upload_max_filesize --value=500M
 
 alias noooOoOOOOoOoooOoOoooPerm="chown"
 
-ynh_script_progression "Upgrading source files..."
-
 remote_extensions=$(curl -s --connect-timeout 5 https://repository.yeswiki.net/doryphore/packages.json | jq -r '[keys[] | select(startswith("extension-")) | "tools/" + sub("extension-"; "")] | sort | join(" ")' 2>/dev/null)
 
 if [ -z "$remote_extensions" ]; then
@@ -25,8 +23,12 @@ maintenance_on
 cron_pause
 
 if farm_has_wikis; then
+  ynh_script_progression "Upgrading the extensions of the farm..."
+  farm_upgrade_master_extensions
   farm_park
 fi
+
+ynh_script_progression "Upgrading source files..."
 
 data_dir_link
 
@@ -133,11 +135,6 @@ chown -R $app:www-data "$install_dir"
 
 ynh_script_progression "Putting the farm wikis' files back..."
 farm_unpark
-
-if farm_has_wikis; then
-  ynh_script_progression "Upgrading the extensions of the farm..."
-  farm_upgrade_master_extensions
-fi
 
 pushd $install_dir
   ynh_exec_as_app env YESWIKI_FERME_MIGRATING=1 ./yeswicli migrate

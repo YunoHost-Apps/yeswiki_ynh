@@ -5,7 +5,7 @@ name = "YesWiki"
 description.en = "Wiki that is quick and easy to use"
 description.fr = "Wiki facile et rapide à prendre en main"
 
-version = "4.7.1~ynh1"
+version = "4.7.1~ynh2"
 
 maintainers = ["alexAubin","eric_G", "Florian Schmitt", "Nils Van Zuijlen", "Plumf", "12b"]
 
@@ -147,8 +147,8 @@ ram.runtime = "50M"
   autoupdate.asset = "yeswiki-extension-importer-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.ferme]
-  url = "https://github.com/YesWiki/yeswiki-extension-ferme/releases/download/v4.2.8/yeswiki-extension-ferme-v4.2.8.zip"
-  sha256 = "02e4cd60f85ff6b6c8de26ee32fd8b48fe856e96c66724e648d7a380be99ebc7"
+  url = "https://github.com/YesWiki/yeswiki-extension-ferme/releases/download/v4.2.9/yeswiki-extension-ferme-v4.2.9.zip"
+  sha256 = "8edf092e766968424e8aa558fa458c0dfa4bfed14287fb1eb34e0e41422fd8f2"
   autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-ferme"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-extension-ferme-v\\d+\\.\\d+\\.\\d+\\.zip"
