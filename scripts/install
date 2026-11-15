@@ -80,6 +80,9 @@ if [ "${wikimodel}" = "CLIC" ]; then
   mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
 
+# The web installer can return HTTP 200 even when database initialization fails.
+[ -s "$install_dir/wakka.config.php" ] || ynh_die --message="YesWiki initialization failed: wakka.config.php was not created. See the web installer output above."
+
 chown -R $app:www-data "$install_dir"
 noooOoOOOOoOoooOoOoooPerm root:root "$install_dir"
 setfacl -m g:$app:r-x "$install_dir"
