@@ -20,7 +20,7 @@ test_format = 1.0
 
     test_upgrade_from.de0c868914426054920ad625464641963e374e85.name = "4.6.1~ynh1"
 
-[test.clic]
+[clic]
 
     args.wikimodel = "CLIC"
     args.with_app_importer = "1"
