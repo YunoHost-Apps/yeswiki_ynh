@@ -76,6 +76,11 @@ ynh_local_curl "/?PagePrincipale&installAction=install" "config[default_language
   "admin_name=$curl_admin_name" "admin_password=$curl_admin_password" "admin_password_conf=$curl_admin_password_conf" \
   "admin_email=$curl_admin_email" "config[allow_robots]=$allow_robots" "config[allow_raw_html]=1" "submit=Continue"
 
+if [ ! -f "$install_dir/wakka.config.php" ]; then
+  nginx -t || true
+  ynh_die "The YesWiki web installer did not create wakka.config.php. If nginx -t reports an error above, nginx kept its previous configuration and never served this app: fix that error and retry."
+fi
+
 if [ "${wikimodel}" = "CLIC" ]; then
   mv -f $install_dir/setup/sql/default-content.sql.original $install_dir/setup/sql/default-content.sql
 fi
