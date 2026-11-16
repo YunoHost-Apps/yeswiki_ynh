@@ -133,8 +133,8 @@ ram.runtime = "50M"
   autoupdate.asset = "yeswiki-v\\d+\\.\\d+\\.\\d+\\.zip"
 
   [resources.sources.yunohostplugin]
-  url = "https://github.com/YesWiki/yeswiki-extension-yunohost/releases/download/v4.1.2/yeswiki-extension-yunohost-v4.1.2.zip"
-  sha256 = "1f3b3c58dc1929954bf0ae43d7ad701172cf0f64b82898eb9ffdc4a0924cb7b4"
+  url = "https://github.com/YesWiki/yeswiki-extension-yunohost/releases/download/v4.1.3/yeswiki-extension-yunohost-v4.1.3.zip"
+  sha256 = "11b3f8966fd0cd4acecb27e5a180219169bc2bc23a8d50f77b87046083cf4fb1"
   autoupdate.upstream = "https://github.com/YesWiki/yeswiki-extension-yunohost"
   autoupdate.strategy = "latest_github_release"
   autoupdate.asset = "yeswiki-extension-yunohost-v\\d+\\.\\d+\\.\\d+\\.zip"
